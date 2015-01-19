@@ -1,0 +1,7 @@
+adapter speed: 1000 kHz
+Error: session's transport is not selected.
+Info : session transport was not selected, defaulting to JTAG
+cc3200_dbginit
+Error: failed to reset FTDI device: LIBUSB_ERROR_PIPE
+Error: unable to open ftdi device with vid 0451, pid c32a, description 'USB <-> JTAG/SWD' and serial '*'
+in procedure 'init'
