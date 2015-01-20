@@ -13,10 +13,14 @@ ROOT=../..
 OUTDIR=$(ROOT)/lib
 
 # Lib Name
-ifneq "${target}" "NONOS"
-	LIBRARY=${OUTDIR}/libsimplelink.a
-else
+ifeq ("${target}", "NONOS")
 	LIBRARY=${OUTDIR}/libsimplelink_nonos.a
+else
+	ifeq ("${target}", "TINY")
+		LIBRARY=${OUTDIR}/libsimplelink_nonos_tiny.a
+	else
+	LIBRARY=${OUTDIR}/libsimplelink.a
+	endif
 endif
 
 # Where to find header files
@@ -48,12 +52,19 @@ CFLAGS=-mthumb             \
        -O0 		   \
        $(IPATH)               
 
-ifneq "${target}" "NONOS"
-CFLAGS+=-DSL_PLATFORM_MULTI_THREADED
-CFLAGS+=-DUSE_FREERTOS
-endif
+CLAGS+=-DTARGET_IS_CC3200
 
-CFLAGS+=-DSL_FULL 
+ifeq ("${target}", "NONOS")
+	CFLAGS+=-DSL_FULL 
+else
+	ifeq ("${target}", "TINY")
+		CFLAGS+=-DSL_TINY
+	else
+	CFLAGS+=-DSL_PLATFORM_MULTI_THREADED
+	CFLAGS+=-DUSE_FREERTOS
+	CFLAGS+=-DSL_FULL 
+	endif
+endif
 
 # Sources
 SOURCES= cc_pal.c device.c driver.c flowcont.c netapp.c netcfg.c nonos.c fs.c socket.c spawn.c wlan.c CdnClient.c LogClient.c OtaApp.c OtaClient.c OtaHttp.c flc.c
