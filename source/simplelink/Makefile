@@ -67,7 +67,11 @@ else
 endif
 
 # Sources
-SOURCES= cc_pal.c device.c driver.c flowcont.c netapp.c netcfg.c nonos.c fs.c socket.c spawn.c wlan.c CdnClient.c LogClient.c OtaApp.c OtaClient.c OtaHttp.c flc.c
+SOURCES= cc_pal.c device.c driver.c flowcont.c netapp.c netcfg.c nonos.c fs.c socket.c spawn.c wlan.c 
+
+ifneq ("${target}", "TINY")
+SOURCES+=CdnClient.c LogClient.c OtaApp.c OtaClient.c OtaHttp.c flc.c
+endif
 
 # Objects
 OBJECTS= $(SOURCES:.c=.o)
