@@ -30,11 +30,11 @@ CFLAGS=-mthumb             \
        -fdata-sections     \
        -MD                 \
        -std=c99            \
-       -g 		   \
        -Wall		   \
-       -O0 		   \
+       -O3 		   \
        -Dgcc		   \
        -Dcc3200		   \
+       -DTARGET_IS_CC3200 \
        $(IPATH)               
 
 # Sources
