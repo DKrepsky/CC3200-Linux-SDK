@@ -39,17 +39,18 @@ CFLAGS=-mthumb             \
        -fdata-sections     \
        -MD                 \
        -std=c99            \
-       -g 		   \
        -Wall		   \
        -Dgcc		   \
        -Dcc3200		   \
-       -O0 		   \
+       -O3 		   \
        $(IPATH)               
 
 ifneq "${target}" "NONOS"
 CFLAGS+=-DSL_PLATFORM_MULTI_THREADED
 CFLAGS+=-DUSE_FREERTOS
 endif
+
+CFLAGS+=-DTARGET_IS_CC3200
 
 # Sources
 SOURCES= button_if.c gpio_if.c i2c_if.c network_if.c timer_if.c uart_if.c utils_if.c wdt_if.c udma_if.c

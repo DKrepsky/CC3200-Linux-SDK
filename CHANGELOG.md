@@ -1,6 +1,10 @@
 # CHANGES
 
-## 27/01/2015
+## 01/28/2015
+- All libs are compiled with -O3 and no -g
+- Added makefile to root dir
+
+## 01/27/2015
 
 - Added LP_Buttom example.
 - Added Assembler help do docs.

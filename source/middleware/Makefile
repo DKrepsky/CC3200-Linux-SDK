@@ -44,12 +44,13 @@ CFLAGS=-mthumb             \
        -fdata-sections     \
        -MD                 \
        -std=c99            \
-       -g 		   \
        -Wall		   \
        -Dgcc		   \
        -DUSE_FREERTOS	   \
-       -O0 		   \
+       -O3 		   \
        $(IPATH)               
+
+CFLAGS+=-DTARGET_IS_CC3200
 
 ifneq "${target}" "NONOS"
 CFLAGS+=-DSL_PLATFORM_MULTI_THREADED
