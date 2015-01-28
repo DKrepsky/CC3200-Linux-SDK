@@ -1,5 +1,8 @@
 # CHANGES
 
+## 01/28/2015-2
+- -O3 is buggy, compiling with -Os now
+
 ## 01/28/2015
 - All libs are compiled with -O3 and no -g
 - Added makefile to root dir

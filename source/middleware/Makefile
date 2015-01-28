@@ -38,16 +38,17 @@ CC=arm-none-eabi-gcc
 AR=arm-none-eabi-ar
 
 # C Compiler Flags
-CFLAGS=-mthumb             \
-       -mcpu=cortex-m4     \
-       -ffunction-sections \
-       -fdata-sections     \
-       -MD                 \
-       -std=c99            \
-       -Wall		   \
-       -Dgcc		   \
-       -DUSE_FREERTOS	   \
-       -O3 		   \
+CFLAGS=-mthumb              \
+       -mcpu=cortex-m4      \
+       -ffunction-sections  \
+       -fdata-sections      \
+       -MD                  \
+       -std=c99             \
+       -Wall		        \
+       -Dgcc		        \
+       -DUSE_FREERTOS	    \
+       -Os 		            \
+       -g                   \
        $(IPATH)               
 
 CFLAGS+=-DTARGET_IS_CC3200

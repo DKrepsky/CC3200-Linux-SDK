@@ -24,16 +24,17 @@ CC=arm-none-eabi-gcc
 AR=arm-none-eabi-ar
 
 # C Compiler Flags
-CFLAGS=-mthumb             \
-       -mcpu=cortex-m4     \
-       -ffunction-sections \
-       -fdata-sections     \
-       -MD                 \
-       -std=c99            \
-       -Wall		   \
-       -O3 		   \
-       -Dgcc		   \
-       -Dcc3200		   \
+CFLAGS=-mthumb              \
+       -mcpu=cortex-m4      \
+       -ffunction-sections  \
+       -fdata-sections      \
+       -MD                  \
+       -std=c99             \
+       -Wall		        \
+       -Os 		            \
+       -g                   \
+       -Dgcc		        \
+       -Dcc3200		        \
        -DTARGET_IS_CC3200 \
        $(IPATH)               
 

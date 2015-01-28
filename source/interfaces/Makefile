@@ -33,16 +33,17 @@ CC=arm-none-eabi-gcc
 AR=arm-none-eabi-ar
 
 # C Compiler Flags
-CFLAGS=-mthumb             \
-       -mcpu=cortex-m4     \
-       -ffunction-sections \
-       -fdata-sections     \
-       -MD                 \
-       -std=c99            \
-       -Wall		   \
-       -Dgcc		   \
-       -Dcc3200		   \
-       -O3 		   \
+CFLAGS=-mthumb              \
+       -mcpu=cortex-m4      \
+       -ffunction-sections  \
+       -fdata-sections      \
+       -MD                  \
+       -std=c99             \
+       -Wall		        \
+       -Dgcc		        \
+       -Dcc3200		        \
+       -g                   \
+       -Os 		            \
        $(IPATH)               
 
 ifneq "${target}" "NONOS"

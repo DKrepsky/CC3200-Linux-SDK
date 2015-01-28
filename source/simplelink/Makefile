@@ -48,7 +48,8 @@ CFLAGS=-mthumb             \
        -Wall		   \
        -Dgcc		   \
        -Dcc3200		   \
-       -O3 		   \
+       -g              \
+       -Os 		   \
        $(IPATH)               
 
 CLAGS+=-DTARGET_IS_CC3200
