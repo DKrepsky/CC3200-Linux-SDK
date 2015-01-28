@@ -1,7 +1,7 @@
 /*****************************************************************************
-* blinky.ld
+* CC3200.ld
 *
-* GCC Linker script for blinky application.
+* GCC Linker script for the cc3200 mcu.
 *
 * Copyright (C) 2014 Texas Instruments Incorporated - http://www.ti.com/ 
 * 
@@ -37,12 +37,12 @@
 ******************************************************************************/
 
 
-HEAP_SIZE = 0x00010000;
+HEAP_SIZE = 64K;
 
 MEMORY
 {
     /* SRAM size of 240KB for cc3200 ES 1.33 device onward */
-    SRAM (rwx) : ORIGIN = 0x20004000, LENGTH = 0x3C000
+    SRAM (rwx) : ORIGIN = 0x20004000, LENGTH = 240K
 }
 
 SECTIONS

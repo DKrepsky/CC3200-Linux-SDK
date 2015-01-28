@@ -1,13 +1,5 @@
-/*
- * Free_RTOS_Hooks.c
- *
- *  Created on: 22/07/2014
- *      Author: David
- */
-
 #include "FreeRTOS.h"
 #include "task.h"
-#include "dout.h"
 
 
 //*****************************************************************************
@@ -57,14 +49,12 @@ vApplicationStackOverflowHook( TaskHandle_t *pxTask, signed portCHAR *pcTaskName
 {
     ( void ) pxTask;
     ( void ) pcTaskName;
-
-    DOUT("ERROR: FreeRTOS Stack Overflow on task %s\n\r", pcTaskName);
+    
     for( ;; );
 }
 
 void vApplicationMallocFailedHook()
 {
-	DOUT("ERROR: FreeRTOS Allocation error.");
     while(1)
   {
     // Infinite loop;

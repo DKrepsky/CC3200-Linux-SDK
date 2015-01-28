@@ -66,10 +66,11 @@ static void BusFaultHandler(void);
 // processor is started
 //
 //*****************************************************************************
-extern void _c_int00(void);
+#ifdef USE_FREERTOS
 extern void vPortSVCHandler(void);
 extern void xPortPendSVHandler(void);
 extern void xPortSysTickHandler(void);
+#endif
 
 //*****************************************************************************
 //
@@ -83,7 +84,7 @@ extern int main(void);
 // Reserve space for the system stack.
 //
 //*****************************************************************************
-static uint32_t pui32Stack[128];
+static uint32_t pui32Stack[1024];
 
 //*****************************************************************************
 //
@@ -92,7 +93,7 @@ static uint32_t pui32Stack[128];
 //
 //*****************************************************************************
 __attribute__ ((section(".intvecs")))
-void (* const g_pfnVectors[])(void) =
+void (* const g_pfnVectors[256])(void) =
 {
     (void (*)(void))((uint32_t)pui32Stack + sizeof(pui32Stack)),
                                             // The initial stack pointer
@@ -102,15 +103,21 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // The MPU fault handler
     BusFaultHandler,                        // The bus fault handler
     IntDefaultHandler,                      // The usage fault handler
-    0,                                      // Reserved
-    0,                                      // Reserved
-    0,                                      // Reserved
-    0,                                      // Reserved
+    0, 0, 0, 0,                             // Reserved
+#ifdef USE_FREERTOS
+    vPortSVCHandler,                        // SVCall handler
+#else
     IntDefaultHandler,                      // SVCall handler
+#endif
     IntDefaultHandler,                      // Debug monitor handler
     0,                                      // Reserved
+#ifdef USE_FREERTOS
+    xPortPendSVHandler,                     // The PendSV handler
+    xPortSysTickHandler,                    // The SysTick handler
+#else
     IntDefaultHandler,                      // The PendSV handler
     IntDefaultHandler,                      // The SysTick handler
+#endif
     IntDefaultHandler,                      // GPIO Port A
     IntDefaultHandler,                      // GPIO Port B
     IntDefaultHandler,                      // GPIO Port C
@@ -168,6 +175,13 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // Shared SPI
     IntDefaultHandler,                      // Generic SPI
     IntDefaultHandler,                      // Link SPI
+    0,0,0,0,0,0,0,0,0,0,                    // Reserved
+    0,0,0,0,0,0,0,0,0,0,                    // Reserved
+    0,0,0,0,0,0,0,0,0,0,                    // Reserved
+    0,0,0,0,0,0,0,0,0,0,                    // Reserved
+    0,0,0,0,0,0,0,0,0,0,                    // Reserved
+    0,0,0,0,0,0,0,0,0,0,                    // Reserved
+    0,0                                     // Reserved
 };
 
 //*****************************************************************************
@@ -177,7 +191,6 @@ void (* const g_pfnVectors[])(void) =
 // for the "data" segment resides immediately following the "text" segment.
 //
 //*****************************************************************************
-extern uint32_t _etext;
 extern uint32_t _data;
 extern uint32_t _edata;
 extern uint32_t _bss;
