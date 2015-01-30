@@ -2,7 +2,6 @@
 *.o
 *.ko
 *.obj
-*.elf
 *.d
 *.mk
 *.map
