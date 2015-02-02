@@ -8,13 +8,10 @@ Info : cc3200.cpu: hardware has 6 breakpoints, 4 watchpoints
 Info : accepting 'gdb' connection from pipe
 target state: halted
 target halted due to debug-request, current mode: Thread 
-xPSR: 0x41000000 pc: 0x00001f62 msp: 0x20003fe0
+xPSR: 0x41000000 pc: 0x00001f60 msp: 0x20003fe0
 requesting target halt and executing a soft reset
 Warn : soft_reset_halt is deprecated, please use 'reset halt' instead.
 target state: halted
 target halted due to debug-request, current mode: Thread 
 xPSR: 0x01000000 pc: 0x00008d1c msp: 0x20004000
-Info : The target is not running when halt was requested, stopping GDB.
-Info : The target is not running when halt was requested, stopping GDB.
-Info : The target is not running when halt was requested, stopping GDB.
 Info : dropped 'gdb' connection
