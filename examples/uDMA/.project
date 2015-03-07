@@ -26,7 +26,7 @@
 	<variableList>
 		<variable>
 			<name>CC3200SDK</name>
-			<value>$%7BPARENT-1-ECILIPSE_HOME%7D/sdk</value>
+			<value>$%7BPARENT-1-ECILIPSE_HOME%7D/CC3200-Linux-SDK</value>
 		</variable>
 	</variableList>
 </projectDescription>

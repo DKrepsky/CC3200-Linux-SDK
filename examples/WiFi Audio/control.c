@@ -52,6 +52,7 @@
 #include "interrupt.h"
 #include "rom.h"
 #include "rom_map.h"
+#include "uart_if.h"
 #include "gpio.h"
 #include "gpio_if.h"
 

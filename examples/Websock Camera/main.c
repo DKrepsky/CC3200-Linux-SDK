@@ -43,7 +43,7 @@
 //
 //****************************************************************************
 
-#error  "This demo doesn't. Remove this line to try it."
+//#error  "This demo doesn't work. Remove this line to try it."
 
 #include <stdio.h>
 #include <string.h>

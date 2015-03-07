@@ -23,4 +23,17 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>FreeRTOS</name>
+			<type>2</type>
+			<locationURI>CC3200SDK/other/FreeRTOS</locationURI>
+		</link>
+	</linkedResources>
+	<variableList>
+		<variable>
+			<name>CC3200SDK</name>
+			<value>file:/opt/cc3200/CC3200-Linux-SDK</value>
+		</variable>
+	</variableList>
 </projectDescription>

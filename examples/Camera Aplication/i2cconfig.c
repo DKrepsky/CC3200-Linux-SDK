@@ -64,7 +64,7 @@ void MT9D111Delay(unsigned long ucDelay);
 //*****************************************************************************
 #if defined(gcc)
 void MT9D111Delay(unsigned long ucDelay) {
-	asm("    subs    r0, #1\n"
+	__asm("    subs    r0, #1\n"
 			"    bne.n   MT9D111Delay\n"
 			"    bx      lr");
 }

@@ -59,7 +59,7 @@ CFLAGS=-mthumb              \
 CFLAGS+=-DTARGET_IS_CC3200       
 
 # Sources
-SOURCES= croutine.c list.c queue.c tasks.c port.c timers.c heap_3.c osi_freertos.c
+SOURCES= osi_freertos.c
 
 # Objects
 OBJECTS= $(SOURCES:.c=.o)

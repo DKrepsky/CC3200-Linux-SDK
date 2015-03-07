@@ -51,6 +51,7 @@
 #include "hw_memmap.h"
 #include "i2c.h"
 #include "i2cconfig.h"
+#include "uart_if.h"
 #include "common.h"
 
 #define RET_OK                  0

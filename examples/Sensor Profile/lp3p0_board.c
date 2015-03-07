@@ -429,10 +429,10 @@ int platform_init(void)
         retval = cc_pm_platform_ops_register(&lp3p0_pm_ops);
         
         /* Register the power management ISR */
-        register_isr(INT_PRCM, prcm_interrupt_handler, NULL);
+        register_isr(INT_PRCM, (void *) prcm_interrupt_handler, NULL);
         
         /* Register the timer ISR */
-        register_isr(INT_TIMERA0A, timer_interrupt_handler, NULL);
+        register_isr(INT_TIMERA0A, (void *) timer_interrupt_handler, NULL);
 
         /* Initialize the platform specific services */
         timer_setup.enbl_irqc = osi_ExitCritical;

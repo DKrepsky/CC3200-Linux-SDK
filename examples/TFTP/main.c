@@ -203,7 +203,7 @@ static void TFTPTask(void *pvParameters)
             LOOP_FOREVER();
         }
 
-        lRetVal = sl_FsGetInfo((unsigned char *)FileRead, NULL, &pFsFileInfo);
+        lRetVal = sl_FsGetInfo((unsigned char *)FileRead, 0, &pFsFileInfo);
 
         if(lRetVal < 0 )
             lRetVal = sl_FsOpen((unsigned char *)FileRead,\
@@ -248,7 +248,7 @@ static void TFTPTask(void *pvParameters)
             LOOP_FOREVER();
         }
 
-        lRetVal = sl_FsGetInfo((unsigned char *)FileRead, NULL, &pFsFileInfo);
+        lRetVal = sl_FsGetInfo((unsigned char *)FileRead, 0, &pFsFileInfo);
         if(lRetVal < 0)
         {
             lRetVal = sl_FsClose(pFileHandle,0,0,0);

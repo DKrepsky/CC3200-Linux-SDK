@@ -58,7 +58,7 @@ extern "C"
 // SimpleLink device will connect to following AP when application is executed
 //
 #define SSID_NAME           "cc3200"    /* AP SSID */
-#define SECURITY_TYPE       SL_SEC_TYPE_OPEN/* Security type (OPEN or WEP or WPA*/
+#define SECURITY_TYPE       SL_SEC_TYPE_OPEN /* Security type (OPEN or WEP or WPA*/
 #define SECURITY_KEY        ""              /* Password of the secured AP */
 #define SSID_LEN_MAX        32
 #define BSSID_LEN_MAX       6
