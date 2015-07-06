@@ -50,11 +50,7 @@
 									<listOptionValue builtIn="false" value="gcc"/>
 									<listOptionValue builtIn="false" value="cc3200"/>
 								</option>
-								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths.896157647" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/inc&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/driverlib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/interfaces&quot;"/>
-								</option>
+								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths.896157647" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths" valueType="includePath"/>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input.835641369" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input"/>
 							</tool>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.1671192327" name="Cross ARM C Compiler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler">
@@ -63,9 +59,9 @@
 									<listOptionValue builtIn="false" value="cc3200"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths.351395351" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/inc&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/driverlib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/interfaces&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/driverlib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/examples/common&quot;"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.1311312005" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input"/>
 							</tool>
@@ -80,7 +76,6 @@
 									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/lib&quot;"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.libs.624324414" name="Libraries (-l)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.libs" valueType="libs">
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="interfaces"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="driver"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.linker.input.124766191" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.linker.input">

@@ -91,7 +91,7 @@
 #include "pinmux.h"
 
 
-#define APPLICATION_VERSION "1.1.0"
+#define APPLICATION_VERSION "1.1.1"
 //
 // Values for below macros shall be modified as per access-point(AP) properties
 // SimpleLink device will connect to following AP when application is executed
@@ -507,15 +507,18 @@ int WlanConnect()
     SlSecParams_t secParams;
 
     secParams.Key = (signed char *)SECURITY_KEY;
-    secParams.KeyLen = sizeof(secParams.Key);
+    secParams.KeyLen = strlen((const char *)secParams.Key);
     secParams.Type = SECURITY_TYPE;
 
     //
     // Set up the watchdog interrupt handler.
     //
     WDT_IF_Init(WatchdogIntHandler, MILLISECONDS_TO_TICKS(WD_PERIOD_MS));
-
+    /* Enabling the Sleep clock for the Watch Dog Timer*/
+    MAP_PRCMPeripheralClkEnable(PRCM_WDT, PRCM_SLP_MODE_CLK);
+    
     g_ucFeedWatchdog = 1;
+    g_ucWdogCount = 0;
     while(!(ucQueueMsg & (EVENT_IP_ACQUIRED|CONNECTION_FAILED)))
     {
         UART_PRINT("Trying to connect to AP: ");
@@ -786,6 +789,16 @@ void TimerGPIOTask(void *pvParameters)
     DisplayBanner();
     
     //
+    // creating the queue for signalling about connection events
+    //
+    iRetVal = osi_MsgQCreate(&g_tConnection, NULL, sizeof( unsigned char ), 3);
+    if (iRetVal < 0)
+    {
+        UART_PRINT("unable to create the msg queue\n\r");
+        LOOP_FOREVER();
+    }
+    
+    //
     // starting the simplelink
     //
     iRetVal = sl_Start(NULL, NULL, NULL);
@@ -799,7 +812,7 @@ void TimerGPIOTask(void *pvParameters)
     // Swtich to STA mode if device is not
     //
     SwitchToStaMode(iRetVal);
-
+    
     //
     // Set the power management policy of NWP
     //
@@ -810,12 +823,6 @@ void TimerGPIOTask(void *pvParameters)
         LOOP_FOREVER();
     }
 
-    iRetVal = osi_MsgQCreate(&g_tConnection, NULL, sizeof( unsigned char ), 3);
-    if (iRetVal < 0)
-    {
-        UART_PRINT("unable to create the msg queue\n\r");
-        LOOP_FOREVER();
-    }
     //
     // connecting to the Access Point
     //

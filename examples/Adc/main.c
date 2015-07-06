@@ -85,18 +85,14 @@
 #define UART_PRINT         Report
 #define FOREVER            1
 #define APP_NAME           "ADC Reference"
+#define NO_OF_SAMPLES 		128
 
 unsigned long pulAdcSamples[4096];
 
 //*****************************************************************************
 //                      GLOBAL VARIABLES
 //*****************************************************************************
-#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
-#endif
-#if defined(ewarm)
-extern uVectorEntry __vector_table;
-#endif
 
 /****************************************************************************/
 /*                      LOCAL FUNCTION PROTOTYPES                           */
@@ -136,17 +132,11 @@ static void
 BoardInit(void)
 {
 /* In case of TI-RTOS vector table is initialize by OS itself */
-#ifndef USE_TIRTOS
     //
     // Set vector table base
     //
-#if defined(ccs) || defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
-#endif
-#if defined(ewarm)
-    MAP_IntVTableBaseSet((unsigned long)&__vector_table);
-#endif
-#endif
+
     //
     // Enable Processor
     //
@@ -205,7 +195,7 @@ main()
           continue;
         }
 
-    #ifdef CC3200_ES_1_2_1
+#ifdef CC3200_ES_1_2_1
         //
         // Enable ADC clocks.###IMPORTANT###Need to be removed for PG 1.32
         //
@@ -213,7 +203,7 @@ main()
         HWREG(ADC_BASE + ADC_O_ADC_CTRL) = 0x00000004;
         HWREG(ADC_BASE + ADC_O_ADC_SPARE0) = 0x00000100;
         HWREG(ADC_BASE + ADC_O_ADC_SPARE1) = 0x0355AA00;
-    #endif
+#endif
         //
         // Pinmux for the selected ADC input pin
         //
@@ -224,16 +214,18 @@ main()
         //
         switch(uiAdcInputPin)
         {
-            case PIN_58: {uiChannel = ADC_CH_1;}break;
-            case PIN_59: {uiChannel = ADC_CH_2;}break;
-            case PIN_60: {uiChannel = ADC_CH_3;}break;
-            default: break;
+            case PIN_58:
+                uiChannel = ADC_CH_1;
+                break;
+            case PIN_59:
+                uiChannel = ADC_CH_2;
+                break;
+            case PIN_60:
+                uiChannel = ADC_CH_3;
+                break;
+            default:
+                break;
         }
-
-        //
-        // Enable ADC channel
-        //
-        MAP_ADCChannelEnable(ADC_BASE, uiChannel);
 
         //
         // Configure ADC timer which is used to timestamp the ADC data samples
@@ -251,31 +243,44 @@ main()
         MAP_ADCEnable(ADC_BASE);
 
         //
-        // Read 4096 ADC samples
+        // Enable ADC channel
         //
-        while(uiIndex < 4096)
+
+        MAP_ADCChannelEnable(ADC_BASE, uiChannel);
+
+        while(uiIndex < NO_OF_SAMPLES + 4)
         {
             if(MAP_ADCFIFOLvlGet(ADC_BASE, uiChannel))
             {
                 ulSample = MAP_ADCFIFORead(ADC_BASE, uiChannel);
                 pulAdcSamples[uiIndex++] = ulSample;
             }
+
+
         }
+
+        MAP_ADCChannelDisable(ADC_BASE, uiChannel);
 
         uiIndex = 0;
 
-        UART_PRINT("\n\rTotal no of 32 bit ADC data printed :4096 \n\r");
-        UART_PRINT("\n\rADC data format:\n\r");
-        UART_PRINT("\n\rbits[13:2] : ADC sample\n\r");
-        UART_PRINT("\n\rbits[31:14]: Time stamp of ADC sample \n\r");
+        //UART_PRINT("\n\rTotal no of 32 bit ADC data printed :4096 \n\r");
+        //UART_PRINT("\n\rADC data format:\n\r");
+        //UART_PRINT("\n\rbits[13:2] : ADC sample\n\r");
+        //UART_PRINT("\n\rbits[31:14]: Time stamp of ADC sample \n\r");
 
         //
-        // Print out 4096 ADC samples
+        // Print out ADC samples
         //
-        while(uiIndex < 4096)
+
+        while(uiIndex < NO_OF_SAMPLES)
         {
-            UART_PRINT("\n\r0x%x\n\r",pulAdcSamples[uiIndex++]);
+            UART_PRINT("\n\rVoltage is %f\n\r",(((float)((pulAdcSamples[4+uiIndex] >> 2 ) & 0x0FFF))*1.4)/4096);
+            uiIndex++;
         }
+
+
+        //UART_PRINT("\n\rVoltage is %f\n\r",((pulAdcSamples[4] >> 2 ) & 0x0FFF)*1.4/4096);
+        UART_PRINT("\n\r");
 
     }
 

@@ -29,6 +29,16 @@
 			<type>2</type>
 			<locationURI>CC3200SDK/other/FreeRTOS</locationURI>
 		</link>
+		<link>
+			<name>utils_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/utils_if.c</locationURI>
+		</link>
+		<link>
+			<name>wdt_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/wdt_if.c</locationURI>
+		</link>
 	</linkedResources>
 	<variableList>
 		<variable>

@@ -50,12 +50,7 @@
 									<listOptionValue builtIn="false" value="gcc"/>
 									<listOptionValue builtIn="false" value="cc3200"/>
 								</option>
-								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths.620756149" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/inc&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/driverlib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/simplelink&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/interfaces&quot;"/>
-								</option>
+								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths.620756149" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths" valueType="includePath"/>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input.322194094" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input"/>
 							</tool>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.118694092" name="Cross ARM C Compiler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler">
@@ -64,10 +59,10 @@
 									<listOptionValue builtIn="false" value="cc3200"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths.476764942" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/inc&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/driverlib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/simplelink&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/interfaces&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/driverlib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/simplelink/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/examples/common&quot;"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.552364208" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input"/>
 							</tool>
@@ -82,7 +77,6 @@
 									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/lib&quot;"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.libs.446064933" name="Libraries (-l)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.libs" valueType="libs">
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="interfaces_nonos"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="simplelink_nonos"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="driver"/>
 								</option>
@@ -96,7 +90,7 @@
 							</tool>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.archiver.802000306" name="Cross ARM GNU Archiver" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.archiver"/>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.createflash.714866561" name="Cross ARM GNU Create Flash Image" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.createflash">
-								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.createflash.choice.1277387509" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.createflash.choice" value="ilg.gnuarmeclipse.managedbuild.cross.option.createflash.choice.binary" valueType="enumerated"/>
+								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.createflash.choice.1277387509" name="Output file format (-O)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.createflash.choice" value="ilg.gnuarmeclipse.managedbuild.cross.option.createflash.choice.binary" valueType="enumerated"/>
 							</tool>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.createlisting.1332733177" name="Cross ARM GNU Create Listing" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.createlisting">
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.createlisting.source.1735279793" name="Display source (--source|-S)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.createlisting.source" value="true" valueType="boolean"/>

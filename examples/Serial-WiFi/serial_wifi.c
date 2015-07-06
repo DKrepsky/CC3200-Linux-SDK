@@ -19,10 +19,6 @@
 
 //Free_rtos/ti-rtos includes
 #include "osi.h"
-#ifdef USE_FREERTOS
-#include "FreeRTOS.h"
-#include "task.h"
-#endif
 
 //Common interface includes
 #include "network_if.h"
@@ -183,6 +179,7 @@ void Interpreter_Task(void *pvParameters)
 
     while (1)
     {
+        osi_Sleep(1);
         if((IS_IP_ACQUIRED(g_ulStatus)) && (g_ConfigurationDone == 0))
         {
             lRetVal = InitialConfiguration();
@@ -940,23 +937,25 @@ long ParseRecvString()
         g_pcLength ++;
         lRetVal = atolong(g_pcLength, &g_ulLength);
         ASSERT_ON_ERROR(lRetVal);
+
+        //timeout handling
+		g_pcTimeout = strchr(g_pcLength, ' ');
+		if (g_pcTimeout)
+		{
+		   g_pcTimeout ++;
+		   lRetVal = atolong(g_pcTimeout, &RecTimeout.tv_usec);
+		   ASSERT_ON_ERROR(lRetVal);
+		}
+		else
+		{
+			//use default Timeout
+			RecTimeout.tv_usec = INTERPRETER_RECV_TIMEOUT;
+		}
     }
     else
     {
         //use default Length
         g_ulLength = INTERPRETER_RECV_LENGTH;
-    }
-
-    //timeout handling              
-    g_pcTimeout = strchr(g_pcLength, ' ');
-    if (g_pcTimeout)
-    {
-        g_pcTimeout ++;
-        lRetVal = atolong(g_pcTimeout, &RecTimeout.tv_usec);
-        ASSERT_ON_ERROR(lRetVal);
-    }
-    else
-    {
         //use default Timeout
         RecTimeout.tv_usec = INTERPRETER_RECV_TIMEOUT;
     }
@@ -1076,20 +1075,33 @@ long ParseConnectString()
         g_pcPort ++;
         lRetVal = atolong(g_pcPort, &g_ulPort);
         ASSERT_ON_ERROR(lRetVal);
+        //protocol handling
+		g_pcProtocol = strchr(g_pcPort, ' ');
+		if(g_pcProtocol)
+		{
+			g_pcProtocol ++;
+		}else
+		{
+			//UDP is also the default in case no protocol is inserted
+			g_Protocol = SL_IPPROTO_UDP;
+			g_Socket = sl_Socket(SL_AF_INET, SL_SOCK_DGRAM, SL_IPPROTO_UDP);
+			goto parse_return;
+		}
     }
     else
     {
         //Use default port
         g_ulPort = INTERPRETER_PORT;
+
+        //UDP is also the default in case no protocol is inserted
+		g_Protocol = SL_IPPROTO_UDP;
+		g_Socket = sl_Socket(SL_AF_INET, SL_SOCK_DGRAM, SL_IPPROTO_UDP);
+		goto parse_return;
     }
 
     //the destination port
     g_RemoteAddr.sa_data[0] = ((g_ulPort >> 8) & 0xFF);
     g_RemoteAddr.sa_data[1] = (g_ulPort & 0xFF);
-
-    //protocol handling  
-    g_pcProtocol = strchr(g_pcPort, ' ');
-    g_pcProtocol ++;
 
     if ((strstr(g_pcProtocol, "TCP")) || (strstr(g_pcProtocol, "tcp"))) 
     {
@@ -1170,11 +1182,11 @@ long ParseConnectString()
     }
     else
     {
-        //UDP is also the default in case no protocol is inserted
-        g_Protocol = SL_IPPROTO_UDP;
-        g_Socket = sl_Socket(SL_AF_INET, SL_SOCK_DGRAM, SL_IPPROTO_UDP);
+    	//UDP is also the default in case no protocol is inserted
+		g_Protocol = SL_IPPROTO_UDP;
+		g_Socket = sl_Socket(SL_AF_INET, SL_SOCK_DGRAM, SL_IPPROTO_UDP);
     }
-
+parse_return:
     g_RemoteAddr.sa_family = SL_AF_INET;
     return SUCCESS;
 }
@@ -1264,22 +1276,26 @@ long ExecuteCommand(OperationMode_e source)
         if (pMode)
         {
             pMode ++;
-        }
-
-        if (*pMode == 'B')
-        {
-            g_InterpreterMode = BINARY_INTERPRETER_MODE;
-            UART_PRINT(ENTERED_BINARY_INTERPRETER_MODE);
-        }
-        else if (*pMode == 'H')
-        {
-            g_InterpreterMode = HEXA_INTERPRETER_MODE;
-            UART_PRINT(ENTERED_HEXA_INTERPRETER_MODE);
+            if (*pMode == 'B')
+			{
+				g_InterpreterMode = BINARY_INTERPRETER_MODE;
+				UART_PRINT(ENTERED_BINARY_INTERPRETER_MODE);
+			}
+			else if (*pMode == 'H')
+			{
+				g_InterpreterMode = HEXA_INTERPRETER_MODE;
+				UART_PRINT(ENTERED_HEXA_INTERPRETER_MODE);
+			}
+			else
+			{
+				g_InterpreterMode = ASCII_INTERPRETER_MODE;
+				UART_PRINT(ENTERED_ASCII_INTERPRETER_MODE);
+			}
         }
         else
         {
-            g_InterpreterMode = ASCII_INTERPRETER_MODE;
-            UART_PRINT(ENTERED_ASCII_INTERPRETER_MODE);
+        	g_InterpreterMode = ASCII_INTERPRETER_MODE;
+        	UART_PRINT(ENTERED_ASCII_INTERPRETER_MODE);
         }
 
         UART_PRINT(COMMAND_PROMPT);
@@ -1677,21 +1693,21 @@ long StartTcpServer()
     {
         UART_PRINT("Failed to set socket options\r\n");
         sl_Close(g_Socket);
-        return lRetVal;
+        return FAILURE;
     }
 
     if (sl_Bind(g_SocketTcpServer, &g_LocalAddr, sizeof(g_LocalAddr)) < 0)
     {
         UART_PRINT(" Bind Error\n\r");
         sl_Close(g_SocketTcpServer);
-        return lRetVal;
+        return FAILURE;
     }
 
     if (sl_Listen(g_SocketTcpServer, 0) < 0)
     {
         UART_PRINT(" Listen Error\n\r");
         sl_Close(g_SocketTcpServer);
-        return lRetVal;
+        return FAILURE;
     }
 
     return SUCCESS;

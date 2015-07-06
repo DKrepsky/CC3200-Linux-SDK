@@ -131,4 +131,9 @@ PinMuxConfig(void)
     // Configure PIN_17 for I2C0 I2C_SDA
     //
     MAP_PinTypeI2C(PIN_17, PIN_MODE_9);
+
+    //
+    // Configure PIN_01 for MODE0
+    //
+    MAP_PinTypeI2C(PIN_01, PIN_MODE_0);
 }

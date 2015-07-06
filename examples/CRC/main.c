@@ -84,7 +84,8 @@
 #include "crc_vector.h"
 #include "crc_userinput.h"
 
-#define APPLICATION_VERSION "1.1.0"
+#define USER_INPUT
+#define APPLICATION_VERSION "1.1.1"
 #define CCM0_BASE           DTHE_BASE
 #define UART_PRINT          Report
 #define FOREVER             1
@@ -93,12 +94,8 @@
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
-#if defined(gcc)
 extern void (* const g_pfnVectors[])(void);
-#endif
-#if defined(ewarm)
-extern uVectorEntry __vector_table;
-#endif
+
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- End
 //*****************************************************************************
@@ -122,17 +119,11 @@ RunCRC(unsigned int uiConfig,unsigned int uiDataLength,unsigned int uiSeed,
             unsigned int *puiData,unsigned int *puiResult)
 {
   //
-  // Step1: Reset the Module
-  // Step2: Set the Configuration Parameters 
-  // Step3: Write the seed value
-  // Step4: Start CRC generation
+  // Step1: Set the Configuration Parameters 
+  // Step2: Write the seed value
+  // Step3: Start CRC generation
   //
 
-  //
-  // Reset the module.
-  //
-  MAP_PRCMPeripheralReset(PRCM_DTHE);
-  
   //
   // Configure the CRC engine.
   //
@@ -226,17 +217,11 @@ static void
 BoardInit(void)
 {
 /* In case of TI-RTOS vector table is initialize by OS itself */
-#ifndef USE_TIRTOS
     //
     // Set vector table base
     //
-#if defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
-#endif
-#if defined(ewarm)
-    MAP_IntVTableBaseSet((unsigned long)&__vector_table);
-#endif
-#endif
+
     //
     // Enable Processor
     //

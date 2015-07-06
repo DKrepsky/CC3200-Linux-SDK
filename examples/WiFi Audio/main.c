@@ -62,10 +62,6 @@
 
 // free-rtos/ ti_rtos includes
 #include "osi.h"
-#ifdef USE_FREERTOS
-#include "FreeRTOS.h"
-#include "task.h"
-#endif
 
 // Hardware & DriverLib library includes.
 #include "hw_types.h"
@@ -96,26 +92,27 @@
 #include "network.h"
 #include "circ_buff.h"
 #include "control.h"
-#include "ti_codec.h"
-#include "mcasp_if.h"
+#include "audiocodec.h"
+#include "i2s_if.h"
 #include "pcm_handler.h"
 
 
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 #define OSI_STACK_SIZE          1024
 
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
-tCircularBuffer *pTxBuffer;
-tCircularBuffer *pRxBuffer;
+tCircularBuffer *pRecordBuffer;
+tCircularBuffer *pPlayBuffer;
 tUDPSocket g_UdpSock;
 OsiTaskHandle g_SpeakerTask = NULL ;
 OsiTaskHandle g_MicTask = NULL ;
 OsiTaskHandle g_NetworkTask = NULL ;
 
+unsigned char g_loopback=1;
 
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -203,9 +200,9 @@ vApplicationStackOverflowHook( OsiTaskHandle *pxTask, signed char *pcTaskName)
 void vApplicationMallocFailedHook()
 {
     while(1)
-  {
-    // Infinite loop;
-  }
+    {
+        // Infinite loop;
+    }
 }
 
 //*****************************************************************************
@@ -221,17 +218,17 @@ void
 BoardInit(void)
 {
     /* In case of TI-RTOS vector table is initialize by OS itself */
-    #ifndef USE_TIRTOS
+#ifndef USE_TIRTOS
     //
     // Set vector table base
     //
-    #if defined(gcc)
-        MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
-    #endif
-    #if defined(ewarm)
-        MAP_IntVTableBaseSet((unsigned long)&__vector_table);
-    #endif
-    #endif
+#if defined(ccs) || defined(gcc)
+    MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
+#endif
+#if defined(ewarm)
+    MAP_IntVTableBaseSet((unsigned long)&__vector_table);
+#endif
+#endif
     //
     // Enable Processor
     //
@@ -246,35 +243,21 @@ BoardInit(void)
 int main()
 {   
     long lRetVal = -1;
+    unsigned char	RecordPlay;
 
     BoardInit();
-    
+
     //
     // Pinmux Configuration
     //
     PinMuxConfig();
-    
+
     //
     // Initialising the UART terminal
     //
     InitTerm();
-    UART_PRINT("WiFi Audio\n\r");
-    //
-    // Create RX and TX Buffer
-    //
-    pTxBuffer = CreateCircularBuffer(TX_BUFFER_SIZE);
-    if(pTxBuffer == NULL)
-    {
-        UART_PRINT("Unable to Allocate Memory for Tx Buffer\n\r");
-        LOOP_FOREVER();
-    }    
-    pRxBuffer = CreateCircularBuffer(RX_BUFFER_SIZE);
-    if(pRxBuffer == NULL)
-    {
-        UART_PRINT("Unable to Allocate Memory for Rx Buffer\n\r");
-        LOOP_FOREVER();
-    }    
-    
+
+
     //
     // Initialising the I2C Interface
     //    
@@ -285,69 +268,107 @@ int main()
         LOOP_FOREVER();
     }
 
+    RecordPlay = I2S_MODE_RX_TX;
+    g_loopback = 1;
+
+
+    //
+    // Create RX and TX Buffer
+    //
+    if(RecordPlay & I2S_MODE_TX)
+    {
+        pRecordBuffer = CreateCircularBuffer(RECORD_BUFFER_SIZE);
+        if(pRecordBuffer == NULL)
+        {
+            UART_PRINT("Unable to Allocate Memory for Tx Buffer\n\r");
+            LOOP_FOREVER();
+        }
+    }
+
+    /* Play */
+    if(RecordPlay == I2S_MODE_RX_TX)
+    {
+        pPlayBuffer = CreateCircularBuffer(PLAY_BUFFER_SIZE);
+        if(pPlayBuffer == NULL)
+        {
+            UART_PRINT("Unable to Allocate Memory for Rx Buffer\n\r");
+            LOOP_FOREVER();
+        }
+    }
+
 
     //
     // Configure Audio Codec
     //     
-    ConfigureAudioCodec(CODEC_I2S_WORD_LEN_24);
-       
+    AudioCodecReset(AUDIO_CODEC_TI_3254, NULL);
+    AudioCodecConfig(AUDIO_CODEC_TI_3254, AUDIO_CODEC_16_BIT, 16000,
+                      AUDIO_CODEC_STEREO, AUDIO_CODEC_SPEAKER_ALL,
+                      AUDIO_CODEC_MIC_ALL);
+
+    AudioCodecSpeakerVolCtrl(AUDIO_CODEC_TI_3254, AUDIO_CODEC_SPEAKER_ALL, 50);
+    AudioCodecMicVolCtrl(AUDIO_CODEC_TI_3254, AUDIO_CODEC_SPEAKER_ALL, 50);
+
+
     GPIO_IF_LedConfigure(LED2|LED3);
 
     GPIO_IF_LedOff(MCU_RED_LED_GPIO);
     GPIO_IF_LedOff(MCU_GREEN_LED_GPIO);    
-    
+
     //
     // Configure PIN_01 for GPIOOutput
     //
-    MAP_PinTypeGPIO(PIN_01, PIN_MODE_0, false);
-    MAP_GPIODirModeSet(GPIOA1_BASE, 0x4, GPIO_DIR_MODE_OUT);
-    
+    //MAP_PinTypeGPIO(PIN_01, PIN_MODE_0, false);
+    // MAP_GPIODirModeSet(GPIOA1_BASE, 0x4, GPIO_DIR_MODE_OUT);
+
     //
     // Configure PIN_02 for GPIOOutput
     //
-    MAP_PinTypeGPIO(PIN_02, PIN_MODE_0, false);
-    MAP_GPIODirModeSet(GPIOA1_BASE, 0x8, GPIO_DIR_MODE_OUT);
-    
-    
+    //MAP_PinTypeGPIO(PIN_02, PIN_MODE_0, false);
+    // MAP_GPIODirModeSet(GPIOA1_BASE, 0x8, GPIO_DIR_MODE_OUT);
+
+
     //Turning off Green,Orange LED after i2c writes completed - First Time
     GPIO_IF_LedOff(MCU_GREEN_LED_GPIO);
     GPIO_IF_LedOff(MCU_ORANGE_LED_GPIO);
-    
+
     //
     // Initialize the Audio(I2S) Module
     //    
-    AudioCapturerInit();
-  
+
+    AudioInit();
+
     //
     // Initialize the DMA Module
     //    
     UDMAInit();
-    UDMAChannelSelect(UDMA_CH4_I2S_RX, NULL);
-    UDMAChannelSelect(UDMA_CH5_I2S_TX, NULL);
-   
-    //
-    // Setup the DMA Mode
-    //     
-    SetupPingPongDMATransferTx();
-    SetupPingPongDMATransferRx();
-    
+    if(RecordPlay == I2S_MODE_RX_TX)
+    {
+        UDMAChannelSelect(UDMA_CH5_I2S_TX, NULL);
+        SetupPingPongDMATransferRx(pPlayBuffer);
+    }
+    if(RecordPlay & I2S_MODE_TX)
+    {
+        UDMAChannelSelect(UDMA_CH4_I2S_RX, NULL);
+        SetupPingPongDMATransferTx(pRecordBuffer);
+    }
+
     //
     // Setup the Audio In/Out
     //     
-    lRetVal = AudioCapturerSetupDMAMode(DMAPingPongCompleteAppCB_opt, \
-                                            CB_EVENT_CONFIG_SZ);
+    lRetVal = AudioSetupDMAMode(DMAPingPongCompleteAppCB_opt, \
+                                 CB_EVENT_CONFIG_SZ, RecordPlay);
     if(lRetVal < 0)
     {
         ERR_PRINT(lRetVal);
         LOOP_FOREVER();
     }    
-    AudioCaptureRendererConfigure();
-    
-    // 
+    AudioCaptureRendererConfigure(AUDIO_CODEC_16_BIT, 16000, AUDIO_CODEC_STEREO, RecordPlay, 1);
+
+    //
     // Start Audio Tx/Rx
     //     
-    Audio_Start();
-    
+    Audio_Start(RecordPlay);
+
     //
     // Start the simplelink thread
     //
@@ -363,14 +384,13 @@ int main()
     // Start the Network Task
     //    
     lRetVal = osi_TaskCreate( Network, (signed char*)"NetworkTask",\
-                                OSI_STACK_SIZE, NULL, 
-                                1, &g_NetworkTask );
+                               OSI_STACK_SIZE, NULL,
+                               1, &g_NetworkTask );
     if(lRetVal < 0)
     {
         ERR_PRINT(lRetVal);
         LOOP_FOREVER();
     }
-
 
     //
     // Start the Control Task
@@ -381,13 +401,13 @@ int main()
         ERR_PRINT(lRetVal);
         LOOP_FOREVER();
     }    
-    
+
     //
     // Start the Microphone Task
     //       
     lRetVal = osi_TaskCreate( Microphone,(signed char*)"MicroPhone", \
-                                OSI_STACK_SIZE, NULL, 
-                                1, &g_MicTask );
+                               OSI_STACK_SIZE, NULL,
+                               1, &g_MicTask );
     if(lRetVal < 0)
     {
         ERR_PRINT(lRetVal);
@@ -398,20 +418,19 @@ int main()
     // Start the Speaker Task
     //
     lRetVal = osi_TaskCreate( Speaker, (signed char*)"Speaker",OSI_STACK_SIZE, \
-                                NULL, 1, &g_SpeakerTask ); 
+                               NULL, 1, &g_SpeakerTask );
     if(lRetVal < 0)
     {
         ERR_PRINT(lRetVal);
         LOOP_FOREVER();
     }
 
-    
     //
     // Start the task scheduler
     //
     osi_start();      
 }
-    
+
 //*****************************************************************************
 //
 // Close the Doxygen group.

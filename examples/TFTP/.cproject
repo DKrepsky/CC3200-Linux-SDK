@@ -46,17 +46,7 @@
 							<builder buildPath="${workspace_loc:/TFTP}/Debug" id="ilg.gnuarmeclipse.managedbuild.cross.builder.307631621" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="ilg.gnuarmeclipse.managedbuild.cross.builder"/>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.1634370565" name="Cross ARM GNU Assembler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler">
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.usepreprocessor.1197686360" name="Use preprocessor" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.usepreprocessor" value="true" valueType="boolean"/>
-								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths.2025846631" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/inc&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/driverlib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/simplelink&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/netapps/tftp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/interfaces&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/oslib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/other/FreeRTOS/Source/portable/GCC/ARM_CM4&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/other/FreeRTOS/Source/include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/other/FreeRTOS&quot;"/>
-								</option>
+								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths.2025846631" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths"/>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.defs.1918501577" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.defs" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="gcc"/>
 									<listOptionValue builtIn="false" value="cc3200"/>
@@ -67,15 +57,16 @@
 							</tool>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.1833552621" name="Cross ARM C Compiler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler">
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths.813530617" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/inc&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/driverlib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/simplelink&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/netapps/tftp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/interfaces&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/oslib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/other/FreeRTOS/Source/portable/GCC/ARM_CM4&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/other/FreeRTOS/Source/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/other/FreeRTOS&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/driverlib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/simplelink/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/netapps/tftp/client&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/examples/common&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/oslib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TFTP}&quot;"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.1297822923" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="gcc"/>
@@ -93,11 +84,10 @@
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.other.1221469626" name="Other linker flags" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.other" value="-eResetISR" valueType="string"/>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.libs.261053607" name="Libraries (-l)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.libs" valueType="libs">
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="interfaces"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="simplelink"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="netapps"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="driver"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="osi"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="tftp"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.paths.311887653" name="Library search path (-L)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/lib&quot;"/>

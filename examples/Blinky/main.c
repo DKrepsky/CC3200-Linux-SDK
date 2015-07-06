@@ -77,7 +77,7 @@
 
 #include "pinmux.h"
 
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
@@ -153,11 +153,12 @@ void LEDBlinkyRoutine()
 static void
 BoardInit(void)
 {
+/* In case of TI-RTOS vector table is initialize by OS itself */
     //
     // Set vector table base
     //
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
-
+    
     //
     // Enable Processor
     //

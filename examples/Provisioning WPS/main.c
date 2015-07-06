@@ -86,7 +86,7 @@
 // Local defines
 //*****************************************************************************
 #define APPLICATION_NAME        "Provisioning WPS "
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 #define WPS_PIN_CODE            "88664422"
 
 // Application specific status/error codes
@@ -103,7 +103,7 @@ typedef enum{
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
-unsigned long  g_ulStatus = 0;//SimpleLink Status
+volatile unsigned long  g_ulStatus = 0;//SimpleLink Status
 unsigned long  g_ulGatewayIP = 0; //Network Gateway IP address
 unsigned char  g_ucConnectionSSID[SSID_LEN_MAX+1]; //Connection SSID
 unsigned char  g_ucConnectionBSSID[BSSID_LEN_MAX]; //Connection BSSID
@@ -342,26 +342,29 @@ void SimpleLinkSockEventHandler(SlSockEvent_t *pSock)
     //
     // This application doesn't work w/ socket - Events are not expected
     //
-       switch( pSock->Event )
+    switch( pSock->Event )
     {
         case SL_SOCKET_TX_FAILED_EVENT:
-            switch( pSock->EventData.status )
+            switch( pSock->socketAsyncEvent.SockTxFailData.status)
             {
                 case SL_ECLOSE: 
                     UART_PRINT("[SOCK ERROR] - close socket (%d) operation "
-                    "failed to transmit all queued packets\n\n", 
-                           pSock->EventData.sd);
+                                "failed to transmit all queued packets\n\n", 
+                                    pSock->socketAsyncEvent.SockTxFailData.sd);
                     break;
                 default: 
-                    UART_PRINT("[SOCK ERROR] - TX FAILED : socket %d , reason"
-                        "(%d) \n\n",
-                           pSock->EventData.sd, pSock->EventData.status);
+                    UART_PRINT("[SOCK ERROR] - TX FAILED  :  socket %d , reason "
+                                "(%d) \n\n",
+                                pSock->socketAsyncEvent.SockTxFailData.sd, pSock->socketAsyncEvent.SockTxFailData.status);
+                  break;
             }
             break;
 
         default:
-            UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
+        	UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
+          break;
     }
+
 }
 
 
@@ -659,7 +662,7 @@ BoardInit(void)
     //
     // Set vector table base
     //
-#if defined(gcc)
+#if defined(ccs) || defined (gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)

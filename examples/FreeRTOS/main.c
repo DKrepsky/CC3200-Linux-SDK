@@ -57,11 +57,20 @@
 //
 //*****************************************************************************
 
-// Standard includes. 
+//*****************************************************************************
+// Same application can be used to demonstrate TI-RTOS demo with a small change
+// in CCS project proerties: 
+//      a. add ti_rtos_config in workspace and add as dependencies in 
+//         project setting Build->Dependecies->add
+//      b. Define USE_TIRTOS in Properties->Build->Advanced Options->
+//         Predefined Symbols instead of USE_FREERTOS
+//      c. add ti_rtos.a in linker files search option
+//*****************************************************************************
+
+// Standard includes.
 #include <stdio.h>
 #include <stdlib.h>
 
-// Free-RTOS includes
 #include "osi.h"
 
 // Driverlib includes
@@ -84,35 +93,33 @@
 //*****************************************************************************
 //                      MACRO DEFINITIONS
 //*****************************************************************************
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 #define UART_PRINT              Report
 #define SPAWN_TASK_PRIORITY     9
-#define OSI_STACK_SIZE          1024
+#define OSI_STACK_SIZE          2048
 #define APP_NAME                "FreeRTOS Demo"
+#define MAX_MSG_LENGTH			16
 
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
 // The queue used to send strings to the task1.
-OsiMsgQ_t xPrintQueue;
+OsiMsgQ_t MsgQ;
 
-#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
-#endif
-#if defined(ewarm)
-extern uVectorEntry __vector_table;
-#endif
 
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- End
 //*****************************************************************************
 
+
 //*****************************************************************************
 //                      LOCAL FUNCTION DEFINITIONS
 //*****************************************************************************
-static void vTestTask1(void *pvParameters);
-static void vTestTask2(void *pvParameters);
+static void vTestTask1( void *pvParameters );
+static void vTestTask2( void *pvParameters );
 static void BoardInit();
+
 
 #ifdef USE_FREERTOS
 //*****************************************************************************
@@ -129,10 +136,13 @@ static void BoardInit();
 //! \return none
 //!
 //*****************************************************************************
-void vAssertCalled(const char *pcFile, unsigned long ulLine) {
-	//Handle Assert here
-	while (1) {
-	}
+void
+vAssertCalled( const char *pcFile, unsigned long ulLine )
+{
+    //Handle Assert here
+    while(1)
+    {
+    }
 }
 
 //*****************************************************************************
@@ -144,8 +154,10 @@ void vAssertCalled(const char *pcFile, unsigned long ulLine) {
 //! \return none
 //!
 //*****************************************************************************
-void vApplicationIdleHook(void) {
-	//Handle Idle Hook for Profiling, Power Management etc
+void
+vApplicationIdleHook( void)
+{
+    //Handle Idle Hook for Profiling, Power Management etc
 }
 
 //*****************************************************************************
@@ -157,10 +169,12 @@ void vApplicationIdleHook(void) {
 //! \return none
 //!
 //*****************************************************************************
-void vApplicationMallocFailedHook() {
-	//Handle Memory Allocation Errors
-	while (1) {
-	}
+void vApplicationMallocFailedHook()
+{
+    //Handle Memory Allocation Errors
+    while(1)
+    {
+    }
 }
 
 //*****************************************************************************
@@ -172,11 +186,13 @@ void vApplicationMallocFailedHook() {
 //! \return none
 //!
 //*****************************************************************************
-void vApplicationStackOverflowHook(OsiTaskHandle *pxTask,
-		signed char *pcTaskName) {
-	//Handle FreeRTOS Stack Overflow
-	while (1) {
-	}
+void vApplicationStackOverflowHook( OsiTaskHandle *pxTask,
+                                   signed char *pcTaskName)
+{
+    //Handle FreeRTOS Stack Overflow
+    while(1)
+    {
+    }
 }
 #endif //USE_FREERTOS
 
@@ -192,17 +208,19 @@ void vApplicationStackOverflowHook(OsiTaskHandle *pxTask,
 //! \return none
 //
 //******************************************************************************
-void vTestTask1(void *pvParameters) {
-	char *pcMessage;
-	for (;;) {
-		/* Wait for a message to arrive. */
-		osi_MsgQRead(&xPrintQueue, &pcMessage, OSI_WAIT_FOREVER);
+void vTestTask1( void *pvParameters )
+{
+	char pcMessage[MAX_MSG_LENGTH];
+    for( ;; )
+    {
+    	/* Wait for a message to arrive. */
+    	osi_MsgQRead(&MsgQ, pcMessage, OSI_WAIT_FOREVER);
 
 		UART_PRINT("message = ");
 		UART_PRINT(pcMessage);
 		UART_PRINT("\n\r");
-		MAP_UtilsDelay(2000000);
-	}
+		osi_Sleep(200);
+    }
 }
 
 //******************************************************************************
@@ -217,18 +235,21 @@ void vTestTask1(void *pvParameters) {
 //! \return none
 //
 //******************************************************************************
-void vTestTask2(void *pvParameters) {
-	unsigned long ul_2;
-	const char *pcInterruptMessage[4] = { "Welcome", "to", "CC32xx",
-			"development !\n" };
-	ul_2 = 0;
+void vTestTask2( void *pvParameters )
+{
+   unsigned long ul_2;
+   const char *pcInterruptMessage[4] = {"Welcome","to","CC32xx"
+           ,"development !\n"};
 
-	for (;;) {
-		/* Queue a message for the print task to display on the UART CONSOLE. */
-		osi_MsgQWrite(&xPrintQueue, &pcInterruptMessage[ul_2 % 4], OSI_WAIT_FOREVER);
-		ul_2++;
-		MAP_UtilsDelay(2000000);
-	}
+   ul_2 =0;
+
+   for( ;; )
+     {
+       /* Queue a message for the print task to display on the UART CONSOLE. */
+	   osi_MsgQWrite(&MsgQ, (void*) pcInterruptMessage[ul_2 % 4], OSI_NO_WAIT);
+	   ul_2++;
+	   osi_Sleep(200);
+     }
 }
 
 //*****************************************************************************
@@ -240,13 +261,15 @@ void vTestTask2(void *pvParameters) {
 //! \return none
 //!
 //*****************************************************************************
-static void DisplayBanner(char * AppName) {
+static void
+DisplayBanner(char * AppName)
+{
 
-	Report("\n\n\n\r");
-	Report("\t\t *************************************************\n\r");
-	Report("\t\t    CC3200 %s Application       \n\r", AppName);
-	Report("\t\t *************************************************\n\r");
-	Report("\n\n\n\r");
+    Report("\n\n\n\r");
+    Report("\t\t *************************************************\n\r");
+    Report("\t\t    CC3200 %s Application       \n\r", AppName);
+    Report("\t\t *************************************************\n\r");
+    Report("\n\n\n\r");
 }
 
 //*****************************************************************************
@@ -258,26 +281,22 @@ static void DisplayBanner(char * AppName) {
 //! \return None
 //
 //*****************************************************************************
-static void BoardInit(void) {
-	/* In case of TI-RTOS vector table is initialize by OS itself */
-#ifndef USE_TIRTOS
-	//
-	// Set vector table base
-	//
-#if defined(ccs) || defined(gcc)
-	MAP_IntVTableBaseSet((unsigned long) &g_pfnVectors[0]);
-#endif
-#if defined(ewarm)
-	MAP_IntVTableBaseSet((unsigned long)&__vector_table);
-#endif
-#endif
-	//
-	// Enable Processor
-	//
-	MAP_IntMasterEnable();
-	MAP_IntEnable(FAULT_SYSTICK);
+static void
+BoardInit(void)
+{
+/* In case of TI-RTOS vector table is initialize by OS itself */
+  //
+  // Set vector table base
+  //
+    MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 
-	PRCMCC3200MCUInit();
+  //
+  // Enable Processor
+  //
+  MAP_IntMasterEnable();
+  MAP_IntEnable(FAULT_SYSTICK);
+
+  PRCMCC3200MCUInit();
 }
 
 //*****************************************************************************
@@ -289,58 +308,59 @@ static void BoardInit(void) {
 //! \return none
 //
 //*****************************************************************************
-int main(void) {
-	//
-	// Initialize the board
-	//
-	BoardInit();
+int main( void )
+{
+    //
+    // Initialize the board
+    //
+    BoardInit();
 
-	PinMuxConfig();
+    PinMuxConfig();
 
-	//
-	// Initializing the terminal
-	//
-	InitTerm();
+    //
+    // Initializing the terminal
+    //
+    InitTerm();
 
-	//
-	// Clearing the terminal
-	//
-	ClearTerm();
+    //
+    // Clearing the terminal
+    //
+    ClearTerm();
 
-	//
-	// Diasplay Banner
-	//
-	DisplayBanner(APP_NAME);
+    //
+    // Diasplay Banner
+    //
+    DisplayBanner(APP_NAME);
 
-	//
-	// Creating a queue for 10 elements.
-	//
-	osi_MsgQCreate(&xPrintQueue, "Message Queue", sizeof(unsigned long), 10);
+    //
+    // Creating a queue for 10 elements.
+    //
+    OsiReturnVal_e osi_retVal;
+    osi_retVal = osi_MsgQCreate(&MsgQ, "MSGQ", MAX_MSG_LENGTH, 10);
+    if(osi_retVal != OSI_OK)
+    {
+    	// Queue was not created and must not be used.
+    	while(1);
+    }
 
-	if (xPrintQueue == 0) {
-		// Queue was not created and must not be used.
-		return 0;
-	}
-	VStartSimpleLinkSpawnTask(SPAWN_TASK_PRIORITY);
+    //
+    // Create the Queue Receive task
+    //
+    osi_TaskCreate( vTestTask1, "TASK1",\
+    							OSI_STACK_SIZE, NULL, 1, NULL );
 
-	//
-	// Create the Queue Receive task
-	//
-	osi_TaskCreate(vTestTask1, "TASK1",
-	OSI_STACK_SIZE, NULL, 1, NULL);
+    //
+    // Create the Queue Send task
+    //
+    osi_TaskCreate( vTestTask2, "TASK2",\
+    							OSI_STACK_SIZE,NULL, 1, NULL );
 
-	//
-	// Create the Queue Send task
-	//
-	osi_TaskCreate(vTestTask2, "TASK2",
-	OSI_STACK_SIZE, NULL, 1, NULL);
+    //
+    // Start the task scheduler
+    //
+    osi_start();
 
-	//
-	// Start the task scheduler
-	//
-	osi_start();
-
-	return 0;
+    return 0;
 }
 
 //*****************************************************************************

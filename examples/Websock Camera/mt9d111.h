@@ -36,8 +36,8 @@ long CameraSensorInit();
     \note
     \warning
 */
-long StartSensorInJpegMode();
-
+long StartSensorInJpegMode(int width, int height);
+long CameraSensorResolution(int width, int height);
 //*****************************************************************************
 //
 // Mark the end of the C bindings section for C++ compilers.

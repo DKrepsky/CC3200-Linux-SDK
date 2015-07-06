@@ -82,7 +82,7 @@
 #include "uart_if.h"
 #include "pinmux.h"
 
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 #define APP_NAME                "Sleep Deepsleep"
 #define ARM_SYSTEM_CTRL_REG     0xE000ED10
 #define SYS_CLK                 80000000
@@ -91,7 +91,7 @@
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
-#if defined(ccs)
+#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -270,7 +270,11 @@ void PerformPRCMSleepGPTWakeup()
     //
     Timer_IF_Init(PRCM_TIMERA0, TIMERA0_BASE, TIMER_CFG_ONE_SHOT, TIMER_BOTH, 0);
     Timer_IF_IntSetup(TIMERA0_BASE, TIMER_BOTH, AppGPTCallBackHandler);
-    Timer_IF_Start(TIMERA0_BASE, TIMER_BOTH, (4 * SYS_CLK));
+
+	//
+	// Start timer with value in mSec
+	//
+	Timer_IF_Start(TIMERA0_BASE, TIMER_BOTH, 4000);
     
     //
     // Enable the Sleep Clock
@@ -326,7 +330,11 @@ void PerformPRCMDeepSleepGPTWakeup()
     //
     Timer_IF_Init(PRCM_TIMERA0, TIMERA0_BASE, TIMER_CFG_ONE_SHOT, TIMER_BOTH, 0);
     Timer_IF_IntSetup(TIMERA0_BASE, TIMER_BOTH, AppGPTCallBackHandler);
-    Timer_IF_Start(TIMERA0_BASE, TIMER_BOTH, (4 * SYS_CLK));
+
+	//
+	// Start timer with value in mSec
+	//
+	Timer_IF_Start(TIMERA0_BASE, TIMER_BOTH, 4000);
     
     //
     // Enable the DeepSleep Clock
@@ -394,7 +402,7 @@ BoardInit(void)
   //
   // Set vector table base
   //
-#if defined(ccs)
+#if defined(ccs) || defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)

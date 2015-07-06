@@ -68,7 +68,8 @@ extern unsigned long Network_IF_CurrentMCUState();
 extern void Network_IF_UnsetMCUMachineState(char stat);
 extern void Network_IF_SetMCUMachineState(char stat);
 extern void Network_IF_ResetMCUStateMachine();
-extern unsigned short itoa(short cNum, char *cString);
+// Removed becouse gcc already defines itoa
+//extern unsigned short itoa(short cNum, char *cString);
 //*****************************************************************************
 //
 // Mark the end of the C bindings section for C++ compilers.

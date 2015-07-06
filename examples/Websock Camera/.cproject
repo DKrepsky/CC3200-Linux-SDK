@@ -61,16 +61,16 @@
 									<listOptionValue builtIn="false" value="XGA_FRAME"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths.1544963549" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/inc&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/simplelink&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/driverlib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/interfaces&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/oslib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/include/netapps/http&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Websock Camera}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/other/FreeRTOS/Source/portable/GCC/ARM_CM4&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/other/FreeRTOS/Source/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/other/FreeRTOS&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/driverlib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/simplelink/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/examples/common&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/oslib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/src/netapps/http/server&quot;"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.1075982934" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input"/>
 							</tool>
@@ -82,9 +82,8 @@
 									<listOptionValue builtIn="false" value="&quot;${CC3200SDK}/other/cc3200.ld&quot;"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.libs.1447807531" name="Libraries (-l)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.libs" valueType="libs">
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="webserver"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="osi"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="netapps"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="interfaces"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="simplelink"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="driver"/>
 								</option>

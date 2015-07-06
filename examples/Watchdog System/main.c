@@ -81,9 +81,9 @@
 
 
 
-#define IP_ADDR                 0xc0a80102 /* 192.168.0.106 */
+#define IP_ADDR                 0xc0a8006A /* 192.168.0.106 */
 #define APPLICATION_NAME        "Watchdog System Demo"
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 
 #define PORT_NUM           5001
 #define BUF_SIZE           1400
@@ -115,7 +115,7 @@ static long ConfigureSimpleLinkToDefaultState();
 //*****************************************************************************
 // GLOBAL VARIABLES -- Start
 //*****************************************************************************
-unsigned long  g_ulStatus = 0;//SimpleLink Status
+volatile unsigned long  g_ulStatus = 0;//SimpleLink Status
 unsigned long  g_ulGatewayIP = 0; //Network Gateway IP address
 unsigned char  g_ucConnectionSSID[SSID_LEN_MAX+1]; //Connection SSID
 unsigned char  g_ucConnectionBSSID[BSSID_LEN_MAX]; //Connection BSSID
@@ -348,23 +348,23 @@ void SimpleLinkSockEventHandler(SlSockEvent_t *pSock)
     switch( pSock->Event )
     {
         case SL_SOCKET_TX_FAILED_EVENT:
-            switch( pSock->EventData.status )
+            switch( pSock->socketAsyncEvent.SockTxFailData.status)
             {
                 case SL_ECLOSE: 
-                    /*UART_PRINT("[SOCK ERROR] - close socket (%d) operation "
+                    UART_PRINT("[SOCK ERROR] - close socket (%d) operation "
                                 "failed to transmit all queued packets\n\n", 
-                                    pSock->EventData.sd);*/
+                                    pSock->socketAsyncEvent.SockTxFailData.sd);
                     break;
                 default: 
-                    /*UART_PRINT("[SOCK ERROR] - TX FAILED  :  socket %d , reason "
+                    UART_PRINT("[SOCK ERROR] - TX FAILED  :  socket %d , reason "
                                 "(%d) \n\n",
-                                pSock->EventData.sd, pSock->EventData.status); */
+                                pSock->socketAsyncEvent.SockTxFailData.sd, pSock->socketAsyncEvent.SockTxFailData.status);
                   break;
             }
             break;
 
         default:
-           /*UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);*/
+        	UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
           break;
     }
 }
@@ -761,7 +761,15 @@ BoardInit(void)
     PRCMCC3200MCUInit();
 }
 
-
+//*****************************************************************************
+//
+//! Mandatory Configuration to put the PM into safe state before entering hibernate
+//!
+//! \param  None
+//!
+//! \return None
+//
+//*****************************************************************************
 static inline void HIBEntrePreamble()
 {
     HWREG(0x400F70B8) = 1;

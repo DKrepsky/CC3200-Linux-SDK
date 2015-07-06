@@ -1,31 +1,39 @@
-DRIVERLIB = source/driverlib
-SIMPLELINK = source/simplelink
-OSLIB = source/oslib
-MIDDLEWARE = source/middleware
-INTERFACES = source/interfaces
-NETAPP = source/netapps
+DRIVERLIB = src/driverlib
+SIMPLELINK = src/simplelink
+OSLIB = src/oslib
+MIDDLEWARE = src/middleware
+WEBCLIENT = src/netapps/http/client
+WEBSERVER = src/netapps/http/server
+JSON = src/netapps/json
+MQTT = src/netapps/mqtt
+SMTP = src/netapps/smtp/client
+TFTP = src/netapps/tftp/client
+XMPP = src/netapps/xmpp/client
 
-ifeq ("${target}", "NONOS")
-	SDK_TARGETS = $(SIMPLELINK) $(MIDDLEWARE) $(INTERFACES) $(NETAPP)
-else
-	ifeq ("${target}", "TINY")
-		SDK_TARGETS = $(SIMPLELINK)
-	else
-		SDK_TARGETS = $(DRIVERLIB) $(SIMPLELINK) $(OSLIB) $(MIDDLEWARE) $(INTERFACES) $(NETAPP)
-	endif
-endif
 
-.PHONY: all $(SDK_TARGETS)
-all: $(SDK_TARGETS)
+SDK_TARGETS = $(DRIVERLIB) $(SIMPLELINK) $(OSLIB) $(MIDDLEWARE) $(WEBCLIENT) $(WEBSERVER) $(JSON) $(MQTT) $(SMTP) $(TFTP) $(XMPP)
+SDK_TARGETS_NONOS = $(SIMPLELINK) $(MIDDLEWARE) 
+SDK_TARGETS_TINY = $(SIMPLELINK)
 
-clean: 
-	rm -rf lib/*
 
+.PHONY: all
+all: os nonos tiny
+
+os: $(SDK_TARGETS)
+
+nonos: $(SDK_TARGETS_NONOS)
+
+tiny: $(SDK_TARGETS_TINY)
+
+.PHONY: $(SDK_TARGETS)
 $(SDK_TARGETS):
-	@$(MAKE) -C $@;
+	@$(MAKE) -C $@
 
 $(SDK_TARGETS_NONOS):
-	@$(MAKE) -C $@ target=NONOS;
+	@$(MAKE) -C $@ target=NONOS
 
 $(SDK_TARGETS_TINY):
 	@$(MAKE) -C $@ target=TINY;
+
+clean: 
+	rm -rf lib/*

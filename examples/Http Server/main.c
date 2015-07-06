@@ -87,7 +87,7 @@
 
 
 #define APPLICATION_NAME        "HTTP Server"
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 #define AP_SSID_LEN_MAX         (33)
 #define ROLE_INVALID            (-5)
 
@@ -117,7 +117,7 @@ typedef enum{
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
-unsigned long  g_ulStatus = 0;//SimpleLink Status
+volatile unsigned long  g_ulStatus = 0;//SimpleLink Status
 unsigned long  g_ulPingPacketsRecv = 0; //Number of Ping Packets received 
 unsigned long  g_ulGatewayIP = 0; //Network Gateway IP address
 unsigned char  g_ucConnectionSSID[SSID_LEN_MAX+1]; //Connection SSID
@@ -128,7 +128,7 @@ int g_iSimplelinkRole = ROLE_INVALID;
 signed int g_uiIpAddress = 0;
 unsigned char g_ucSSID[AP_SSID_LEN_MAX];
 
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -146,7 +146,7 @@ volatile unsigned short g_usMCNetworkUstate = 0;
 
 int g_uiSimplelinkRole = ROLE_INVALID;
 unsigned int g_uiDeviceModeConfig = ROLE_STA; //default is STA mode
-unsigned char g_ucConnectTimeout =0;
+volatile unsigned char g_ucConnectTimeout =0;
 
 
 
@@ -1096,7 +1096,7 @@ BoardInit(void)
   //
   // Set vector table base
   //
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)

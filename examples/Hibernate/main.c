@@ -83,11 +83,12 @@
 #ifndef NOTERM
 #include "uart_if.h"
 #endif
+#include "utils_if.h"
 #include "timer_if.h"
 #include "pinmux.h"
 
 
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 #define APPNAME                 "Hibernate"
 #define APP_UDP_PORT            5001
 #define SYS_CLK                 80000000
@@ -101,12 +102,8 @@
 SlSecParams_t SecurityParams = {0}; // AP Security Parameters
 unsigned short g_usTimerInts = 0;   // Variable used in Timer Interrupt Handler
 
-#if defined(gcc)
 extern void (* const g_pfnVectors[])(void);
-#endif
-#if defined(ewarm)
-extern uVectorEntry __vector_table;
-#endif
+
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
@@ -175,7 +172,7 @@ void LedTimerConfigNStart()
     //
     Timer_IF_Init(PRCM_TIMERA0,TIMERA0_BASE,TIMER_CFG_PERIODIC,TIMER_A,0);
     Timer_IF_IntSetup(TIMERA0_BASE,TIMER_A,TimerPeriodicIntHandler);
-    Timer_IF_Start(TIMERA0_BASE,TIMER_A,PERIODIC_TEST_CYCLES / 10);
+    Timer_IF_Start(TIMERA0_BASE,TIMER_A,100); // time value is in mSec
 }
 
 //****************************************************************************
@@ -405,7 +402,11 @@ void EnterHIBernate()
 
     DBG_PRINT("HIB: Entering HIBernate...\n\r");
     MAP_UtilsDelay(80000);
-
+    
+    //
+    // powering down SPI Flash to save power 
+    //
+    Utils_SpiFlashDeepPowerDown();
     //
     // Enter HIBernate mode
     //
@@ -425,17 +426,10 @@ static void
 BoardInit(void)
 {
 // In case of TI-RTOS vector table is initialize by OS itself
-#ifndef USE_TIRTOS
     //
     // Set vector table base
     //
-#if defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
-#endif
-#if defined(ewarm)
-    MAP_IntVTableBaseSet((unsigned long)&__vector_table);
-#endif
-#endif
 
     //
     // Enable Processor

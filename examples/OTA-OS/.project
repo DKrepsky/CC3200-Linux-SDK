@@ -29,6 +29,21 @@
 			<type>2</type>
 			<locationURI>CC3200SDK/other/FreeRTOS</locationURI>
 		</link>
+		<link>
+			<name>button_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/button_if.c</locationURI>
+		</link>
+		<link>
+			<name>uart_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/uart_if.c</locationURI>
+		</link>
+		<link>
+			<name>udma_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/udma_if.c</locationURI>
+		</link>
 	</linkedResources>
 	<variableList>
 		<variable>

@@ -43,6 +43,7 @@
 //*****************************************************************************
 
 #include <string.h>
+#include <stdlib.h>
 
 // Driverlib Includes
 #include "rom_map.h"
@@ -97,7 +98,7 @@ void CameraAppTask(void *param)
 	UINT8 Opcode = 0x02;
 	struct HttpBlob Write;
 
-	InitCameraComponents();
+	InitCameraComponents(640, 480);
 
 	while(1)
 	{
@@ -152,6 +153,9 @@ void WebSocketRecvEventHandler(UINT16 uConnection, char *ReadBuffer)
 		}
 
 	}
+	//Free memory as we are not using anywhere later
+	free(g_Buffer);
+	g_Buffer = NULL;
 	/* Enter websocket application code here */
 	return;
 }

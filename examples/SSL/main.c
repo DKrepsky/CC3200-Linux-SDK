@@ -79,18 +79,18 @@
 
 
 #define APPLICATION_NAME        "SSL"
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 
 #define SERVER_NAME                "www.google.com"
 #define GOOGLE_DST_PORT             443
 
 #define SL_SSL_CA_CERT_FILE_NAME        "/cert/testcacert.der"
 
-#define DATE                26    /* Current Date */
-#define MONTH               12    /* Month 1-12 */
-#define YEAR                2014  /* Current year */
-#define HOUR                13    /* Time - hours */
-#define MINUTE              25    /* Time - minutes */
+#define DATE                4    /* Current Date */
+#define MONTH               3     /* Month 1-12 */
+#define YEAR                2015  /* Current year */
+#define HOUR                12    /* Time - hours */
+#define MINUTE              32    /* Time - minutes */
 #define SECOND              0     /* Time - seconds */
 
 
@@ -125,7 +125,7 @@ typedef struct
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
-unsigned long  g_ulStatus = 0;//SimpleLink Status
+volatile unsigned long  g_ulStatus = 0;//SimpleLink Status
 unsigned long  g_ulPingPacketsRecv = 0; //Number of Ping Packets received
 unsigned long  g_ulGatewayIP = 0; //Network Gateway IP address
 unsigned char  g_ucConnectionSSID[SSID_LEN_MAX+1]; //Connection SSID
@@ -364,23 +364,26 @@ void SimpleLinkSockEventHandler(SlSockEvent_t *pSock)
     switch( pSock->Event )
     {
         case SL_SOCKET_TX_FAILED_EVENT:
-            switch( pSock->EventData.status )
+            switch( pSock->socketAsyncEvent.SockTxFailData.status)
             {
-                case SL_ECLOSE:
+                case SL_ECLOSE: 
                     UART_PRINT("[SOCK ERROR] - close socket (%d) operation "
-                               "failed to transmit all queued packets\n\n",
-                               pSock->EventData.sd);
+                                "failed to transmit all queued packets\n\n", 
+                                    pSock->socketAsyncEvent.SockTxFailData.sd);
                     break;
-                default:
-                    UART_PRINT("[SOCK ERROR] - TX FAILED  :  socket %d , "
-                               "reason (%d) \n\n",
-                               pSock->EventData.sd, pSock->EventData.status);
+                default: 
+                    UART_PRINT("[SOCK ERROR] - TX FAILED  :  socket %d , reason "
+                                "(%d) \n\n",
+                                pSock->socketAsyncEvent.SockTxFailData.sd, pSock->socketAsyncEvent.SockTxFailData.status);
+                  break;
             }
             break;
 
         default:
-            UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
+        	UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
+          break;
     }
+
 }
 
 
@@ -573,7 +576,7 @@ static void BoardInit(void)
   //
   // Set vector table base
   //
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)

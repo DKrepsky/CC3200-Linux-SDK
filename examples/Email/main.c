@@ -74,7 +74,7 @@
 #define RX_BUFFER_OVERHEAD_SIZE          (20)
 #define NETAPP_IPCONFIG_MAC_OFFSET       (20)
 #define PLATFORM_VERSION                 (1)
-#define APPLICATION_VERSION              (3)
+#define APPLICATION_VERSION              "1.1.1"
 
 #ifndef NOTERM
 #define DispatcherUartSendPacket                Report
@@ -169,11 +169,14 @@ unsigned int g_uiPBCount = 0;
 
 
 // GLOBAL VARIABLES for VECTOR TABLE
-#if defined(gcc)
+#ifndef USE_TIRTOS
+/* in case of TI-RTOS don't include startup_*.c in app project */
+#if defined(gcc) || defined(ccs)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
 extern uVectorEntry __vector_table;
+#endif
 #endif
 
 //*****************************************************************************
@@ -308,7 +311,7 @@ void LedTimerConfigNStart()
     //
     Timer_IF_Init(PRCM_TIMERA0,TIMERA0_BASE,TIMER_CFG_PERIODIC,TIMER_A,0);
     Timer_IF_IntSetup(TIMERA0_BASE,TIMER_A,TimerPeriodicIntHandler);
-    Timer_IF_Start(TIMERA0_BASE,TIMER_A,PERIODIC_TEST_CYCLES / 10);
+    Timer_IF_Start(TIMERA0_BASE,TIMER_A,100);   // time value is in mSec
 }
 
 //****************************************************************************
@@ -1095,11 +1098,16 @@ BoardInit(void)
     //
     // Set vector table base
     //
-#if defined(gcc)
+#ifndef USE_TIRTOS
+  //
+  // Set vector table base
+  //
+#if defined(ccs) || defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)
     MAP_IntVTableBaseSet((unsigned long)&__vector_table);
+#endif
 #endif
 
     //

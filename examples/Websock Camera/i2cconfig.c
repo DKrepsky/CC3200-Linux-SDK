@@ -62,13 +62,15 @@ void MT9D111Delay(unsigned long ucDelay);
 //! \return                     None
 //
 //*****************************************************************************
-#if defined(gcc)
-void MT9D111Delay(unsigned long ucDelay) {
-	asm("    subs    r0, #1\n"
+#if defined(ewarm)
+void MT9D111Delay(unsigned long ucDelay)
+{
+	__asm("    subs    r0, #1\n"
 			"    bne.n   MT9D111Delay\n"
 			"    bx      lr");
 }
 #endif
+
 #if defined(ccs)
 
 __asm("    .sect \".text:MT9D111Delay\"\n"
@@ -81,6 +83,14 @@ __asm("    .sect \".text:MT9D111Delay\"\n"
 		"    bne.n MT9D111Delay\n"
 		"    bx lr\n");
 
+#endif
+
+#if defined(gcc)
+void MT9D111Delay(unsigned long ucDelay) {
+	__asm("MT9D111Delay_:\n"
+			"    subs r0, #1\n"
+			"    bne.n MT9D111Delay_\n");
+}
 #endif
 
 //*****************************************************************************

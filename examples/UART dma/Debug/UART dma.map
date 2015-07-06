@@ -1,0 +1,1609 @@
+Archive member included because of file (symbol)
+
+/opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+                              ./main.o (IntMasterEnable)
+/opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+                              ./pinmux.o (PinTypeUART)
+/opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+                              ./pinmux.o (PRCMPeripheralClkEnable)
+/opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+                              ./main.o (UARTFIFOLevelSet)
+/opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+                              ./udma_if.o (uDMAEnable)
+/opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+                              /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o) (UtilsDelay)
+/opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+                              /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o) (CPUcpsid)
+/opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+                              /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o) (FlashDisable)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_aeabi_uldivmod.o)
+                              /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o) (__aeabi_uldivmod)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(bpabi.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_aeabi_uldivmod.o) (__gnu_uldivmod_helper)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_dvmd_tls.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_aeabi_uldivmod.o) (__aeabi_ldiv0)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_divdi3.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(bpabi.o) (__divdi3)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_udivdi3.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(bpabi.o) (__udivdi3)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-exit.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/crt0.o (exit)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-impure.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-exit.o) (_global_impure_ptr)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-init.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/crt0.o (__libc_init_array)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-malloc.o)
+                              ./uart_if.o (malloc)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-malloc.o) (_malloc_r)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memmove.o)
+                              ./uart_if.o (memmove)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memset.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/crt0.o (memset)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mlock.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o) (__malloc_lock)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-realloc.o)
+                              ./uart_if.o (realloc)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reallocr.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-realloc.o) (_realloc_r)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-sbrkr.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o) (_sbrk_r)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-strlen.o)
+                              ./uart_if.o (strlen)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-vsnprintf.o)
+                              ./uart_if.o (vsnprintf)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__call_atexit.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-exit.o) (__call_exitprocs)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-atexit.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__call_atexit.o) (atexit)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-fini.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__call_atexit.o) (__libc_fini_array)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-freer.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-malloc.o) (_free_r)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reent.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-sbrkr.o) (errno)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-vsnprintf.o) (_svfprintf_r)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__atexit.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-atexit.o) (__register_exitproc)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o) (_dtoa_r)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o) (_localeconv_r)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memchr.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o) (memchr)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memcpy.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o) (memcpy)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o) (_Balloc)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-s_fpclassify.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o) (__fpclassifyd)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-strcmp.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o) (strcmp)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfiprintf.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o) (__ssprint_r)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-callocr.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o) (_calloc_r)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_addsubdf3.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o) (__aeabi_dsub)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_muldivdf3.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o) (__aeabi_dmul)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_cmpdf2.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o) (__aeabi_dcmpeq)
+/usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_fixdfsi.o)
+                              /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o) (__aeabi_d2iz)
+
+Allocating common symbols
+Common symbol       size              file
+
+gfpAppCallbackHndl  0x100             ./udma_if.o
+errno               0x4               /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reent.o)
+iDone               0x1               ./udma_if.o
+gpCtlTbl            0x400             ./udma_if.o
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crti.o
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crti.o
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crti.o
+ .init          0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crti.o
+ .fini          0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crti.o
+ .ARM.attributes
+                0x0000000000000000       0x1e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crti.o
+ .text          0x0000000000000000       0x5c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtbegin.o
+ .data          0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtbegin.o
+ .bss           0x0000000000000000       0x1c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtbegin.o
+ .init_array    0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtbegin.o
+ .fini_array    0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtbegin.o
+ .eh_frame      0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtbegin.o
+ .jcr           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtbegin.o
+ .ARM.attributes
+                0x0000000000000000       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtbegin.o
+ .text          0x0000000000000000       0x74 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/crt0.o
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/crt0.o
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/crt0.o
+ .ARM.extab     0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/crt0.o
+ .ARM.exidx     0x0000000000000000        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/crt0.o
+ .ARM.attributes
+                0x0000000000000000       0x1c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/crt0.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .text          0x0000000000000000        0x0 ./main.o
+ .data          0x0000000000000000        0x0 ./main.o
+ .bss           0x0000000000000000        0x0 ./main.o
+ .bss.g_iCounter
+                0x0000000000000000        0x4 ./main.o
+ .group         0x0000000000000000        0x8 ./pinmux.o
+ .group         0x0000000000000000        0x8 ./pinmux.o
+ .group         0x0000000000000000        0x8 ./pinmux.o
+ .group         0x0000000000000000        0x8 ./pinmux.o
+ .group         0x0000000000000000        0x8 ./pinmux.o
+ .group         0x0000000000000000        0x8 ./pinmux.o
+ .group         0x0000000000000000        0x8 ./pinmux.o
+ .group         0x0000000000000000        0x8 ./pinmux.o
+ .group         0x0000000000000000        0x8 ./pinmux.o
+ .group         0x0000000000000000        0x8 ./pinmux.o
+ .text          0x0000000000000000        0x0 ./pinmux.o
+ .data          0x0000000000000000        0x0 ./pinmux.o
+ .bss           0x0000000000000000        0x0 ./pinmux.o
+ .debug_macro   0x0000000000000000      0x87a ./pinmux.o
+ .debug_macro   0x0000000000000000       0x3a ./pinmux.o
+ .debug_macro   0x0000000000000000       0xe8 ./pinmux.o
+ .debug_macro   0x0000000000000000       0x9a ./pinmux.o
+ .debug_macro   0x0000000000000000      0x136 ./pinmux.o
+ .debug_macro   0x0000000000000000      0xba7 ./pinmux.o
+ .debug_macro   0x0000000000000000      0x1c6 ./pinmux.o
+ .group         0x0000000000000000        0x8 ./startup_gcc.o
+ .group         0x0000000000000000        0x8 ./startup_gcc.o
+ .group         0x0000000000000000        0x8 ./startup_gcc.o
+ .group         0x0000000000000000        0x8 ./startup_gcc.o
+ .group         0x0000000000000000        0x8 ./startup_gcc.o
+ .group         0x0000000000000000        0x8 ./startup_gcc.o
+ .group         0x0000000000000000        0x8 ./startup_gcc.o
+ .group         0x0000000000000000        0x8 ./startup_gcc.o
+ .text          0x0000000000000000        0x0 ./startup_gcc.o
+ .data          0x0000000000000000        0x0 ./startup_gcc.o
+ .bss           0x0000000000000000        0x0 ./startup_gcc.o
+ .debug_macro   0x0000000000000000      0x87a ./startup_gcc.o
+ .debug_macro   0x0000000000000000       0x3a ./startup_gcc.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./uart_if.o
+ .text          0x0000000000000000        0x0 ./uart_if.o
+ .data          0x0000000000000000        0x0 ./uart_if.o
+ .bss           0x0000000000000000        0x0 ./uart_if.o
+ .bss.__Errorlog
+                0x0000000000000000        0x4 ./uart_if.o
+ .data.ilen     0x0000000000000000        0x4 ./uart_if.o
+ .text.InitTerm
+                0x0000000000000000       0x2c ./uart_if.o
+ .text.Error    0x0000000000000000       0x4c ./uart_if.o
+ .text.GetCmd   0x0000000000000000       0xc0 ./uart_if.o
+ .text.TrimSpace
+                0x0000000000000000       0x98 ./uart_if.o
+ .debug_macro   0x0000000000000000      0x87a ./uart_if.o
+ .debug_macro   0x0000000000000000       0x22 ./uart_if.o
+ .debug_macro   0x0000000000000000       0x22 ./uart_if.o
+ .debug_macro   0x0000000000000000       0xe8 ./uart_if.o
+ .debug_macro   0x0000000000000000      0x1c6 ./uart_if.o
+ .debug_macro   0x0000000000000000      0x1a7 ./uart_if.o
+ .debug_macro   0x0000000000000000      0x13c ./uart_if.o
+ .debug_macro   0x0000000000000000       0x9a ./uart_if.o
+ .debug_macro   0x0000000000000000      0x136 ./uart_if.o
+ .debug_macro   0x0000000000000000      0xba7 ./uart_if.o
+ .debug_macro   0x0000000000000000       0x28 ./uart_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .group         0x0000000000000000        0x8 ./udma_if.o
+ .text          0x0000000000000000        0x0 ./udma_if.o
+ .data          0x0000000000000000        0x0 ./udma_if.o
+ .bss           0x0000000000000000        0x0 ./udma_if.o
+ .text.UDMAChannelSelect
+                0x0000000000000000       0x38 ./udma_if.o
+ .text.UDMASetupAutoMemTransfer
+                0x0000000000000000       0x38 ./udma_if.o
+ .text.UDMASetupPingPongTransfer
+                0x0000000000000000       0x60 ./udma_if.o
+ .text.UDMAStartTransfer
+                0x0000000000000000       0x14 ./udma_if.o
+ .text.UDMAStopTransfer
+                0x0000000000000000       0x14 ./udma_if.o
+ .text.UDMADeInit
+                0x0000000000000000       0x18 ./udma_if.o
+ .debug_macro   0x0000000000000000      0x87a ./udma_if.o
+ .debug_macro   0x0000000000000000       0x58 ./udma_if.o
+ .debug_macro   0x0000000000000000       0x22 ./udma_if.o
+ .debug_macro   0x0000000000000000       0x35 ./udma_if.o
+ .debug_macro   0x0000000000000000       0x9c ./udma_if.o
+ .debug_macro   0x0000000000000000       0x4a ./udma_if.o
+ .debug_macro   0x0000000000000000      0x27a ./udma_if.o
+ .debug_macro   0x0000000000000000       0x52 ./udma_if.o
+ .debug_macro   0x0000000000000000       0x16 ./udma_if.o
+ .debug_macro   0x0000000000000000       0x43 ./udma_if.o
+ .debug_macro   0x0000000000000000      0x180 ./udma_if.o
+ .debug_macro   0x0000000000000000       0x10 ./udma_if.o
+ .debug_macro   0x0000000000000000       0x22 ./udma_if.o
+ .debug_macro   0x0000000000000000       0x22 ./udma_if.o
+ .debug_macro   0x0000000000000000       0xbe ./udma_if.o
+ .debug_macro   0x0000000000000000       0x16 ./udma_if.o
+ .debug_macro   0x0000000000000000      0x197 ./udma_if.o
+ .debug_macro   0x0000000000000000       0x16 ./udma_if.o
+ .debug_macro   0x0000000000000000       0x35 ./udma_if.o
+ .debug_macro   0x0000000000000000      0x11e ./udma_if.o
+ .debug_macro   0x0000000000000000       0xe8 ./udma_if.o
+ .debug_macro   0x0000000000000000      0x4b2 ./udma_if.o
+ .debug_macro   0x0000000000000000       0x3a ./udma_if.o
+ .debug_macro   0x0000000000000000       0x9a ./udma_if.o
+ .debug_macro   0x0000000000000000      0x136 ./udma_if.o
+ .debug_macro   0x0000000000000000      0xba7 ./udma_if.o
+ .debug_macro   0x0000000000000000       0x9a ./udma_if.o
+ .debug_macro   0x0000000000000000      0x558 ./udma_if.o
+ .debug_macro   0x0000000000000000       0x40 ./udma_if.o
+ .debug_macro   0x0000000000000000      0x1c6 ./udma_if.o
+ .debug_macro   0x0000000000000000      0x13c ./udma_if.o
+ .debug_macro   0x0000000000000000       0x22 ./udma_if.o
+ .text          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .data          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .bss           0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .text.IntDefaultHandler
+                0x0000000000000000        0x2 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .text.IntMasterDisable
+                0x0000000000000000        0xa /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .text.IntUnregister
+                0x0000000000000000       0x14 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .text.IntPriorityGroupingSet
+                0x0000000000000000       0x1c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .text.IntPriorityGroupingGet
+                0x0000000000000000       0x24 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .text.IntPriorityGet
+                0x0000000000000000       0x1c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .text.IntDisable
+                0x0000000000000000       0x64 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .text.IntPendSet
+                0x0000000000000000       0x54 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .text.IntPendClear
+                0x0000000000000000       0x3c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .text.IntPriorityMaskSet
+                0x0000000000000000        0x4 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .text.IntPriorityMaskGet
+                0x0000000000000000        0x4 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .rodata.g_pulDisRegs
+                0x0000000000000000       0x18 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .rodata.g_pulPendRegs
+                0x0000000000000000       0x18 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .rodata.g_pulUnpendRegs
+                0x0000000000000000       0x18 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .rodata.g_pulPriority
+                0x0000000000000000       0x20 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .text          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .data          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .bss           0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .text.PinModeGet
+                0x0000000000000000       0x20 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .text.PinDirModeSet
+                0x0000000000000000       0x24 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .text.PinDirModeGet
+                0x0000000000000000       0x20 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .text.PinConfigGet
+                0x0000000000000000       0x2c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .text.PinTypeI2C
+                0x0000000000000000       0x18 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .text.PinTypeSPI
+                0x0000000000000000       0x16 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .text.PinTypeI2S
+                0x0000000000000000       0x16 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .text.PinTypeTimer
+                0x0000000000000000       0x16 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .text.PinTypeCamera
+                0x0000000000000000       0x16 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .text.PinTypeGPIO
+                0x0000000000000000       0x1c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .text.PinTypeADC
+                0x0000000000000000        0xa /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .text.PinTypeSDHost
+                0x0000000000000000       0x16 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .text          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .data          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .bss           0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.IsRTCUsed
+                0x0000000000000000       0x18 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMSOCReset
+                0x0000000000000000       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMMCUReset
+                0x0000000000000000       0x14 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMPeripheralStatusGet
+                0x0000000000000000       0x1c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMI2SClockFreqSet
+                0x0000000000000000       0x20 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMLPDSRestoreInfoSet
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMLPDSEnter
+                0x0000000000000000       0x40 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMLPDSWakeupSourceEnable
+                0x0000000000000000       0x14 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMLPDSWakeupSourceDisable
+                0x0000000000000000       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMLPDSWakeupCauseGet
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMLPDSIntervalSet
+                0x0000000000000000       0x18 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMLPDSWakeUpGPIOSelect
+                0x0000000000000000       0x24 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMSleepEnter
+                0x0000000000000000        0x4 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMDeepSleepEnter
+                0x0000000000000000       0x28 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMSRAMRetentionEnable
+                0x0000000000000000       0x24 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMSRAMRetentionDisable
+                0x0000000000000000       0x34 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMHibernateWakeupSourceEnable
+                0x0000000000000000       0x48 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMHibernateWakeupSourceDisable
+                0x0000000000000000       0x4c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMHibernateWakeupCauseGet
+                0x0000000000000000       0x18 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMHibernateIntervalSet
+                0x0000000000000000       0x70 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMHibernateWakeUpGPIOSelect
+                0x0000000000000000       0x40 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMHibernateEnter
+                0x0000000000000000       0x20 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMSlowClkCtrGet
+                0x0000000000000000       0x40 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMSlowClkCtrFastGet
+                0x0000000000000000       0x20 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMSlowClkCtrMatchSet
+                0x0000000000000000       0x28 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMSlowClkCtrMatchGet
+                0x0000000000000000       0x30 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMOCRRegisterWrite
+                0x0000000000000000       0x14 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMOCRRegisterRead
+                0x0000000000000000       0x18 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMIntRegister
+                0x0000000000000000       0x14 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMIntUnregister
+                0x0000000000000000       0x12 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMIntEnable
+                0x0000000000000000       0x38 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMIntDisable
+                0x0000000000000000       0x38 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMIntStatus
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMRTCInUseSet
+                0x0000000000000000       0x20 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMRTCInUseGet
+                0x0000000000000000        0xe /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMRTCSet
+                0x0000000000000000       0x60 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMRTCGet
+                0x0000000000000000       0x64 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMRTCMatchSet
+                0x0000000000000000       0x68 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMRTCMatchGet
+                0x0000000000000000       0x6c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMHIBRegRead
+                0x0000000000000000       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMHIBRegWrite
+                0x0000000000000000        0xa /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text.PRCMCameraFreqSet
+                0x0000000000000000       0x28 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .text          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .data          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .bss           0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTParityModeSet
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTParityModeGet
+                0x0000000000000000        0x8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTFIFOLevelGet
+                0x0000000000000000       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTConfigGetExpClk
+                0x0000000000000000       0x26 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTFIFOEnable
+                0x0000000000000000        0xa /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTFIFODisable
+                0x0000000000000000        0xa /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTModemControlSet
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTModemControlClear
+                0x0000000000000000        0xe /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTModemControlGet
+                0x0000000000000000        0x8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTModemStatusGet
+                0x0000000000000000        0x8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTFlowControlSet
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTFlowControlGet
+                0x0000000000000000        0x8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTTxIntModeSet
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTTxIntModeGet
+                0x0000000000000000        0x8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTCharsAvail
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTSpaceAvail
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTCharGetNonBlocking
+                0x0000000000000000        0xe /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTCharGet
+                0x0000000000000000        0xa /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTCharPutNonBlocking
+                0x0000000000000000        0xe /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTBreakCtl
+                0x0000000000000000       0x16 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTBusy
+                0x0000000000000000        0x8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTIntUnregister
+                0x0000000000000000       0x3c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTIntDisable
+                0x0000000000000000        0xa /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTIntStatus
+                0x0000000000000000        0xa /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTRxErrorGet
+                0x0000000000000000        0x8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text.UARTRxErrorClear
+                0x0000000000000000        0x6 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .text          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .data          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .bss           0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMADisable
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAErrorStatusGet
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAErrorStatusClear
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAChannelDisable
+                0x0000000000000000       0x14 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAChannelIsEnabled
+                0x0000000000000000       0x1c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAControlBaseGet
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAControlAlternateBaseGet
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAChannelRequest
+                0x0000000000000000       0x14 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAChannelAttributeDisable
+                0x0000000000000000       0x48 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAChannelAttributeGet
+                0x0000000000000000       0x4c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAChannelScatterGatherSet
+                0x0000000000000000       0x48 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAChannelSizeGet
+                0x0000000000000000       0x20 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAChannelModeGet
+                0x0000000000000000       0x24 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAIntUnregister
+                0x0000000000000000       0x12 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text.uDMAChannelAssign
+                0x0000000000000000       0x2c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .text          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+ .data          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+ .bss           0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+ .text          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+ .data          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+ .bss           0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+ .text.CPUcpsid
+                0x0000000000000000       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+ .text.CPUprimask
+                0x0000000000000000        0x6 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+ .text.CPUwfi   0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+ .text.CPUbasepriSet
+                0x0000000000000000        0xe /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+ .text.CPUbasepriGet
+                0x0000000000000000        0x6 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+ .text          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .data          0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .bss           0x0000000000000000        0x0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashDisable
+                0x0000000000000000       0x48 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashErase
+                0x0000000000000000       0x38 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashEraseNonBlocking
+                0x0000000000000000       0x1c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashMassErase
+                0x0000000000000000       0x34 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashMassEraseNonBlocking
+                0x0000000000000000       0x18 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashProgram
+                0x0000000000000000       0x78 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashProgramNonBlocking
+                0x0000000000000000       0x70 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashProtectGet
+                0x0000000000000000       0x44 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashIntRegister
+                0x0000000000000000       0x14 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashIntUnregister
+                0x0000000000000000       0x12 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashIntEnable
+                0x0000000000000000       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashIntDisable
+                0x0000000000000000       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashIntStatus
+                0x0000000000000000       0x14 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .text.FlashIntClear
+                0x0000000000000000        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .rodata.g_pulFMPPERegs
+                0x0000000000000000       0x40 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .rodata.g_pulFMPRERegs
+                0x0000000000000000       0x40 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .debug_info    0x0000000000000000      0x3f3 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .debug_abbrev  0x0000000000000000      0x1b5 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .debug_loc     0x0000000000000000      0x2e0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .debug_aranges
+                0x0000000000000000       0x88 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .debug_ranges  0x0000000000000000       0x78 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .debug_line    0x0000000000000000      0x1ef /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .debug_str     0x0000000000000000      0x2d5 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .comment       0x0000000000000000       0x71 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .debug_frame   0x0000000000000000      0x134 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .ARM.attributes
+                0x0000000000000000       0x33 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(flash.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_aeabi_uldivmod.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_aeabi_uldivmod.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(bpabi.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(bpabi.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_dvmd_tls.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_dvmd_tls.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_divdi3.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_divdi3.o)
+ .ARM.extab     0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_divdi3.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_udivdi3.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_udivdi3.o)
+ .ARM.extab     0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_udivdi3.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-exit.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-exit.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-exit.o)
+ .text.exit     0x0000000000000000       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-exit.o)
+ .debug_frame   0x0000000000000000       0x28 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-exit.o)
+ .ARM.attributes
+                0x0000000000000000       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-exit.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-impure.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-impure.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-impure.o)
+ .rodata._global_impure_ptr
+                0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-impure.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-init.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-init.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-init.o)
+ .text.__libc_init_array
+                0x0000000000000000       0x50 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-init.o)
+ .debug_frame   0x0000000000000000       0x2c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-init.o)
+ .ARM.attributes
+                0x0000000000000000       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-init.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-malloc.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-malloc.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-malloc.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memmove.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memmove.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memmove.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memset.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memset.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memset.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mlock.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mlock.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mlock.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-realloc.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-realloc.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-realloc.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reallocr.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reallocr.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reallocr.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-sbrkr.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-sbrkr.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-sbrkr.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-strlen.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-strlen.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-strlen.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-vsnprintf.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-vsnprintf.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-vsnprintf.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__call_atexit.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__call_atexit.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__call_atexit.o)
+ .text.startup.register_fini
+                0x0000000000000000       0x14 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__call_atexit.o)
+ .init_array.00000
+                0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__call_atexit.o)
+ .text.__call_exitprocs
+                0x0000000000000000       0xd4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__call_atexit.o)
+ .debug_frame   0x0000000000000000       0x50 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__call_atexit.o)
+ .ARM.attributes
+                0x0000000000000000       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__call_atexit.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-atexit.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-atexit.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-atexit.o)
+ .text.atexit   0x0000000000000000        0xc /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-atexit.o)
+ .debug_frame   0x0000000000000000       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-atexit.o)
+ .ARM.attributes
+                0x0000000000000000       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-atexit.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-fini.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-fini.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-fini.o)
+ .text.__libc_fini_array
+                0x0000000000000000       0x2c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-fini.o)
+ .debug_frame   0x0000000000000000       0x34 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-fini.o)
+ .ARM.attributes
+                0x0000000000000000       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-fini.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-freer.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-freer.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-freer.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reent.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reent.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reent.o)
+ .text.cleanup_glue
+                0x0000000000000000       0x1c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reent.o)
+ .text._reclaim_reent
+                0x0000000000000000       0x88 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reent.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__atexit.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__atexit.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__atexit.o)
+ .text.__register_exitproc
+                0x0000000000000000       0xa4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__atexit.o)
+ .debug_frame   0x0000000000000000       0x34 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__atexit.o)
+ .ARM.attributes
+                0x0000000000000000       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-__atexit.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .text._setlocale_r
+                0x0000000000000000       0x44 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .text.__locale_charset
+                0x0000000000000000        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .text.__locale_mb_cur_max
+                0x0000000000000000        0xc /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .text.__locale_msgcharset
+                0x0000000000000000        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .text.__locale_cjk_lang
+                0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .text.setlocale
+                0x0000000000000000       0x10 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .text.localeconv
+                0x0000000000000000        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .data.lc_message_charset
+                0x0000000000000000       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .bss._PathLocale
+                0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .bss.__nlocale_changed
+                0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .bss.__mlocale_changed
+                0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .data.lc_ctype_charset
+                0x0000000000000000       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .data.__mb_cur_max
+                0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memchr.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memchr.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memchr.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memcpy.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memcpy.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ .text.__s2b    0x0000000000000000       0x98 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ .text.__ulp    0x0000000000000000       0x40 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ .text.__b2d    0x0000000000000000       0xc4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ .text.__ratio  0x0000000000000000       0x58 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ .text._mprec_log10
+                0x0000000000000000       0x34 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ .text.__copybits
+                0x0000000000000000       0x48 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ .text.__any_on
+                0x0000000000000000       0x60 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ .rodata.__mprec_tinytens
+                0x0000000000000000       0x28 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-s_fpclassify.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-s_fpclassify.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-s_fpclassify.o)
+ .text          0x0000000000000000      0x2dc /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-strcmp.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-strcmp.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-strcmp.o)
+ .eh_frame      0x0000000000000000       0x70 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-strcmp.o)
+ .ARM.attributes
+                0x0000000000000000       0x1c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-strcmp.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfiprintf.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfiprintf.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfiprintf.o)
+ .text._svfiprintf_r
+                0x0000000000000000      0xaa0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfiprintf.o)
+ .rodata.blanks.6854
+                0x0000000000000000       0x10 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfiprintf.o)
+ .rodata.str1.4
+                0x0000000000000000       0x2f /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfiprintf.o)
+ .rodata.zeroes.6855
+                0x0000000000000000       0x10 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfiprintf.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-callocr.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-callocr.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-callocr.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_addsubdf3.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_addsubdf3.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_muldivdf3.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_muldivdf3.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_cmpdf2.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_cmpdf2.o)
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_fixdfsi.o)
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_fixdfsi.o)
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtend.o
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtend.o
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtend.o
+ .eh_frame      0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtend.o
+ .jcr           0x0000000000000000        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtend.o
+ .ARM.attributes
+                0x0000000000000000       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtend.o
+ .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtn.o
+ .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtn.o
+ .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtn.o
+ .init          0x0000000000000000        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtn.o
+ .fini          0x0000000000000000        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtn.o
+ .ARM.attributes
+                0x0000000000000000       0x1e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtn.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+SRAM             0x0000000020004000 0x000000000003c000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crti.o
+LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtbegin.o
+LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/crt0.o
+LOAD ./main.o
+LOAD ./pinmux.o
+LOAD ./startup_gcc.o
+LOAD ./uart_if.o
+LOAD ./udma_if.o
+LOAD /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a
+START GROUP
+LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a
+LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a
+LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libc.a
+END GROUP
+LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtend.o
+LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtn.o
+                0x0000000000010000                HEAP_SIZE = 0x10000
+
+.text           0x0000000020004000     0x5e38
+                0x0000000020004000                _text = .
+ *(.intvecs)
+ .intvecs       0x0000000020004000      0x400 ./startup_gcc.o
+                0x0000000020004000                g_pfnVectors
+ *(.text*)
+ .text.DisplayBanner
+                0x0000000020004400       0x3c ./main.o
+ .text.BoardInit
+                0x000000002000443c       0x20 ./main.o
+ .text.UARTIntHandler
+                0x000000002000445c       0x3c ./main.o
+ .text.main     0x0000000020004498      0x110 ./main.o
+                0x0000000020004498                main
+ .text.PinMuxConfig
+                0x00000000200045a8       0x20 ./pinmux.o
+                0x00000000200045a8                PinMuxConfig
+ .text.ResetISR
+                0x00000000200045c8       0x58 ./startup_gcc.o
+                0x00000000200045c8                ResetISR
+ .text.NmiSR    0x0000000020004620        0x8 ./startup_gcc.o
+ .text.FaultISR
+                0x0000000020004628        0x8 ./startup_gcc.o
+ .text.BusFaultHandler
+                0x0000000020004630        0x8 ./startup_gcc.o
+ .text.IntDefaultHandler
+                0x0000000020004638        0x8 ./startup_gcc.o
+ .text._sbrk    0x0000000020004640       0x54 ./startup_gcc.o
+                0x0000000020004640                _sbrk
+ .text.Message  0x0000000020004694       0x34 ./uart_if.o
+                0x0000000020004694                Message
+ .text.ClearTerm
+                0x00000000200046c8       0x10 ./uart_if.o
+                0x00000000200046c8                ClearTerm
+ .text.Report   0x00000000200046d8       0x9c ./uart_if.o
+                0x00000000200046d8                Report
+ .text.DmaSwIntHandler
+                0x0000000020004774       0x24 ./udma_if.o
+                0x0000000020004774                DmaSwIntHandler
+ .text.DmaErrorIntHandler
+                0x0000000020004798       0x14 ./udma_if.o
+                0x0000000020004798                DmaErrorIntHandler
+ .text.UDMAInit
+                0x00000000200047ac       0x7c ./udma_if.o
+                0x00000000200047ac                UDMAInit
+ .text.UDMASetupTransfer
+                0x0000000020004828       0x48 ./udma_if.o
+                0x0000000020004828                UDMASetupTransfer
+ .text.IntMasterEnable
+                0x0000000020004870        0xa /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+                0x0000000020004870                IntMasterEnable
+ *fill*         0x000000002000487a        0x2 
+ .text.IntVTableBaseSet
+                0x000000002000487c        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+                0x000000002000487c                IntVTableBaseSet
+ .text.IntRegister
+                0x0000000020004888       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+                0x0000000020004888                IntRegister
+ .text.IntPrioritySet
+                0x0000000020004898       0x28 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+                0x0000000020004898                IntPrioritySet
+ .text.IntEnable
+                0x00000000200048c0       0x64 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+                0x00000000200048c0                IntEnable
+ .text.PinModeSet
+                0x0000000020004924       0x28 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+                0x0000000020004924                PinModeSet
+ .text.PinConfigSet
+                0x000000002000494c       0x5c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+                0x000000002000494c                PinConfigSet
+ .text.PinTypeUART
+                0x00000000200049a8       0x16 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+                0x00000000200049a8                PinTypeUART
+ *fill*         0x00000000200049be        0x2 
+ .text.PRCMSysResetCauseGet
+                0x00000000200049c0       0x2c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+                0x00000000200049c0                PRCMSysResetCauseGet
+ .text.PRCMPeripheralClkEnable
+                0x00000000200049ec       0x2c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+                0x00000000200049ec                PRCMPeripheralClkEnable
+ .text.PRCMPeripheralClkDisable
+                0x0000000020004a18       0x1c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+                0x0000000020004a18                PRCMPeripheralClkDisable
+ .text.PRCMPeripheralClockGet
+                0x0000000020004a34       0x48 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+                0x0000000020004a34                PRCMPeripheralClockGet
+ .text.PRCMPeripheralReset
+                0x0000000020004a7c       0x40 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+                0x0000000020004a7c                PRCMPeripheralReset
+ .text.PRCMCC3200MCUInit
+                0x0000000020004abc      0x120 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+                0x0000000020004abc                PRCMCC3200MCUInit
+ .text.UARTFIFOLevelSet
+                0x0000000020004bdc        0x6 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+                0x0000000020004bdc                UARTFIFOLevelSet
+ .text.UARTEnable
+                0x0000000020004be2       0x16 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+                0x0000000020004be2                UARTEnable
+ .text.UARTDisable
+                0x0000000020004bf8       0x1c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+                0x0000000020004bf8                UARTDisable
+ .text.UARTConfigSetExpClk
+                0x0000000020004c14       0x48 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+                0x0000000020004c14                UARTConfigSetExpClk
+ .text.UARTCharPut
+                0x0000000020004c5c        0xa /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+                0x0000000020004c5c                UARTCharPut
+ *fill*         0x0000000020004c66        0x2 
+ .text.UARTIntRegister
+                0x0000000020004c68       0x3c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+                0x0000000020004c68                UARTIntRegister
+ .text.UARTIntEnable
+                0x0000000020004ca4        0x8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+                0x0000000020004ca4                UARTIntEnable
+ .text.UARTIntClear
+                0x0000000020004cac        0x4 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+                0x0000000020004cac                UARTIntClear
+ .text.UARTDMAEnable
+                0x0000000020004cb0        0x8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+                0x0000000020004cb0                UARTDMAEnable
+ .text.UARTDMADisable
+                0x0000000020004cb8        0xa /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+                0x0000000020004cb8                UARTDMADisable
+ *fill*         0x0000000020004cc2        0x2 
+ .text.uDMAEnable
+                0x0000000020004cc4        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+                0x0000000020004cc4                uDMAEnable
+ .text.uDMAChannelEnable
+                0x0000000020004cd0       0x14 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+                0x0000000020004cd0                uDMAChannelEnable
+ .text.uDMAControlBaseSet
+                0x0000000020004ce4        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+                0x0000000020004ce4                uDMAControlBaseSet
+ .text.uDMAChannelAttributeEnable
+                0x0000000020004cf0       0x48 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+                0x0000000020004cf0                uDMAChannelAttributeEnable
+ .text.uDMAChannelControlSet
+                0x0000000020004d38       0x20 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+                0x0000000020004d38                uDMAChannelControlSet
+ .text.uDMAChannelTransferSet
+                0x0000000020004d58       0x84 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+                0x0000000020004d58                uDMAChannelTransferSet
+ .text.uDMAIntRegister
+                0x0000000020004ddc       0x12 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+                0x0000000020004ddc                uDMAIntRegister
+ *fill*         0x0000000020004dee        0x2 
+ .text.uDMAIntStatus
+                0x0000000020004df0        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+                0x0000000020004df0                uDMAIntStatus
+ .text.uDMAIntClear
+                0x0000000020004dfc        0xc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+                0x0000000020004dfc                uDMAIntClear
+ .text.UtilsDelay
+                0x0000000020004e08        0x8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+                0x0000000020004e08                UtilsDelay
+ .text.CPUcpsie
+                0x0000000020004e10       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+                0x0000000020004e10                CPUcpsie
+ .text          0x0000000020004e20       0x30 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_aeabi_uldivmod.o)
+                0x0000000020004e20                __aeabi_uldivmod
+ .text          0x0000000020004e50       0x60 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(bpabi.o)
+                0x0000000020004e50                __gnu_ldivmod_helper
+                0x0000000020004e80                __gnu_uldivmod_helper
+ .text          0x0000000020004eb0        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_dvmd_tls.o)
+                0x0000000020004eb0                __aeabi_ldiv0
+                0x0000000020004eb0                __aeabi_idiv0
+ .text          0x0000000020004eb4      0x29c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_divdi3.o)
+                0x0000000020004eb4                __divdi3
+ .text          0x0000000020005150      0x26c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_udivdi3.o)
+                0x0000000020005150                __udivdi3
+ .text.malloc   0x00000000200053bc       0x10 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-malloc.o)
+                0x00000000200053bc                malloc
+ .text.free     0x00000000200053cc       0x10 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-malloc.o)
+                0x00000000200053cc                free
+ .text._malloc_r
+                0x00000000200053dc      0x524 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+                0x00000000200053dc                _malloc_r
+ .text.memmove  0x0000000020005900       0xc8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memmove.o)
+                0x0000000020005900                memmove
+ .text.memset   0x00000000200059c8       0x9c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memset.o)
+                0x00000000200059c8                memset
+ .text.__malloc_lock
+                0x0000000020005a64        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mlock.o)
+                0x0000000020005a64                __malloc_lock
+ .text.__malloc_unlock
+                0x0000000020005a68        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mlock.o)
+                0x0000000020005a68                __malloc_unlock
+ .text.realloc  0x0000000020005a6c       0x10 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-realloc.o)
+                0x0000000020005a6c                realloc
+ .text._realloc_r
+                0x0000000020005a7c      0x3ec /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reallocr.o)
+                0x0000000020005a7c                _realloc_r
+ .text._sbrk_r  0x0000000020005e68       0x24 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-sbrkr.o)
+                0x0000000020005e68                _sbrk_r
+ .text.strlen   0x0000000020005e8c       0x5c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-strlen.o)
+                0x0000000020005e8c                strlen
+ .text._vsnprintf_r
+                0x0000000020005ee8       0x74 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-vsnprintf.o)
+                0x0000000020005ee8                _vsnprintf_r
+ .text.vsnprintf
+                0x0000000020005f5c       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-vsnprintf.o)
+                0x0000000020005f5c                vsnprintf
+ .text._malloc_trim_r
+                0x0000000020005f7c       0x9c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-freer.o)
+                0x0000000020005f7c                _malloc_trim_r
+ .text._free_r  0x0000000020006018      0x1b0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-freer.o)
+                0x0000000020006018                _free_r
+ .text._svfprintf_r
+                0x00000000200061c8     0x1494 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o)
+                0x00000000200061c8                _svfprintf_r
+ .text.quorem   0x000000002000765c      0x12c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o)
+ .text._dtoa_r  0x0000000020007788      0xe94 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o)
+                0x0000000020007788                _dtoa_r
+ .text._localeconv_r
+                0x000000002000861c        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+                0x000000002000861c                _localeconv_r
+ .text.memchr   0x0000000020008624       0x94 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memchr.o)
+                0x0000000020008624                memchr
+ .text          0x00000000200086b8      0x134 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memcpy.o)
+                0x00000000200086b8                memcpy
+ .text._Balloc  0x00000000200087ec       0x4c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x00000000200087ec                _Balloc
+ .text._Bfree   0x0000000020008838       0x14 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x0000000020008838                _Bfree
+ .text.__multadd
+                0x000000002000884c       0x84 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x000000002000884c                __multadd
+ .text.__hi0bits
+                0x00000000200088d0       0x40 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x00000000200088d0                __hi0bits
+ .text.__lo0bits
+                0x0000000020008910       0x5c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x0000000020008910                __lo0bits
+ .text.__i2b    0x000000002000896c       0x14 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x000000002000896c                __i2b
+ .text.__multiply
+                0x0000000020008980      0x134 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x0000000020008980                __multiply
+ .text.__pow5mult
+                0x0000000020008ab4       0xa0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x0000000020008ab4                __pow5mult
+ .text.__lshift
+                0x0000000020008b54       0xac /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x0000000020008b54                __lshift
+ .text.__mcmp   0x0000000020008c00       0x48 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x0000000020008c00                __mcmp
+ .text.__mdiff  0x0000000020008c48       0xd4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x0000000020008c48                __mdiff
+ .text.__d2b    0x0000000020008d1c       0xb8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x0000000020008d1c                __d2b
+ .text.__fpclassifyd
+                0x0000000020008dd4       0x58 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-s_fpclassify.o)
+                0x0000000020008dd4                __fpclassifyd
+ .text.__ssprint_r
+                0x0000000020008e2c      0x104 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfiprintf.o)
+                0x0000000020008e2c                __ssprint_r
+ .text._calloc_r
+                0x0000000020008f30       0x60 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-callocr.o)
+                0x0000000020008f30                _calloc_r
+ .text          0x0000000020008f90      0x370 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_addsubdf3.o)
+                0x0000000020008f90                __aeabi_drsub
+                0x0000000020008f98                __aeabi_dsub
+                0x0000000020008f98                __subdf3
+                0x0000000020008f9c                __adddf3
+                0x0000000020008f9c                __aeabi_dadd
+                0x0000000020009214                __aeabi_ui2d
+                0x0000000020009214                __floatunsidf
+                0x0000000020009234                __floatsidf
+                0x0000000020009234                __aeabi_i2d
+                0x0000000020009258                __extendsfdf2
+                0x0000000020009258                __aeabi_f2d
+                0x0000000020009294                __aeabi_ul2d
+                0x0000000020009294                __floatundidf
+                0x00000000200092a4                __floatdidf
+                0x00000000200092a4                __aeabi_l2d
+ .text          0x0000000020009300      0x424 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_muldivdf3.o)
+                0x0000000020009300                __aeabi_dmul
+                0x0000000020009300                __muldf3
+                0x0000000020009554                __aeabi_ddiv
+                0x0000000020009554                __divdf3
+ .text          0x0000000020009724      0x110 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_cmpdf2.o)
+                0x0000000020009724                __gtdf2
+                0x0000000020009724                __gedf2
+                0x000000002000972c                __ltdf2
+                0x000000002000972c                __ledf2
+                0x0000000020009734                __cmpdf2
+                0x0000000020009734                __eqdf2
+                0x0000000020009734                __nedf2
+                0x00000000200097b0                __aeabi_cdrcmple
+                0x00000000200097c0                __aeabi_cdcmple
+                0x00000000200097c0                __aeabi_cdcmpeq
+                0x00000000200097d0                __aeabi_dcmpeq
+                0x00000000200097e4                __aeabi_dcmplt
+                0x00000000200097f8                __aeabi_dcmple
+                0x000000002000980c                __aeabi_dcmpge
+                0x0000000020009820                __aeabi_dcmpgt
+ .text          0x0000000020009834       0x50 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_fixdfsi.o)
+                0x0000000020009834                __fixdfsi
+                0x0000000020009834                __aeabi_d2iz
+ *(.rodata*)
+ .rodata        0x0000000020009884      0x15a ./main.o
+ *fill*         0x00000000200099de        0x2 
+ .rodata        0x00000000200099e0       0x2a ./uart_if.o
+ *fill*         0x0000000020009a0a        0x2 
+ .rodata.g_pulEnRegs
+                0x0000000020009a0c       0x18 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .rodata.g_pulRegs
+                0x0000000020009a24       0xd4 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .rodata.g_ulPinToPadMap
+                0x0000000020009af8      0x100 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .rodata.PRCM_PeriphRegsList
+                0x0000000020009bf8       0xa8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .rodata.g_ppulUARTIntMap
+                0x0000000020009ca0       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .rodata.str1.4
+                0x0000000020009cb0        0x2 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-impure.o)
+ *fill*         0x0000000020009cb2        0x2 
+ .rodata.zeroes.6911
+                0x0000000020009cb4       0x10 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o)
+ .rodata.blanks.6910
+                0x0000000020009cc4       0x10 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o)
+ .rodata.str1.4
+                0x0000000020009cd4       0x42 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o)
+ *fill*         0x0000000020009d16        0x2 
+ .rodata.str1.4
+                0x0000000020009d18       0x10 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o)
+                                         0x12 (size before relaxing)
+ .rodata.str1.4
+                0x0000000020009d28        0xc /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+                                         0x12 (size before relaxing)
+ *fill*         0x0000000020009d34        0x4 
+ .rodata.__mprec_tens
+                0x0000000020009d38       0xc8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x0000000020009d38                __mprec_tens
+ .rodata.p05.5302
+                0x0000000020009e00        0xc /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ *fill*         0x0000000020009e0c        0x4 
+ .rodata.__mprec_bigtens
+                0x0000000020009e10       0x28 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+                0x0000000020009e10                __mprec_bigtens
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+                0x0000000020009e38                . = ALIGN (0x8)
+                0x0000000020009e38                _etext = .
+
+.glue_7         0x0000000020009e38        0x0
+ .glue_7        0x0000000000000000        0x0 linker stubs
+
+.glue_7t        0x0000000020009e38        0x0
+ .glue_7t       0x0000000000000000        0x0 linker stubs
+
+.vfp11_veneer   0x0000000020009e38        0x0
+ .vfp11_veneer  0x0000000000000000        0x0 linker stubs
+
+.v4_bx          0x0000000020009e38        0x0
+ .v4_bx         0x0000000000000000        0x0 linker stubs
+
+.iplt           0x0000000020009e38        0x0
+ .iplt          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtbegin.o
+
+.ARM            0x0000000020009e38        0x8
+                0x0000000020009e38                __exidx_start = .
+ *(.ARM.exidx*)
+ .ARM.exidx     0x0000000020009e38        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_divdi3.o)
+ .ARM.exidx     0x0000000020009e40        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_udivdi3.o)
+                                          0x8 (size before relaxing)
+                0x0000000020009e40                __exidx_end = .
+                0x0000000020009e40                __init_data = .
+
+.rel.dyn        0x0000000020009e40        0x0
+ .rel.iplt      0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtbegin.o
+
+.data           0x0000000020009e40      0x878
+                0x0000000020009e40                _data = .
+ *(.data*)
+ .data.impure_data
+                0x0000000020009e40      0x428 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-impure.o)
+ .data._impure_ptr
+                0x000000002000a268        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-impure.o)
+                0x000000002000a268                _impure_ptr
+ .data.__malloc_av_
+                0x000000002000a26c      0x408 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+                0x000000002000a26c                __malloc_av_
+ .data.__malloc_trim_threshold
+                0x000000002000a674        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+                0x000000002000a674                __malloc_trim_threshold
+ .data.__malloc_sbrk_base
+                0x000000002000a678        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+                0x000000002000a678                __malloc_sbrk_base
+ .data.lconv    0x000000002000a67c       0x38 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+                0x000000002000a6b8                . = ALIGN (0x8)
+ *fill*         0x000000002000a6b4        0x4 
+                0x000000002000a6b8                _edata = .
+
+.igot.plt       0x000000002000a6b8        0x0
+ .igot.plt      0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtbegin.o
+
+.bss            0x000000002000a800     0x1c04
+                0x000000002000a800                _bss = .
+ *(.bss*)
+ .bss.ucTextBuff
+                0x000000002000a800       0x32 ./main.o
+ .bss.bRxDone   0x000000002000a832        0x1 ./main.o
+ *fill*         0x000000002000a833        0x1 
+ .bss.heap_end  0x000000002000a834        0x4 ./startup_gcc.o
+ .bss.pui32Stack
+                0x000000002000a838     0x1000 ./startup_gcc.o
+ .bss.__malloc_max_total_mem
+                0x000000002000b838        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+                0x000000002000b838                __malloc_max_total_mem
+ .bss.__malloc_max_sbrked_mem
+                0x000000002000b83c        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+                0x000000002000b83c                __malloc_max_sbrked_mem
+ .bss.__malloc_top_pad
+                0x000000002000b840        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+                0x000000002000b840                __malloc_top_pad
+ .bss.__malloc_current_mallinfo
+                0x000000002000b844       0x28 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+                0x000000002000b844                __malloc_current_mallinfo
+ *(COMMON)
+ *fill*         0x000000002000b86c      0x394 
+ COMMON         0x000000002000bc00      0x800 ./udma_if.o
+                0x000000002000bc00                gfpAppCallbackHndl
+                0x000000002000bd00                iDone
+                0x000000002000c000                gpCtlTbl
+ COMMON         0x000000002000c400        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reent.o)
+                0x000000002000c400                errno
+                0x000000002000c404                _ebss = .
+
+.heap           0x000000002000c404    0x10004
+                0x000000002000c404                _heap = .
+                0x000000002001c404                . = (. + HEAP_SIZE)
+ *fill*         0x000000002000c404    0x10000 
+                0x000000002001c408                . = ALIGN (0x8)
+ *fill*         0x000000002001c404        0x4 
+                0x000000002001c408                _eheap = .
+OUTPUT(UART dma.elf elf32-littlearm)
+
+.debug_info     0x0000000000000000     0x39e4
+ .debug_info    0x0000000000000000      0x124 ./main.o
+ .debug_info    0x0000000000000124       0x49 ./pinmux.o
+ .debug_info    0x000000000000016d      0x1eb ./startup_gcc.o
+ .debug_info    0x0000000000000358      0x2b7 ./uart_if.o
+ .debug_info    0x000000000000060f      0x382 ./udma_if.o
+ .debug_info    0x0000000000000991      0x3f0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .debug_info    0x0000000000000d81      0x5cc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .debug_info    0x000000000000134d     0x162c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .debug_info    0x0000000000002979      0x92d /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .debug_info    0x00000000000032a6      0x5f8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .debug_info    0x000000000000389e       0x50 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+ .debug_info    0x00000000000038ee       0xf6 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+
+.debug_abbrev   0x0000000000000000      0xf97
+ .debug_abbrev  0x0000000000000000      0x107 ./main.o
+ .debug_abbrev  0x0000000000000107       0x3a ./pinmux.o
+ .debug_abbrev  0x0000000000000141      0x124 ./startup_gcc.o
+ .debug_abbrev  0x0000000000000265      0x14a ./uart_if.o
+ .debug_abbrev  0x00000000000003af      0x143 ./udma_if.o
+ .debug_abbrev  0x00000000000004f2      0x191 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .debug_abbrev  0x0000000000000683      0x139 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .debug_abbrev  0x00000000000007bc      0x335 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .debug_abbrev  0x0000000000000af1      0x1e1 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .debug_abbrev  0x0000000000000cd2      0x1cd /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .debug_abbrev  0x0000000000000e9f       0x48 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+ .debug_abbrev  0x0000000000000ee7       0xb0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+
+.debug_aranges  0x0000000000000000      0x690
+ .debug_aranges
+                0x0000000000000000       0x38 ./main.o
+ .debug_aranges
+                0x0000000000000038       0x20 ./pinmux.o
+ .debug_aranges
+                0x0000000000000058       0x48 ./startup_gcc.o
+ .debug_aranges
+                0x00000000000000a0       0x50 ./uart_if.o
+ .debug_aranges
+                0x00000000000000f0       0x68 ./udma_if.o
+ .debug_aranges
+                0x0000000000000158       0x98 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .debug_aranges
+                0x00000000000001f0       0x90 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .debug_aranges
+                0x0000000000000280      0x198 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .debug_aranges
+                0x0000000000000418      0x138 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .debug_aranges
+                0x0000000000000550       0xd8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .debug_aranges
+                0x0000000000000628       0x20 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+ .debug_aranges
+                0x0000000000000648       0x48 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+
+.debug_ranges   0x0000000000000000      0x8f0
+ .debug_ranges  0x0000000000000000       0x28 ./main.o
+ .debug_ranges  0x0000000000000028       0x10 ./pinmux.o
+ .debug_ranges  0x0000000000000038       0x38 ./startup_gcc.o
+ .debug_ranges  0x0000000000000070       0x40 ./uart_if.o
+ .debug_ranges  0x00000000000000b0       0x58 ./udma_if.o
+ .debug_ranges  0x0000000000000108       0x88 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .debug_ranges  0x0000000000000190       0x80 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .debug_ranges  0x0000000000000210      0x478 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .debug_ranges  0x0000000000000688      0x158 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .debug_ranges  0x00000000000007e0       0xc8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .debug_ranges  0x00000000000008a8       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+ .debug_ranges  0x00000000000008b8       0x38 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+
+.debug_macro    0x0000000000000000     0x6326
+ .debug_macro   0x0000000000000000       0xb5 ./main.o
+ .debug_macro   0x00000000000000b5      0x87a ./main.o
+ .debug_macro   0x000000000000092f       0x9a ./main.o
+ .debug_macro   0x00000000000009c9      0x136 ./main.o
+ .debug_macro   0x0000000000000aff      0xba7 ./main.o
+ .debug_macro   0x00000000000016a6       0xe8 ./main.o
+ .debug_macro   0x000000000000178e      0x42b ./main.o
+ .debug_macro   0x0000000000001bb9      0x4b2 ./main.o
+ .debug_macro   0x000000000000206b       0x3a ./main.o
+ .debug_macro   0x00000000000020a5      0x11e ./main.o
+ .debug_macro   0x00000000000021c3      0x13c ./main.o
+ .debug_macro   0x00000000000022ff      0x558 ./main.o
+ .debug_macro   0x0000000000002857       0x40 ./main.o
+ .debug_macro   0x0000000000002897      0x1c6 ./main.o
+ .debug_macro   0x0000000000002a5d       0x28 ./main.o
+ .debug_macro   0x0000000000002a85       0x22 ./main.o
+ .debug_macro   0x0000000000002aa7       0x72 ./pinmux.o
+ .debug_macro   0x0000000000002b19      0x35b ./pinmux.o
+ .debug_macro   0x0000000000002e74      0x1a7 ./pinmux.o
+ .debug_macro   0x000000000000301b       0x9a ./pinmux.o
+ .debug_macro   0x00000000000030b5       0x66 ./startup_gcc.o
+ .debug_macro   0x000000000000311b       0x22 ./startup_gcc.o
+ .debug_macro   0x000000000000313d       0x44 ./startup_gcc.o
+ .debug_macro   0x0000000000003181       0x58 ./startup_gcc.o
+ .debug_macro   0x00000000000031d9       0x22 ./startup_gcc.o
+ .debug_macro   0x00000000000031fb      0x1df ./startup_gcc.o
+ .debug_macro   0x00000000000033da     0x1afd ./startup_gcc.o
+ .debug_macro   0x0000000000004ed7      0x1b8 ./uart_if.o
+ .debug_macro   0x000000000000508f       0x58 ./uart_if.o
+ .debug_macro   0x00000000000050e7       0x58 ./uart_if.o
+ .debug_macro   0x000000000000513f       0x35 ./uart_if.o
+ .debug_macro   0x0000000000005174       0x9c ./uart_if.o
+ .debug_macro   0x0000000000005210       0x16 ./uart_if.o
+ .debug_macro   0x0000000000005226      0x10e ./uart_if.o
+ .debug_macro   0x0000000000005334       0x86 ./uart_if.o
+ .debug_macro   0x00000000000053ba       0x4a ./uart_if.o
+ .debug_macro   0x0000000000005404       0x52 ./uart_if.o
+ .debug_macro   0x0000000000005456       0x16 ./uart_if.o
+ .debug_macro   0x000000000000546c       0x43 ./uart_if.o
+ .debug_macro   0x00000000000054af      0x180 ./uart_if.o
+ .debug_macro   0x000000000000562f      0x27a ./uart_if.o
+ .debug_macro   0x00000000000058a9       0x16 ./uart_if.o
+ .debug_macro   0x00000000000058bf       0x29 ./uart_if.o
+ .debug_macro   0x00000000000058e8       0x1c ./uart_if.o
+ .debug_macro   0x0000000000005904       0x35 ./uart_if.o
+ .debug_macro   0x0000000000005939       0x10 ./uart_if.o
+ .debug_macro   0x0000000000005949       0x22 ./uart_if.o
+ .debug_macro   0x000000000000596b       0xbe ./uart_if.o
+ .debug_macro   0x0000000000005a29       0x16 ./uart_if.o
+ .debug_macro   0x0000000000005a3f      0x197 ./uart_if.o
+ .debug_macro   0x0000000000005bd6       0x16 ./uart_if.o
+ .debug_macro   0x0000000000005bec       0x22 ./uart_if.o
+ .debug_macro   0x0000000000005c0e       0x2e ./uart_if.o
+ .debug_macro   0x0000000000005c3c      0x1ba ./udma_if.o
+ .debug_macro   0x0000000000005df6       0x16 ./udma_if.o
+ .debug_macro   0x0000000000005e0c       0x97 ./udma_if.o
+ .debug_macro   0x0000000000005ea3       0xf6 ./udma_if.o
+ .debug_macro   0x0000000000005f99       0x10 ./udma_if.o
+ .debug_macro   0x0000000000005fa9      0x37d ./udma_if.o
+
+.debug_line     0x0000000000000000     0x1db5
+ .debug_line    0x0000000000000000      0x213 ./main.o
+ .debug_line    0x0000000000000213      0x11f ./pinmux.o
+ .debug_line    0x0000000000000332      0x1e0 ./startup_gcc.o
+ .debug_line    0x0000000000000512      0x3cc ./uart_if.o
+ .debug_line    0x00000000000008de      0x3c3 ./udma_if.o
+ .debug_line    0x0000000000000ca1      0x1bf /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .debug_line    0x0000000000000e60      0x186 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .debug_line    0x0000000000000fe6      0x6a2 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .debug_line    0x0000000000001688      0x388 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .debug_line    0x0000000000001a10      0x2d3 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .debug_line    0x0000000000001ce3       0x39 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+ .debug_line    0x0000000000001d1c       0x99 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+
+.debug_str      0x0000000000000000    0x1a51b
+ .debug_str     0x0000000000000000     0xcf7a ./main.o
+                                       0xcf9f (size before relaxing)
+ .debug_str     0x000000000000cf7a     0x1603 ./pinmux.o
+                                       0x8f60 (size before relaxing)
+ .debug_str     0x000000000000e57d     0x76df ./startup_gcc.o
+                                       0x9f0b (size before relaxing)
+ .debug_str     0x0000000000015c5c     0x3286 ./uart_if.o
+                                       0xba72 (size before relaxing)
+ .debug_str     0x0000000000018ee2      0xfe1 ./udma_if.o
+                                       0xf123 (size before relaxing)
+ .debug_str     0x0000000000019ec3      0x1ae /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+                                        0x2e6 (size before relaxing)
+ .debug_str     0x000000000001a071       0x59 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+                                        0x21c (size before relaxing)
+ .debug_str     0x000000000001a0ca      0x294 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+                                        0x798 (size before relaxing)
+ .debug_str     0x000000000001a35e       0xaa /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+                                        0x481 (size before relaxing)
+ .debug_str     0x000000000001a408       0xdf /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+                                        0x42e (size before relaxing)
+ .debug_str     0x000000000001a4e7       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+                                         0xed (size before relaxing)
+ .debug_str     0x000000000001a4f7       0x24 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+                                        0x12b (size before relaxing)
+
+.comment        0x0000000000000000       0x70
+ .comment       0x0000000000000000       0x70 ./main.o
+                                         0x71 (size before relaxing)
+ .comment       0x0000000000000000       0x71 ./pinmux.o
+ .comment       0x0000000000000000       0x71 ./startup_gcc.o
+ .comment       0x0000000000000000       0x71 ./uart_if.o
+ .comment       0x0000000000000000       0x71 ./udma_if.o
+ .comment       0x0000000000000000       0x71 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .comment       0x0000000000000000       0x71 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .comment       0x0000000000000000       0x71 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .comment       0x0000000000000000       0x71 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .comment       0x0000000000000000       0x71 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .comment       0x0000000000000000       0x71 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+ .comment       0x0000000000000000       0x71 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+
+.ARM.attributes
+                0x0000000000000000       0x2a
+ .ARM.attributes
+                0x0000000000000000       0x33 ./main.o
+ .ARM.attributes
+                0x0000000000000033       0x33 ./pinmux.o
+ .ARM.attributes
+                0x0000000000000066       0x33 ./startup_gcc.o
+ .ARM.attributes
+                0x0000000000000099       0x33 ./uart_if.o
+ .ARM.attributes
+                0x00000000000000cc       0x33 ./udma_if.o
+ .ARM.attributes
+                0x00000000000000ff       0x33 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .ARM.attributes
+                0x0000000000000132       0x33 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .ARM.attributes
+                0x0000000000000165       0x33 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .ARM.attributes
+                0x0000000000000198       0x33 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .ARM.attributes
+                0x00000000000001cb       0x33 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .ARM.attributes
+                0x00000000000001fe       0x33 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+ .ARM.attributes
+                0x0000000000000231       0x33 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+ .ARM.attributes
+                0x0000000000000264       0x1e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_aeabi_uldivmod.o)
+ .ARM.attributes
+                0x0000000000000282       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(bpabi.o)
+ .ARM.attributes
+                0x00000000000002b0       0x1e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_dvmd_tls.o)
+ .ARM.attributes
+                0x00000000000002ce       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_divdi3.o)
+ .ARM.attributes
+                0x00000000000002fc       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_udivdi3.o)
+ .ARM.attributes
+                0x000000000000032a       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-impure.o)
+ .ARM.attributes
+                0x0000000000000358       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-malloc.o)
+ .ARM.attributes
+                0x0000000000000386       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+ .ARM.attributes
+                0x00000000000003b4       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memmove.o)
+ .ARM.attributes
+                0x00000000000003e2       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memset.o)
+ .ARM.attributes
+                0x0000000000000410       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mlock.o)
+ .ARM.attributes
+                0x000000000000043e       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-realloc.o)
+ .ARM.attributes
+                0x000000000000046c       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reallocr.o)
+ .ARM.attributes
+                0x000000000000049a       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-sbrkr.o)
+ .ARM.attributes
+                0x00000000000004c8       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-strlen.o)
+ .ARM.attributes
+                0x00000000000004f6       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-vsnprintf.o)
+ .ARM.attributes
+                0x0000000000000524       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-freer.o)
+ .ARM.attributes
+                0x0000000000000552       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reent.o)
+ .ARM.attributes
+                0x0000000000000580       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o)
+ .ARM.attributes
+                0x00000000000005ae       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o)
+ .ARM.attributes
+                0x00000000000005dc       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .ARM.attributes
+                0x000000000000060a       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memchr.o)
+ .ARM.attributes
+                0x0000000000000638       0x1c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memcpy.o)
+ .ARM.attributes
+                0x0000000000000654       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ .ARM.attributes
+                0x0000000000000682       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-s_fpclassify.o)
+ .ARM.attributes
+                0x00000000000006b0       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfiprintf.o)
+ .ARM.attributes
+                0x00000000000006de       0x2e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-callocr.o)
+ .ARM.attributes
+                0x000000000000070c       0x1e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_addsubdf3.o)
+ .ARM.attributes
+                0x000000000000072a       0x1e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_muldivdf3.o)
+ .ARM.attributes
+                0x0000000000000748       0x1e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_cmpdf2.o)
+ .ARM.attributes
+                0x0000000000000766       0x1e /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_arm_fixdfsi.o)
+
+.debug_frame    0x0000000000000000     0x1900
+ .debug_frame   0x0000000000000000       0x8c ./main.o
+ .debug_frame   0x000000000000008c       0x2c ./pinmux.o
+ .debug_frame   0x00000000000000b8       0xbc ./startup_gcc.o
+ .debug_frame   0x0000000000000174      0x12c ./uart_if.o
+ .debug_frame   0x00000000000002a0      0x168 ./udma_if.o
+ .debug_frame   0x0000000000000408      0x128 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .debug_frame   0x0000000000000530      0x17c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .debug_frame   0x00000000000006ac      0x4a0 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .debug_frame   0x0000000000000b4c      0x28c /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .debug_frame   0x0000000000000dd8      0x1cc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)
+ .debug_frame   0x0000000000000fa4       0x20 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+ .debug_frame   0x0000000000000fc4       0x70 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+ .debug_frame   0x0000000000001034       0x28 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_aeabi_uldivmod.o)
+ .debug_frame   0x000000000000105c       0x50 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(bpabi.o)
+ .debug_frame   0x00000000000010ac       0x34 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_divdi3.o)
+ .debug_frame   0x00000000000010e0       0x30 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_udivdi3.o)
+ .debug_frame   0x0000000000001110       0x30 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-malloc.o)
+ .debug_frame   0x0000000000001140       0x58 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mallocr.o)
+ .debug_frame   0x0000000000001198       0x30 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memmove.o)
+ .debug_frame   0x00000000000011c8       0x34 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memset.o)
+ .debug_frame   0x00000000000011fc       0x30 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mlock.o)
+ .debug_frame   0x000000000000122c       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-realloc.o)
+ .debug_frame   0x000000000000124c       0x60 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reallocr.o)
+ .debug_frame   0x00000000000012ac       0x2c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-sbrkr.o)
+ .debug_frame   0x00000000000012d8       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-strlen.o)
+ .debug_frame   0x00000000000012f8       0x60 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-vsnprintf.o)
+ .debug_frame   0x0000000000001358       0x74 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-freer.o)
+ .debug_frame   0x00000000000013cc       0x58 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-reent.o)
+ .debug_frame   0x0000000000001424       0x40 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfprintf.o)
+ .debug_frame   0x0000000000001464       0x88 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-dtoa.o)
+ .debug_frame   0x00000000000014ec       0x9c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-locale.o)
+ .debug_frame   0x0000000000001588       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-memchr.o)
+ .debug_frame   0x00000000000015c4      0x268 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-mprec.o)
+ .debug_frame   0x000000000000182c       0x34 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-s_fpclassify.o)
+ .debug_frame   0x0000000000001860       0x78 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-svfiprintf.o)
+ .debug_frame   0x00000000000018d8       0x28 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/libg.a(lib_a-callocr.o)
+
+.debug_loc      0x0000000000000000     0x231a
+ .debug_loc     0x0000000000000000      0x165 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .debug_loc     0x0000000000000165      0x661 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .debug_loc     0x00000000000007c6      0xebc /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .debug_loc     0x0000000000001682      0x606 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .debug_loc     0x0000000000001c88      0x692 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(udma.o)

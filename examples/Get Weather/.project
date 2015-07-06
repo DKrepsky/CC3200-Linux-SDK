@@ -29,6 +29,36 @@
 			<type>2</type>
 			<locationURI>CC3200SDK/other/FreeRTOS</locationURI>
 		</link>
+		<link>
+			<name>gpio_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/gpio_if.c</locationURI>
+		</link>
+		<link>
+			<name>network_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/network_if.c</locationURI>
+		</link>
+		<link>
+			<name>ssock.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/src/netapps/http/client/ssock.c</locationURI>
+		</link>
+		<link>
+			<name>timer_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/timer_if.c</locationURI>
+		</link>
+		<link>
+			<name>uart_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/uart_if.c</locationURI>
+		</link>
+		<link>
+			<name>udma_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/udma_if.c</locationURI>
+		</link>
 	</linkedResources>
 	<variableList>
 		<variable>

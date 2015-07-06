@@ -231,7 +231,7 @@ GetKey(unsigned int uiKeySize,char *pucKeyBuff)
 {
     char cChar;
     unsigned int uiMsgLen;
-    UART_PRINT("\n\r Do you want to use Pre-Defined Key?(y/n) \n\r");
+    UART_PRINT("\n\r Do you want to use Pre-Defined Key ?(y/n) \n\r");
     
     //
     // Get the option

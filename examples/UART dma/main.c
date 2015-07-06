@@ -81,7 +81,7 @@
 //*****************************************************************************
 //                          MACROS
 //*****************************************************************************
-#define APPLICATION_VERSION  "1.1.0"
+#define APPLICATION_VERSION  "1.1.1"
 #define APP_NAME            "UART DMA"
 
 //*****************************************************************************
@@ -89,7 +89,7 @@
 //*****************************************************************************
 volatile int g_iCounter = 0;
 
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -98,7 +98,8 @@ extern uVectorEntry __vector_table;
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- End
 //*****************************************************************************
-
+static unsigned char ucTextBuff[50];
+volatile static tBoolean bRxDone;
 
 //*****************************************************************************
 //                      LOCAL DEFINITION
@@ -141,7 +142,7 @@ BoardInit(void)
   //
   // Set vector table base
   //
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)
@@ -159,36 +160,56 @@ BoardInit(void)
 
 //*****************************************************************************
 //
-//! Main function handling the uart echo. It takes the input string from the
-//! terminal while displaying each character of string. whenever enter command
-//! is received it will echo the string(display). if the input the maximum input
-//! can be of 80 characters, after that the characters will be treated as a part
-//! of next string.
+//! Interrupt handler for UART interupt 
 //!
 //! \param  None
 //!
 //! \return None
 //!
 //*****************************************************************************
-static const unsigned char BannerText[10];
-
-static tBoolean bRxDone;
-
 static void UARTIntHandler()
 {
+    //
+    // Check if RX
+    //
     if(!bRxDone)
-    {
+    {	
+	//
+	// Disable UART RX DMA
+	//
         MAP_UARTDMADisable(UARTA0_BASE,UART_DMA_RX);
+
+	//
+	// Siganl RX done
+	//
         bRxDone = true;
     }
     else
     {
+	//
+	// Disable UART TX DMA
+	//
         MAP_UARTDMADisable(UARTA0_BASE,UART_DMA_TX);
     }
 
+    //
+    // Clear the UART Interrupt
+    //
     MAP_UARTIntClear(UARTA0_BASE,UART_INT_DMATX|UART_INT_DMARX);
 }
 
+//*****************************************************************************
+//
+//! Main function handling the UART and DMA configuration. It takes 8 
+//! characters from terminal without displaying them. The string of 8 
+//! caracters will be printed on the terminal as soon as 8th character is
+//! typed in.
+//!
+//! \param  None
+//!
+//! \return None
+//!
+//*****************************************************************************
 void main()
 {
     //
@@ -196,6 +217,9 @@ void main()
     //
     BoardInit();
 
+    //
+    // Initialize the RX done flash
+    //
     bRxDone = false;
 
     //
@@ -256,21 +280,24 @@ void main()
     //
     // Setup DMA transfer for UART A0
     //
-    SetupTransfer(UDMA_CH8_UARTA0_RX,
-                  UDMA_MODE_BASIC,
-                  8,
-                  UDMA_SIZE_8,
-                  UDMA_ARB_2,
-                  (void *)(UARTA0_BASE+UART_O_DR),
-                  UDMA_SRC_INC_NONE,
-                  (void *)BannerText,
-                  UDMA_DST_INC_8);
+    UDMASetupTransfer(UDMA_CH8_UARTA0_RX,
+                      UDMA_MODE_BASIC,
+                      8,
+                      UDMA_SIZE_8,
+                      UDMA_ARB_2,
+                      (void *)(UARTA0_BASE+UART_O_DR),
+                      UDMA_SRC_INC_NONE,
+                      (void *)ucTextBuff,
+                      UDMA_DST_INC_8);
 
     //
-    // Enable DMA request from UART
+    // Enable Rx DMA request from UART
     //
     MAP_UARTDMAEnable(UARTA0_BASE,UART_DMA_RX);
 
+    //
+    // Wait for RX to complete
+    //
     while(!bRxDone)
     {
 
@@ -279,16 +306,19 @@ void main()
     //
     // Setup DMA transfer for UART A0
     //
-    SetupTransfer(UDMA_CH9_UARTA0_TX,
-                  UDMA_MODE_BASIC,
-                  8,
-                  UDMA_SIZE_8,
-                  UDMA_ARB_2,
-                  (void *)BannerText,
-                  UDMA_SRC_INC_8,
-                  (void *)(UARTA0_BASE+UART_O_DR),
-                  UDMA_DST_INC_NONE);
+    UDMASetupTransfer(UDMA_CH9_UARTA0_TX,
+                      UDMA_MODE_BASIC,
+                      8,
+                      UDMA_SIZE_8,
+                      UDMA_ARB_2,
+                      (void *)ucTextBuff,
+                      UDMA_SRC_INC_8,
+                      (void *)(UARTA0_BASE+UART_O_DR),
+                      UDMA_DST_INC_NONE);
 
+    //
+    // Enable TX DMA request
+    //
     MAP_UARTDMAEnable(UARTA0_BASE,UART_DMA_TX);
 
     while(1)

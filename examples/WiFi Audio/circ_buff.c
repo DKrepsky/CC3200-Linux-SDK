@@ -459,6 +459,32 @@ IsBufferVacant(tCircularBuffer *pCircularBuffer, unsigned long ulSize)
     }
     return(FALSE);
 }
+//*****************************************************************************
+//
+//! check if the buffer is filled less than the specified amount or not.
+//!
+//! \param pCircularBuffer is the pointer to the control structure for circular
+//!        buffer.
+//! \param ulsize is the amount of data which is to checked.
+//!
+//! This function  
+//!  1. checks if the buffer is filled less than the specified amount or not.
+//!
+//! \return true if buffer is filled less than the specifed amount, otherwise
+//!         false.
+//
+//*****************************************************************************
+tboolean
+IsBufferOverflow(tCircularBuffer *pCircularBuffer, unsigned long ulSize)
+{
+    unsigned int uiBufferFilled;
+    uiBufferFilled = GetBufferSize(pCircularBuffer);
+    if(uiBufferFilled + ulSize >= pCircularBuffer->ulBufferSize)
+    {
+        return(TRUE);
+    }
+    return(FALSE);
+}
 
 //*****************************************************************************
 //
@@ -466,3 +492,4 @@ IsBufferVacant(tCircularBuffer *pCircularBuffer, unsigned long ulSize)
 //! @}
 //
 //*****************************************************************************
+

@@ -16,18 +16,23 @@ var group__socket =
       [ "NonblockingEnabled", "struct_sl_sock_nonblocking__t.html#ad95a3e0aa5ed5b4a341c2503dcae327d", null ]
     ] ],
     [ "SlSocketAsyncEvent_t", "struct_sl_socket_async_event__t.html", [
+      [ "pExtraInfo", "struct_sl_socket_async_event__t.html#a8906bd316385e67450a57a4a8bd50a8a", null ],
       [ "sd", "struct_sl_socket_async_event__t.html#a6e61459b1cc5e37bbd460cbbdade7fd0", null ],
       [ "type", "struct_sl_socket_async_event__t.html#a525a5ef247f93f470f4f5e2b5cc59dce", null ],
-      [ "val", "struct_sl_socket_async_event__t.html#ad8afa2d0f076cad9c84b3c1e9022fbd6", null ]
+      [ "val", "struct_sl_socket_async_event__t.html#af7f7ebaf50ae06049cd3f317a812d90d", null ]
     ] ],
-    [ "SlSockEventData_t", "struct_sl_sock_event_data__t.html", [
-      [ "sd", "struct_sl_sock_event_data__t.html#a7bcf1a1a2604db78219a22c1133662f1", null ],
-      [ "socketAsyncEvent", "struct_sl_sock_event_data__t.html#ade95cf432a38a6ee899c7e9b69a06d83", null ],
-      [ "status", "struct_sl_sock_event_data__t.html#a88b0e46c9227c27bb67842b895edbc6f", null ]
+    [ "SlSockTxFailEventData_t", "struct_sl_sock_tx_fail_event_data__t.html", [
+      [ "padding", "struct_sl_sock_tx_fail_event_data__t.html#add68adbd81b0e5a99dda8bd7b4481108", null ],
+      [ "sd", "struct_sl_sock_tx_fail_event_data__t.html#a6e61459b1cc5e37bbd460cbbdade7fd0", null ],
+      [ "status", "struct_sl_sock_tx_fail_event_data__t.html#a88b0e46c9227c27bb67842b895edbc6f", null ]
+    ] ],
+    [ "SlSockEventData_u", "union_sl_sock_event_data__u.html", [
+      [ "SockAsyncData", "union_sl_sock_event_data__u.html#ae60ad12b7cac0600997d825fc8e71f6e", null ],
+      [ "SockTxFailData", "union_sl_sock_event_data__u.html#a595b11dcc257e90eee3feb5fa262591e", null ]
     ] ],
     [ "SlSockEvent_t", "struct_sl_sock_event__t.html", [
       [ "Event", "struct_sl_sock_event__t.html#adeedbaaa252b969fc66e151eef37ea62", null ],
-      [ "EventData", "struct_sl_sock_event__t.html#a3b2d881ad4bcc5cee8a09ea2e3a9e364", null ]
+      [ "socketAsyncEvent", "struct_sl_sock_event__t.html#a5417ec200900ac2c08550715dbb114a7", null ]
     ] ],
     [ "SlSockSecureMask", "struct_sl_sock_secure_mask.html", [
       [ "secureMask", "struct_sl_sock_secure_mask.html#a60798538f913579423ecfac09c9e13d7", null ]

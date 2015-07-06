@@ -228,7 +228,7 @@ static int rtc_module_init()
         hw_timer_config.set_irq = sw_simulate_rtc_intr/*cc_rtc_isr*/;
 
         retval = cc_rtc_init(&hw_timer_config);
-
+		cc_rtc_fast_read_config(true);
         return retval;
 }
 //****************************************************************************
@@ -297,10 +297,12 @@ static int gpio_module_init(int *gpios_in_use, int count)
 
         struct cc_gpio_config gpio_config;
         int retval, loopcnt;
-        unsigned char port0_validity, port1_validity;
-        unsigned char port2_validity, port3_validity;
+        unsigned char port0_validity = 0, port1_validity = 0;
+        unsigned char port2_validity = 0, port3_validity = 0;
         unsigned int port_num = 0;
         unsigned char pin_num, bitmask_pin;
+        
+        memset(&gpio_config, 0 ,sizeof(struct cc_gpio_config));
 
         /* Setup the GPIO validity mask */
         for(loopcnt = 0; loopcnt < count; loopcnt++) {
@@ -374,7 +376,7 @@ static int gpio_module_init(int *gpios_in_use, int count)
 //! \return none
 //
 //****************************************************************************
-void prcm_interrupt_handler(void)
+void prcm_interrupt_handler(void *intr_param)
 {
         int status;
 
@@ -392,7 +394,7 @@ void prcm_interrupt_handler(void)
         }
 }
 
-void timer_interrupt_handler(void)
+void timer_interrupt_handler(void *intr_param)
 {
     sw_simulate_timer = 0;
     cc_hwt32_isr(timer_hndl);
@@ -429,10 +431,10 @@ int platform_init(void)
         retval = cc_pm_platform_ops_register(&lp3p0_pm_ops);
         
         /* Register the power management ISR */
-        register_isr(INT_PRCM, (void *) prcm_interrupt_handler, NULL);
+        register_isr(INT_PRCM, prcm_interrupt_handler, NULL);
         
         /* Register the timer ISR */
-        register_isr(INT_TIMERA0A, (void *) timer_interrupt_handler, NULL);
+        register_isr(INT_TIMERA0A, timer_interrupt_handler, NULL);
 
         /* Initialize the platform specific services */
         timer_setup.enbl_irqc = osi_ExitCritical;
@@ -472,14 +474,12 @@ int platform_init(void)
 		}
 
         /* Load the application specific modules */
-#if 1
 #define NUM_SOC_MODULES(modules) (sizeof(modules) / sizeof(struct soc_module))
 
         if(-1 == cc_modules_load(modules, NUM_SOC_MODULES(modules))) {
                 /* Should modules be unloaded? */
                 retval = -1;
         }
-#endif
-
+        
         return retval;
 }

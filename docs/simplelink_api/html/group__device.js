@@ -11,12 +11,17 @@ var group__device =
       [ "Padding", "struct_sl_version_full.html#a3e6fcab66830b3ba1b3d8d6167595d03", null ],
       [ "RomVersion", "struct_sl_version_full.html#a04d0b5c1e5fe2e3e1209bafd6f6d6596", null ]
     ] ],
+    [ "sl_DeviceReportAbort", "structsl___device_report_abort.html", [
+      [ "AbortData", "structsl___device_report_abort.html#a11d5127aeadfedde8e59b6742e7e70ec", null ],
+      [ "AbortType", "structsl___device_report_abort.html#a102ff99b384c6e6ec0e34b36e73e68c5", null ]
+    ] ],
     [ "sl_DeviceReport", "structsl___device_report.html", [
       [ "sender", "structsl___device_report.html#ac0b67f727ab542ea92d7bb5a9586c638", null ],
       [ "status", "structsl___device_report.html#aea15cd487dbeb2bdf9c07ef8d864c64e", null ]
     ] ],
     [ "_SlDeviceEventData_u", "union___sl_device_event_data__u.html", [
-      [ "deviceEvent", "union___sl_device_event_data__u.html#a3447f4b5eb63cfa640a5c0dca641a30c", null ]
+      [ "deviceEvent", "union___sl_device_event_data__u.html#a3447f4b5eb63cfa640a5c0dca641a30c", null ],
+      [ "deviceReport", "union___sl_device_event_data__u.html#a953cec9fcfc133f5c137a3b27c9a5019", null ]
     ] ],
     [ "SlDeviceEvent_t", "struct_sl_device_event__t.html", [
       [ "Event", "struct_sl_device_event__t.html#adeedbaaa252b969fc66e151eef37ea62", null ],
@@ -33,10 +38,11 @@ var group__device =
       [ "sl_tm_year", "struct_sl_date_time__t.html#ac214aa05234cf1c38cbc1e464997c25e", null ],
       [ "sl_tm_year_day", "struct_sl_date_time__t.html#a041e83bc571abb3b79165cbf6bea74a1", null ]
     ] ],
-    [ "sl_DevGet", "group__device.html#ga99e4952cbe9d52fe22698e6e7a59b891", null ],
-    [ "sl_DevSet", "group__device.html#gad9f4a882aaa3da4631deed04b789d801", null ],
-    [ "sl_EventMaskGet", "group__device.html#gaa6b773e7c7bc76a72aa4c01aa65e250a", null ],
-    [ "sl_EventMaskSet", "group__device.html#ga7806b05e2f17b11b8d054f92f7f2c868", null ],
+    [ "sl_DevGet", "group__device.html#ga474ffecf51d679b27f7b449dc7b2e554", null ],
+    [ "sl_DevSet", "group__device.html#ga6a8648f29287968fcb8a9efcdd91becd", null ],
+    [ "sl_EventMaskGet", "group__device.html#ga6e2bf948f1cce2bc5aae771892739fb2", null ],
+    [ "sl_EventMaskSet", "group__device.html#ga57d6ea9dfcc0fb18f956fd2cae8f5f19", null ],
     [ "sl_Start", "group__device.html#ga5869df658d2c9fe3c2baa50503a1a8dd", null ],
-    [ "sl_Stop", "group__device.html#ga7baa360e5cda2cff9b52c0d9b69a6c86", null ]
+    [ "sl_Stop", "group__device.html#ga1e30957d5b7720918fb206d44f373613", null ],
+    [ "sl_Task", "group__device.html#ga0425868dc13ee98bff664127d9d37ee4", null ]
 ];

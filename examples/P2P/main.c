@@ -79,7 +79,7 @@
 #include "gpio_if.h"
 
 
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 
 #define P2P_REMOTE_DEVICE   "remote-p2p-device"
 #define P2P_DEVICE_NAME     "cc3200-p2p-device"
@@ -124,12 +124,12 @@ union
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
 unsigned long  g_ulDeviceIp = 0;
-unsigned long  g_ulStatus = 0;
+volatile unsigned long  g_ulStatus = 0;
 unsigned long  g_ulGatewayIP = 0;
 const char digits[] = "0123456789";
 char g_p2p_dev[MAXIMAL_SSID_LENGTH + 1];
 
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -793,7 +793,7 @@ BoardInit(void)
     //
     // Set vector table base
     //
-#if defined(gcc)
+#if defined(ccs)|| defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)

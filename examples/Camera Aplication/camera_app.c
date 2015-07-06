@@ -594,26 +594,29 @@ void SimpleLinkSockEventHandler(SlSockEvent_t *pSock)
     //
     // This application doesn't work w/ socket - Events are not expected
     //
-       switch( pSock->Event )
+    switch( pSock->Event )
     {
         case SL_SOCKET_TX_FAILED_EVENT:
-            switch( pSock->EventData.status )
+            switch( pSock->socketAsyncEvent.SockTxFailData.status)
             {
-                case SL_ECLOSE:
+                case SL_ECLOSE: 
                     UART_PRINT("[SOCK ERROR] - close socket (%d) operation "
-                    "failed to transmit all queued packets\n\n",
-                           pSock->EventData.sd);
+                                "failed to transmit all queued packets\n\n", 
+                                    pSock->socketAsyncEvent.SockTxFailData.sd);
                     break;
-                default:
-                    UART_PRINT("[SOCK ERROR] - TX FAILED : socket %d , reason"
-                        "(%d) \n\n",
-                           pSock->EventData.sd, pSock->EventData.status);
+                default: 
+                    UART_PRINT("[SOCK ERROR] - TX FAILED  :  socket %d , reason "
+                                "(%d) \n\n",
+                                pSock->socketAsyncEvent.SockTxFailData.sd, pSock->socketAsyncEvent.SockTxFailData.status);
+                  break;
             }
             break;
 
         default:
-            UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
+        	UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
+          break;
     }
+
 }
 
 
@@ -869,7 +872,7 @@ static void DMAConfig()
     //
     // Setup ping-pong transfer
     //
-    DMASetupTransfer(UDMA_CH22_CAMERA,UDMA_MODE_PINGPONG,TOTAL_DMA_ELEMENTS,
+    UDMASetupTransfer(UDMA_CH22_CAMERA,UDMA_MODE_PINGPONG,TOTAL_DMA_ELEMENTS,
                      UDMA_SIZE_32,
                      UDMA_ARB_8,(void *)CAM_BUFFER_ADDR, UDMA_SRC_INC_32,
                      (void *)p_buffer, UDMA_DST_INC_32);
@@ -877,7 +880,7 @@ static void DMAConfig()
     //  Pong Buffer
     // 
     p_buffer += TOTAL_DMA_ELEMENTS; 
-    DMASetupTransfer(UDMA_CH22_CAMERA|UDMA_ALT_SELECT,UDMA_MODE_PINGPONG,
+    UDMASetupTransfer(UDMA_CH22_CAMERA|UDMA_ALT_SELECT,UDMA_MODE_PINGPONG,
                      TOTAL_DMA_ELEMENTS,
                      UDMA_SIZE_32, UDMA_ARB_8,(void *)CAM_BUFFER_ADDR,
                      UDMA_SRC_INC_32, (void *)p_buffer, UDMA_DST_INC_32);
@@ -894,12 +897,12 @@ static void DMAConfig()
     //
     // Clear any pending interrupt
     //
-    HWREG(0x4402609C) |= 1 << 8;
+    CameraIntClear(CAMERA_BASE,CAM_INT_DMA);
 
     //
     // DMA Interrupt unmask from apps config
     //
-    HWREG(0x44026094) |= 1 << 8;
+    CameraIntEnable(CAMERA_BASE,CAM_INT_DMA);
 }
 
 //*****************************************************************************
@@ -920,9 +923,9 @@ static void CamControllerInit()
 #ifndef ENABLE_JPEG
     // Configure Camera clock from ARCM
     // CamClkIn = ((240)/((1+1)+(1+1))) = 60 MHz
-    HWREG(0x44025000) = 0x0101;
+    PRCMCameraFreqSet(4, 2);
 #else
-    HWREG(0x44025000) = 0x0000;
+    PRCMCameraFreqSet(2,1);
 #endif 
 
     MAP_CameraReset(CAMERA_BASE);
@@ -966,10 +969,10 @@ static void CameraIntHandler()
         MAP_CameraCaptureStop(CAMERA_BASE, true);
     }
 
-    if(HWREG(0x440260A4) & (1<<8))
+    if(CameraIntStatus(CAMERA_BASE)& CAM_INT_DMA)
     {
         // Camera DMA Done clear
-        HWREG(0x4402609C) |= 1 << 8;
+        CameraIntClear(CAMERA_BASE,CAM_INT_DMA);
 
         g_total_dma_intrpts++;
 
@@ -979,7 +982,7 @@ static void CameraIntHandler()
         {
             if(g_dma_txn_done == 0)
             {
-                DMASetupTransfer(UDMA_CH22_CAMERA,UDMA_MODE_PINGPONG,
+                UDMASetupTransfer(UDMA_CH22_CAMERA,UDMA_MODE_PINGPONG,
                                  TOTAL_DMA_ELEMENTS,UDMA_SIZE_32,
                                  UDMA_ARB_8,(void *)CAM_BUFFER_ADDR, 
                                  UDMA_SRC_INC_32,
@@ -989,7 +992,7 @@ static void CameraIntHandler()
             }
             else
             {
-                DMASetupTransfer(UDMA_CH22_CAMERA|UDMA_ALT_SELECT,
+                UDMASetupTransfer(UDMA_CH22_CAMERA|UDMA_ALT_SELECT,
                                  UDMA_MODE_PINGPONG,TOTAL_DMA_ELEMENTS,
                                  UDMA_SIZE_32, UDMA_ARB_8,
                                  (void *)CAM_BUFFER_ADDR,
@@ -1004,7 +1007,7 @@ static void CameraIntHandler()
             // Disable DMA 
             MAP_UtilsDelay(20000);
             MAP_uDMAChannelDisable(UDMA_CH22_CAMERA);
-            HWREG(0x44026090) |= 1 << 8;
+			CameraIntDisable(CAMERA_BASE,CAM_INT_DMA);
             g_frame_end = 1;
         }
     }

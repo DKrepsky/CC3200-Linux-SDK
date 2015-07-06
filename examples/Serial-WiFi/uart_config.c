@@ -128,14 +128,22 @@ void basic_Interpreter(void *pvParameters)
 //!  \brief   Get the char string from UART
 //
 //*****************************************************************************
-
 unsigned int GETChar(unsigned char *ucBuffer)
 {
 
     int i=0;
     char c;
     uiUartline=0;
-    c=MAP_UARTCharGet(CONSOLE);
+
+    //
+    // Wait to receive a character over UART
+    //
+    while(MAP_UARTCharsAvail(CONSOLE) == false)
+    {
+    	osi_Sleep(1);
+    }
+    c = MAP_UARTCharGetNonBlocking(CONSOLE);
+
     MAP_UARTCharPut(CONSOLE, c);
     ilength=0;
     //
@@ -161,7 +169,11 @@ unsigned int GETChar(unsigned char *ucBuffer)
             i--;
             ilength--;
         }
-        c=MAP_UARTCharGet(CONSOLE);
+        while(MAP_UARTCharsAvail(CONSOLE) == false)
+        {
+        	osi_Sleep(1);
+        }
+        c = MAP_UARTCharGetNonBlocking(CONSOLE);
         MAP_UARTCharPut(CONSOLE, c);
     }
 

@@ -84,7 +84,7 @@
 
 
 #define USER_INPUT
-#define APPLICATION_VERSION  "1.1.0"
+#define APPLICATION_VERSION  "1.1.1"
 #define APP_NAME             "SHAMD5 Reference"
 #define UART_PRINT           Report
 #define FOREVER              1
@@ -100,7 +100,7 @@ volatile bool g_bParthashReadyFlag;
 volatile bool g_bInputReadyFlag;
 volatile bool g_bOutputReadyFlag;
 
-#if defined(gcc)
+#if defined(ccs)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -186,14 +186,13 @@ GenerateHash(unsigned int uiConfig,unsigned char *puiKey1,unsigned char *puiData
 {
   
     //
-    // Step1: Reset the Module
-    // Step2: Enable Interrupts
-    // Step3: Wait for Context Ready Inteerupt
-    // Step4: Set the Configuration Parameters (Hash Algorithm)
-    // Step5: Set Key depends on Algorithm
-    // Step7: Start Hash Generation
+    // Step1: Enable Interrupts
+    // Step2: Wait for Context Ready Inteerupt
+    // Step3: Set the Configuration Parameters (Hash Algorithm)
+    // Step4: Set Key depends on Algorithm
+    // Step5: Start Hash Generation
     //
-    MAP_PRCMPeripheralReset(PRCM_DTHE);
+    
     //
     // Clear the flags
     //
@@ -319,7 +318,7 @@ BoardInit(void)
   //
   // Set vector table base
   //
-#if defined(gcc)
+#if defined(ccs)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)
@@ -419,8 +418,8 @@ main()
         //
         // Display Hash Value Generated
         //
-        UART_PRINT("\n\r The Hash Value in Hex is: 0x%02x",*puiResult);
-        for(u8count=0;u8count<(uiHashLength/4);u8count++)
+        UART_PRINT("\n\r The Hash Value in Hex is: 0x");
+        for(u8count=0;u8count<uiHashLength;u8count++)
         {
           UART_PRINT("%02x",*(puiResult+u8count));
         }

@@ -25,9 +25,19 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>fatfs</name>
+			<type>2</type>
+			<locationURI>CC3200SDK/other/fatfs</locationURI>
+		</link>
+		<link>
 			<name>src</name>
 			<type>2</type>
 			<location>/home/dkrepsky/App/CC3200SDK-Linux/sdk/external/fatfs/src</location>
+		</link>
+		<link>
+			<name>uart_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/uart_if.c</locationURI>
 		</link>
 	</linkedResources>
 	<filteredResources>

@@ -29,6 +29,11 @@
 			<type>2</type>
 			<locationURI>CC3200SDK/other/FreeRTOS/Source</locationURI>
 		</link>
+		<link>
+			<name>uart_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/uart_if.c</locationURI>
+		</link>
 	</linkedResources>
 	<variableList>
 		<variable>

@@ -93,10 +93,11 @@ struct cc_uart_config uart_settings = {
 	        (UARTA0_BASE + UART_O_DR),
 	        UDMA_CH8_UARTA0_RX
 	},
-	e_poll_based,
-	e_poll_based,
+	e_int_based,
+	e_int_based,
 	e_one_half,
 	e_one_half,
+	e_true,
 	e_true,
 	INT_UARTA0,
 	NULL

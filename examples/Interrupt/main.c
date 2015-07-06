@@ -81,7 +81,7 @@
 
 #include "pinmux.h"
 
-#define APPLICATION_VERSION  "1.1.0"
+#define APPLICATION_VERSION  "1.1.1"
 #define APP_NAME             "Interrupt Reference"
 #define SYSCLK               80000000
 #define UART_PRINT           Report
@@ -110,7 +110,7 @@ static unsigned long g_ulTimer0APriority;
 static unsigned long g_ulTimer1APriority;
 static unsigned long g_lPriorityGrouping;
 
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -628,7 +628,7 @@ BoardInit(void)
   //
   // Set vector table base
   //
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)

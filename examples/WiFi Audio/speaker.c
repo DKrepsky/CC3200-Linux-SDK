@@ -46,7 +46,7 @@
 
 // common interface includes
 #include "common.h"
-
+#include "uart_if.h"
 // Demo app includes
 #include "network.h"
 #include "circ_buff.h"
@@ -54,15 +54,15 @@
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
-extern tCircularBuffer *pRxBuffer;
 extern tUDPSocket g_UdpSock;
 int g_iReceiveCount =0;
 int g_iRetVal =0;
 int iCount =0;
-unsigned int g_uiPlayWaterMark = 1;
 extern unsigned long  g_ulStatus;
 extern unsigned char g_ucSpkrStartFlag;
+extern unsigned char g_loopback;
 unsigned char speaker_data[16*1024];
+extern tCircularBuffer *pPlayBuffer;
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- End
 //*****************************************************************************
@@ -80,59 +80,53 @@ unsigned char speaker_data[16*1024];
 void Speaker( void *pvParameters )
 {
     long iRetVal = -1;
-#ifdef NETWORK
-    while((!IS_IP_ACQUIRED(g_ulStatus)))
-    {
 
-    }   
-#endif
+
     while(1)
     {
-        while(g_ucSpkrStartFlag)
+        while(g_ucSpkrStartFlag || g_loopback)
         {     
-#if NETWORK
-            fd_set readfds,writefds;
-            struct SlTimeval_t tv;
-            FD_ZERO(&readfds);
-            FD_ZERO(&writefds);
-            FD_SET(g_UdpSock.iSockDesc,&readfds);
-            FD_SET(g_UdpSock.iSockDesc,&writefds);
-            tv.tv_sec = 0;
-            tv.tv_usec = 2000000;
-            int rv = select(g_UdpSock.iSockDesc, &readfds, NULL, NULL, &tv);
-            if(rv <= 0)
+
+            if(!g_loopback)
             {
-               continue;
-            }        
-            if (FD_ISSET(g_UdpSock.iSockDesc, &readfds) )
-            {        
-                g_iRetVal = recvfrom(g_UdpSock.iSockDesc, (char*)(speaker_data),\
-                                     PACKET_SIZE*16, 0,\
-                                    (struct sockaddr *)&(g_UdpSock.Client),\
-                                    (SlSocklen_t*)&(g_UdpSock.iClientLength));
-            }
-#endif    
-            if(g_iRetVal>0)
-            {
-                iRetVal = FillBuffer(pRxBuffer,(unsigned char*)speaker_data,\
-                                        g_iRetVal);
-                if(iRetVal < 0)
+                fd_set readfds,writefds;
+                struct SlTimeval_t tv;
+                FD_ZERO(&readfds);
+                FD_ZERO(&writefds);
+                FD_SET(g_UdpSock.iSockDesc,&readfds);
+                FD_SET(g_UdpSock.iSockDesc,&writefds);
+                tv.tv_sec = 0;
+                tv.tv_usec = 2000000;
+                int rv = select(g_UdpSock.iSockDesc, &readfds, NULL, NULL, &tv);
+                if(rv <= 0)
                 {
-                    UART_PRINT("Unable to fill buffer");
-                    LOOP_FOREVER();
+                    continue;
+                }
+                if (FD_ISSET(g_UdpSock.iSockDesc, &readfds) )
+                {
+                    g_iRetVal = recvfrom(g_UdpSock.iSockDesc, (char*)(speaker_data),\
+                                          PACKET_SIZE*16, 0,\
+                                          (struct sockaddr *)&(g_UdpSock.Client),\
+                                          (SlSocklen_t*)&(g_UdpSock.iClientLength));
+                }
+
+                if(g_iRetVal>0)
+                {
+                    iRetVal = FillBuffer(pPlayBuffer, (unsigned char*)speaker_data,\
+                                          g_iRetVal);
+                    if(iRetVal < 0)
+                    {
+                        UART_PRINT("Unable to fill buffer");
+                        LOOP_FOREVER();
+                    }
                 }
             }
-            if(g_uiPlayWaterMark == 0)
+            else
             {
-                if(IsBufferSizeFilled(pRxBuffer,PLAY_WATERMARK) == TRUE)
-                {
-                    g_uiPlayWaterMark = 1;               
-                }
+                MAP_UtilsDelay(1000);
             }
-            g_iReceiveCount++;
         }
-     
-        MAP_UtilsDelay(1000);  
-      
+        MAP_UtilsDelay(1000);
     }
 }
+

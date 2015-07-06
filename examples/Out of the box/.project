@@ -29,6 +29,21 @@
 			<type>2</type>
 			<locationURI>CC3200SDK/other/FreeRTOS</locationURI>
 		</link>
+		<link>
+			<name>gpio_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/gpio_if.c</locationURI>
+		</link>
+		<link>
+			<name>i2c_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/i2c_if.c</locationURI>
+		</link>
+		<link>
+			<name>uart_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/uart_if.c</locationURI>
+		</link>
 	</linkedResources>
 	<variableList>
 		<variable>

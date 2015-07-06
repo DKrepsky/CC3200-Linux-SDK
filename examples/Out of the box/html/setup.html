@@ -199,8 +199,8 @@ $(function(){
 <input type="radio" name="__SL_P_P.B" value="1">WEP
 <input type="radio" name="__SL_P_P.B" value="2">WPA1
 <input type="radio" name="__SL_P_P.B" value="3">WPA2</td></tr>
-<tr><td> Security Key:</td><td><input type="text" maxlength="64" name="__SL_P_P.C"> Hexadecimal digits - any combination of 0-9, a-f and A-F</td></tr>
-<tr><td> Profile Priority:</td><td><input type="text" maxlength="1" name="__SL_P_P.D"> Enter a value 0-7 (7 = highest)</td></tr>
+<tr><td> Security Key:</td><td><input type="text" maxlength="64" name="__SL_P_P.C"> A sequence of ASCII-encoded char</td></tr>
+<tr><td> Profile Priority:</td><td><input type="text" maxlength="1" name="__SL_P_P.D"> Enter a value 0-7 (0- lowest and 7-highest)</td></tr>
 <tr><td colspan="2"></td></tr>
 <tr><td colspan="2" align="center"><input type="submit" value="Add"></td></tr>
 <tr><td colspan="2" align="center"> The new Profile will take affect only after reset</td></tr>
@@ -244,7 +244,7 @@ $(function(){
 <tr><td colspan="2"></td></tr>
 <tr><td colspan="2" class="tbl-header top">Device Configuration</td></tr>
 <tr><td colspan="2"></td></tr>
-<tr><td> Device Name:</td><td><input type="text" maxlength="15" name="__SL_P_S.B" value="mysimplelink"></td></tr>
+<tr><td> Device Name:</td><td><input type="text" maxlength="32" name="__SL_P_S.B" value="mysimplelink"></td></tr>
 <tr><td> Domain Name:</td><td><input type="text" maxlength="24" name="__SL_P_S.C" value="mysimplelink.net"></td></tr>
 <tr><td> Device Mode:</td><td><select name="__SL_P_S.D">
     <option value="Station" __SL_G_S.E >Station</option>
@@ -286,7 +286,7 @@ $(function(){
 <tr><td> Security Type:</td><td><input type="radio" name="__SL_P_W.C" value="0"__SL_G_W.D />Open
 <input type="radio" name="__SL_P_W.C" value="1"__SL_G_W.E />WEP
 <input type="radio" name="__SL_P_W.C" value="2"__SL_G_W.F />WPA</td></tr>
-<tr><td> Password:</td><td><input type="text" maxlength="24" name="__SL_P_W.G" value=""></td></tr>
+<tr><td> Password:</td><td><input type="text" maxlength="64" name="__SL_P_W.G" value=""></td></tr>
 <tr><td colspan="2"></td></tr>
 <tr><td colspan="2" align="center"><input type="submit" value="Apply"></td></tr>
 <tr><td colspan="2"></td></tr>

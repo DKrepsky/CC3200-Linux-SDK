@@ -88,21 +88,26 @@
 #include "udma_if.h"
 #include "common.h"
 
+// HTTP Client lib
+#include <http/client/httpcli.h>
+#include <http/client/common.h>
 
 //****************************************************************************
 //                          LOCAL DEFINES                                   
 //****************************************************************************
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 #define APP_NAME                "Get Weather"
 
-#define SERVER_RESPONSE_TIMEOUT 10
 #define SLEEP_TIME              8000000
 #define SUCCESS                 0
 #define OSI_STACK_SIZE          3000
 
-#define PREFIX_BUFFER "GET /data/2.5/weather?q="
-#define POST_BUFFER "&mode=xml&units=imperial HTTP/1.1\r\nHost: api.openweathermap.org\r\nAccept: */"
-#define POST_BUFFER2 "*\r\n\r\n"
+#define PREFIX_BUFFER "/data/2.5/weather?q="
+#define POST_BUFFER "&mode=xml&units=imperial"
+
+#define HOST_NAME       "api.openweathermap.org"
+#define HOST_PORT       (80)
+
 
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
@@ -120,14 +125,12 @@ typedef enum{
 
 unsigned long g_ulTimerInts;   //  Variable used in Timer Interrupt Handler
 SlSecParams_t SecurityParams = {0};  // AP Security Parameters
-const char g_ServerAddress[30] = "openweathermap.org"; // Weather info provider server
 
-#if defined(gcc)
+char acSendBuff[512];	// Buffer to send data
+char acRecvbuff[1460];  // Buffer to receive data
+
 extern void (* const g_pfnVectors[])(void);
-#endif
-#if defined(ewarm)
-extern uVectorEntry __vector_table;
-#endif
+
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- End
 //*****************************************************************************
@@ -136,51 +139,13 @@ extern uVectorEntry __vector_table;
 //****************************************************************************
 //                      LOCAL FUNCTION PROTOTYPES                           
 //****************************************************************************
-static int CreateConnection(unsigned long ulDestinationIP);
-static long GetWeather(int iSockID, char *pcCityName);
+static long GetWeather(HTTPCli_Handle cli, int iSockID, char *pcCityName);
 void GetWeatherTask(void *pvParameters);
 static void BoardInit();
 static void DisplayBanner(char * AppName);
+static int HandleXMLData(char *acRecvbuff);
+static int FlushHTTPResponse(HTTPCli_Handle cli);
 
-
-//*****************************************************************************
-//
-//! CreateConnection
-//!
-//! \brief  Creating an endpoint for TCP communication and initiating 
-//!         connection on socket
-//!
-//! \param  The server hostname
-//!
-//! \return SocketID on Success or < 0 on Failure.        
-//!
-//
-//*****************************************************************************
-static int CreateConnection(unsigned long ulDestinationIP)
-{
-    int iLenorError;
-    SlSockAddrIn_t  sAddr;
-    int iAddrSize;
-    int iSockIDorError = 0;
-
-    sAddr.sin_family = SL_AF_INET;
-    sAddr.sin_port = sl_Htons(80);
-
-    //Change the DestinationIP endianity , to big endian
-    sAddr.sin_addr.s_addr = sl_Htonl(ulDestinationIP);
-
-    iAddrSize = sizeof(SlSockAddrIn_t);
-
-    iSockIDorError = sl_Socket(SL_AF_INET,SL_SOCK_STREAM, 0);
-    ASSERT_ON_ERROR(iSockIDorError);
-
-    iLenorError = sl_Connect(iSockIDorError, ( SlSockAddr_t *)&sAddr, iAddrSize);
-    ASSERT_ON_ERROR(iLenorError);
-
-    DBG_PRINT("Socket Id: %d was created.",iSockIDorError);
-
-    return iSockIDorError;//success, connection created
-}
 
 //*****************************************************************************
 //
@@ -240,7 +205,7 @@ void LedTimerConfigNStart()
     //
     Timer_IF_Init(PRCM_TIMERA0,TIMERA0_BASE,TIMER_CFG_PERIODIC,TIMER_A,0);
     Timer_IF_IntSetup(TIMERA0_BASE,TIMER_A,TimerPeriodicIntHandler);
-    Timer_IF_Start(TIMERA0_BASE,TIMER_A,PERIODIC_TEST_CYCLES / 10);
+    Timer_IF_Start(TIMERA0_BASE,TIMER_A,100);  // Time value is in mSec
 }
 
 //****************************************************************************
@@ -261,73 +226,19 @@ void LedTimerDeinitStop()
     Timer_IF_DeInit(TIMERA0_BASE,TIMER_A);
 }
 
-
-//*****************************************************************************
+//****************************************************************************
 //
-//! GetWeather
+//! Parsing XML data to dig wetaher information
 //!
-//! \brief  Obtaining the weather info for the specified city from the server
+//! \param[in] acRecvbuff - XML Data
 //!
-//! \param  iSockID is the socket ID
-//! \param  pcCityName is the pointer to the name of the city
-//!
-//! \return none.        
-//!
+//! return 0 on success else -ve
 //
-//*****************************************************************************
-static long GetWeather(int iSockID, char *pcCityName)
+//****************************************************************************
+static int HandleXMLData(char *acRecvbuff)
 {
-    int iTXStatus;
-    int iRXDataStatus;
     char *pcIndxPtr;
     char *pcEndPtr;
-    char acSendBuff[512];
-    char acRecvbuff[1460];
-    char* pcBufLocation;
-
-    memset(acRecvbuff, 0, sizeof(acRecvbuff));
-
-    //
-    // Puts together the HTTP GET string.
-    //
-    pcBufLocation = acSendBuff;
-    strcpy(pcBufLocation, PREFIX_BUFFER);
-    pcBufLocation += strlen(PREFIX_BUFFER);
-    strcpy(pcBufLocation , pcCityName);
-    pcBufLocation += strlen(pcCityName);
-    strcpy(pcBufLocation, POST_BUFFER);
-    pcBufLocation += strlen(POST_BUFFER);
-    strcpy(pcBufLocation, POST_BUFFER2);
-
-    //
-    // Send the HTTP GET string to the open TCP/IP socket.
-    //
-    iTXStatus = sl_Send(iSockID, acSendBuff, strlen(acSendBuff), 0);
-    if(iTXStatus < 0)
-    {
-        ASSERT_ON_ERROR(SERVER_GET_WEATHER_FAILED);
-    }
-    else
-    {
-        DBG_PRINT("Sent HTTP GET request. \n\r");
-    }
-
-    DBG_PRINT("Return value: %d \n\r", iTXStatus);
-
-    //
-    // Store the reply from the server in buffer.
-    //
-    iRXDataStatus = sl_Recv(iSockID, &acRecvbuff[0], sizeof(acRecvbuff), 0);
-    if(iRXDataStatus < 0)
-    {
-        ASSERT_ON_ERROR(SERVER_GET_WEATHER_FAILED);
-    }
-    else
-    {
-        DBG_PRINT("Received HTTP GET response data. \n\r");
-    }
-
-    DBG_PRINT("Return value: %d \n\r", iRXDataStatus);
 
     //
     // Get city name
@@ -398,7 +309,185 @@ static long GetWeather(int iSockID, char *pcCityName)
         DBG_PRINT("N/A\n\r");
         return NO_WEATHER_DATA;
     }
-   
+
+    return SUCCESS;
+}
+
+//****************************************************************************
+//
+//! This function flush received HTTP response
+//!
+//! \param[in] cli - HTTP client object
+//!
+//! return 0 on success else -ve
+//
+//****************************************************************************
+static int FlushHTTPResponse(HTTPCli_Handle cli)
+{
+    const char *ids[2] = {
+                            HTTPCli_FIELD_NAME_CONNECTION, /* App will get connection header value. all others will skip by lib */
+                            NULL
+                         };
+    char buf[128];
+    int id;
+    int len = 1;
+    bool moreFlag = 0;
+    char ** prevRespFilelds = NULL;
+
+
+    prevRespFilelds = HTTPCli_setResponseFields(cli, ids);
+
+    //
+    // Read response headers
+    //
+    while ((id = HTTPCli_getResponseField(cli, buf, sizeof(buf), &moreFlag))
+            != HTTPCli_FIELD_ID_END)
+    {
+
+        if(id == 0)
+        {
+            if(!strncmp(buf, "close", sizeof("close")))
+            {
+                UART_PRINT("Connection terminated by server\n\r");
+            }
+        }
+
+    }
+
+    HTTPCli_setResponseFields(cli, (const char **)prevRespFilelds);
+
+    while(1)
+    {
+        len = HTTPCli_readResponseBody(cli, buf, sizeof(buf) - 1, &moreFlag);
+        ASSERT_ON_ERROR(len);
+
+        if ((len - 2) >= 0 && buf[len - 2] == '\r' && buf [len - 1] == '\n')
+        {
+
+        }
+
+        if(!moreFlag)
+        {
+            break;
+        }
+    }
+    return SUCCESS;
+}
+
+//*****************************************************************************
+//
+//! GetWeather
+//!
+//! \brief  Obtaining the weather info for the specified city from the server
+//!
+//! \param  iSockID is the socket ID
+//! \param  pcCityName is the pointer to the name of the city
+//!
+//! \return none.        
+//!
+//
+//*****************************************************************************
+static long GetWeather(HTTPCli_Handle cli, int iSockID, char *pcCityName)
+{
+
+    char* pcBufLocation;
+    long lRetVal = 0;
+    int id;
+    int len = 1;
+    bool moreFlag = 0;
+    char ** prevRespFilelds = NULL;
+    HTTPCli_Field fields[2] = {
+                                {HTTPCli_FIELD_NAME_HOST, HOST_NAME},
+                                {NULL, NULL},
+                              };
+    const char *ids[3] = {
+                            HTTPCli_FIELD_NAME_CONNECTION,
+                            HTTPCli_FIELD_NAME_CONTENT_TYPE,
+                            NULL
+                         };
+    //
+    // Set request fields
+    //
+    HTTPCli_setRequestFields(cli, fields);
+
+    pcBufLocation = acSendBuff;
+    strcpy(pcBufLocation, PREFIX_BUFFER);
+    pcBufLocation += strlen(PREFIX_BUFFER);
+    strcpy(pcBufLocation , pcCityName);
+    pcBufLocation += strlen(pcCityName);
+    strcpy(pcBufLocation , POST_BUFFER);
+    pcBufLocation += strlen(POST_BUFFER);
+
+    //
+    // Make HTTP 1.1 GET request
+    //
+    lRetVal = HTTPCli_sendRequest(cli, HTTPCli_METHOD_GET, acSendBuff, 0);
+    if (lRetVal < 0)
+    {
+        UART_PRINT("Failed to send HTTP 1.1 GET request.\n\r");
+        return 	SERVER_GET_WEATHER_FAILED;
+    }
+
+    //
+    // Test getResponseStatus: handle
+    //
+    lRetVal = HTTPCli_getResponseStatus(cli);
+    if (lRetVal != 200)
+    {
+        UART_PRINT("HTTP Status Code: %d\r\n", lRetVal);
+        FlushHTTPResponse(cli);
+        return SERVER_GET_WEATHER_FAILED;
+    }
+
+    prevRespFilelds = HTTPCli_setResponseFields(cli, ids);
+
+    //
+    // Read response headers
+    //
+    while ((id = HTTPCli_getResponseField(cli, acRecvbuff, sizeof(acRecvbuff), &moreFlag)) 
+            != HTTPCli_FIELD_ID_END)
+    {
+
+        if(id == 0) // HTTPCli_FIELD_NAME_CONNECTION
+        {
+            if(!strncmp(acRecvbuff, "close", sizeof("close")))
+            {
+                UART_PRINT("Connection terminated by server.\n\r");
+            }
+        }
+        else if(id == 1) // HTTPCli_FIELD_NAME_CONTENT_TYPE
+        {
+            UART_PRINT("Content Type: %s\r\n", acRecvbuff);
+        }
+    }
+
+    HTTPCli_setResponseFields(cli, (const char **)prevRespFilelds);
+
+    //
+    // Read body
+    //
+    while (1)
+    {
+        len = HTTPCli_readResponseBody(cli, acRecvbuff, sizeof(acRecvbuff) - 1, &moreFlag);
+        if(len < 0)
+        {
+            return SERVER_GET_WEATHER_FAILED;
+        }
+        acRecvbuff[len] = 0;
+
+        if ((len - 2) >= 0 && acRecvbuff[len - 2] == '\r'
+                && acRecvbuff [len - 1] == '\n')
+        {
+            break;
+        }
+        if(!moreFlag)
+            break;
+
+        lRetVal = HandleXMLData(acRecvbuff);
+        ASSERT_ON_ERROR(lRetVal);
+    }
+
+
     DBG_PRINT("\n\r****************************** \n\r");
     return SUCCESS;
 }
@@ -421,11 +510,14 @@ static long GetWeather(int iSockID, char *pcCityName)
 //****************************************************************************
 void GetWeatherTask(void *pvParameters)
 {
-    int iSocketDesc, iRetVal;
+    int iSocketDesc;
+    int iRetVal;
     char acCityName[32];
     long lRetVal = -1;
-    
     unsigned long ulDestinationIP;
+    struct sockaddr_in addr;
+    HTTPCli_Struct cli;
+
 
     DBG_PRINT("GET_WEATHER: Test Begin\n\r");
 
@@ -489,7 +581,7 @@ void GetWeatherTask(void *pvParameters)
     //
     // Get the serverhost IP address using the DNS lookup
     //
-    lRetVal = Network_IF_GetHostIP((char*)g_ServerAddress, &ulDestinationIP);
+    lRetVal = Network_IF_GetHostIP((char*)HOST_NAME, &ulDestinationIP);
     if(lRetVal < 0)
     {
         UART_PRINT("DNS lookup failed. \n\r",lRetVal);
@@ -497,25 +589,23 @@ void GetWeatherTask(void *pvParameters)
     }
 
     //
-    // Create a TCP connection to the server
+    // Set up the input parameters for HTTP Connection
     //
-    iSocketDesc = CreateConnection(ulDestinationIP);
-    if(iSocketDesc < 0)
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(HOST_PORT);
+    addr.sin_addr.s_addr = sl_Htonl(ulDestinationIP);
+
+    //
+    // Testing HTTPCli open call: handle, address params only
+    //
+    HTTPCli_construct(&cli);
+    lRetVal = HTTPCli_connect(&cli, (struct sockaddr *)&addr, 0, NULL);
+    if (lRetVal < 0)
     {
-        DBG_PRINT("Socket creation failed.\n\r");
+        UART_PRINT("Failed to create instance of HTTP Client.\n\r");
         goto end;
-    }
-    
-    struct SlTimeval_t timeVal;
-    timeVal.tv_sec =  SERVER_RESPONSE_TIMEOUT;    // Seconds
-    timeVal.tv_usec = 0;     // Microseconds. 10000 microseconds resolution
-    lRetVal = sl_SetSockOpt(iSocketDesc,SL_SOL_SOCKET,SL_SO_RCVTIMEO,\
-                    (unsigned char*)&timeVal, sizeof(timeVal)); 
-    if(lRetVal < 0)
-    {
-       ERR_PRINT(lRetVal);
-       LOOP_FOREVER();
-    }
+    }    
+
 
     while(1)
     {
@@ -535,7 +625,7 @@ void GetWeatherTask(void *pvParameters)
                 //
                 // Get the weather info and display the same
                 //
-                lRetVal = GetWeather(iSocketDesc, &acCityName[0]);
+                lRetVal = GetWeather(&cli, iSocketDesc, &acCityName[0]);
                 if(lRetVal == SERVER_GET_WEATHER_FAILED)
                 {
                     UART_PRINT("Server Get Weather failed \n\r");
@@ -564,18 +654,8 @@ void GetWeatherTask(void *pvParameters)
         }
     }
 
-    //
-    // Close the socket
-    //
-    lRetVal = close(iSocketDesc);
-    if(lRetVal < 0)
-    {
-        ERR_PRINT(lRetVal);
-        LOOP_FOREVER();
-    }
-    DBG_PRINT("Socket closed\n\r");
-
-end:
+    HTTPCli_destruct(&cli);
+    end:
     //
     // Stop the driver
     //
@@ -633,17 +713,13 @@ static void
 BoardInit(void)
 {
 /* In case of TI-RTOS vector table is initialize by OS itself */
-#ifndef USE_TIRTOS
+
   //
   // Set vector table base
   //
-#if defined(gcc)
+
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
-#endif
-#if defined(ewarm)
-    MAP_IntVTableBaseSet((unsigned long)&__vector_table);
-#endif
-#endif
+
   //
   // Enable Processor
   //

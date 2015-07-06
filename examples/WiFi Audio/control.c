@@ -52,7 +52,6 @@
 #include "interrupt.h"
 #include "rom.h"
 #include "rom_map.h"
-#include "uart_if.h"
 #include "gpio.h"
 #include "gpio_if.h"
 
@@ -167,7 +166,7 @@ void SpeakerControl(void* pValue)
 {
     int iCount=0;
     unsigned long ulPin6Val = 1;
-  long lRetVal = -1;
+    long lRetVal = -1;
     
     //Check whether GPIO Level is Stable As No Debouncing Circuit in LP
     for(iCount=0;iCount<3;iCount++)
@@ -480,3 +479,4 @@ long ControlTaskDestroy()
 //! @}
 //
 //*****************************************************************************
+

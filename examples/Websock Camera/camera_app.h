@@ -57,35 +57,13 @@ extern "C"
 #define ENABLE                            (1)
 #define SL_VERSION_LENGTH                 (11)
 
-#ifdef ENABLE_JPEG
-    // Capture is stopped at 'CAM_INT_FE' anyway 
-    #ifdef XGA_FRAME
-        #define PIXELS_IN_X_AXIS        (1024)
-        #define PIXELS_IN_Y_AXIS        (768)
+extern int PIXELS_IN_X_AXIS; 
+extern int PIXELS_IN_X_AXIS;
+extern int FRAME_SIZE_IN_BYTES;
+#define NUM_OF_1KB_BUFFERS      50
 
-        #define NUM_OF_1KB_BUFFERS      40
-    #elif VGA_FRAME
-        #define PIXELS_IN_X_AXIS        (640)
-        #define PIXELS_IN_Y_AXIS        (480)
-
-        #define NUM_OF_1KB_BUFFERS      40
-    #elif QVGA_FRAME
-        #define PIXELS_IN_X_AXIS        (240)
-        #define PIXELS_IN_Y_AXIS        (320)
-
-        #define NUM_OF_1KB_BUFFERS      40
-    #endif
-#else   
-    #ifdef QVGA_FRAME
-        #define PIXELS_IN_X_AXIS        (240)
-        #define PIXELS_IN_Y_AXIS        (256)
-
-        #define NUM_OF_1KB_BUFFERS      40
-    #endif
-#endif  
 
 #define BYTES_PER_PIXEL             (2)       // RGB 565 
-#define FRAME_SIZE_IN_BYTES         (PIXELS_IN_X_AXIS * PIXELS_IN_Y_AXIS * BYTES_PER_PIXEL)
 
 #define ONE_KB                      (1024)
 #define IMAGE_BUF_SIZE              (ONE_KB * NUM_OF_1KB_BUFFERS)
@@ -130,6 +108,7 @@ typedef struct cmd_struct{
 //******************************************************************************
 
 unsigned short StartCamera(char **WriteBuffer);
+long SetCameraResolution(int width, int height);
 
 //*****************************************************************************
 //

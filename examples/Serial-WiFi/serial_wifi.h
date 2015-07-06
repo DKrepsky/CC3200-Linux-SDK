@@ -26,14 +26,6 @@
 #include "rom_map.h"
 #include "interrupt.h"
 
-
-//Free_rtos/ti-rtos includes
-#ifndef extern
-#include "FreeRTOS.h"
-#include "task.h"
-#include "osi.h"
-#endif
-
 //Common interface includes
 #include "uart_if.h"
 

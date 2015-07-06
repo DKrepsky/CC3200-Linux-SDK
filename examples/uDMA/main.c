@@ -82,7 +82,7 @@
 #include "uart_if.h"
 #include "pinmux.h"
 
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 #define APP_NAME                "uDMA Reference"
 #define UART_BAUD_RATE          115200
 #define SYSCLK                  80000000
@@ -119,7 +119,7 @@ static unsigned long g_ulDstBuf[MEM_BUFFER_SIZE];
 // Task List used in Scatter Gather DMA Transfer
 static tDMAControlTable TaskList[2];
 
-extern unsigned char iDone;
+extern volatile unsigned char iDone;
 
 // The transmit and receive buffers used for the UART transfers.  There is one
 // transmit buffer and a pair of recieve ping-pong buffers.
@@ -138,14 +138,15 @@ static unsigned long g_ulTxCount = 0;
 
 unsigned long ulBytesTransferred[100];
 unsigned int uiCount=0;
-int Done=0,UARTDone=0;
+volatile int Done=0;
+int UARTDone=0;
 
 // vector table entry
 #if defined(ewarm)
     extern uVectorEntry __vector_table;
 #endif
 
-#if defined(gcc)
+#if defined(ccs) || defined (gcc)
     extern void (* const g_pfnVectors[])(void);
 #endif
 //*****************************************************************************
@@ -228,8 +229,8 @@ InitSWTransfer(void)
     // are higher priority.
     //
 
-    SetupTransfer(UDMA_CH0_SW, UDMA_MODE_AUTO, MEM_BUFFER_SIZE,
-                  UDMA_SIZE_32, UDMA_ARB_8,g_ulSrcBuf, UDMA_SRC_INC_32,
+    UDMASetupTransfer(UDMA_CH0_SW, UDMA_MODE_AUTO, MEM_BUFFER_SIZE,
+                      UDMA_SIZE_32, UDMA_ARB_8,g_ulSrcBuf, UDMA_SRC_INC_32,
                                             g_ulDstBuf, UDMA_DST_INC_32);
 
     if(StartAndCompleteSWTransfer(UDMA_CH0_SW))
@@ -307,9 +308,9 @@ UART0IntHandler(void)
         // control structure.  When the ongoing receive into the "B" buffer is
         // done, the uDMA controller will switch back to this one.  
         //
-        SetupTransfer(UDMA_CH8_UARTA0_RX | UDMA_PRI_SELECT, UDMA_MODE_PINGPONG,
-                        sizeof(g_ucRxBufA),UDMA_SIZE_8, UDMA_ARB_4,
-                        (void *)(UARTA0_BASE + UART_O_DR), UDMA_SRC_INC_NONE,
+        UDMASetupTransfer(UDMA_CH8_UARTA0_RX | UDMA_PRI_SELECT, UDMA_MODE_PINGPONG,
+                          sizeof(g_ucRxBufA),UDMA_SIZE_8, UDMA_ARB_4,
+                          (void *)(UARTA0_BASE + UART_O_DR), UDMA_SRC_INC_NONE,
                                             g_ucRxBufA, UDMA_DST_INC_8);
     }
 
@@ -337,10 +338,10 @@ UART0IntHandler(void)
         // control structure.  When the ongoing receive into the "A" buffer is
         // done, the uDMA controller will switch back to this one. 
         //
-         SetupTransfer(UDMA_CH8_UARTA0_RX | UDMA_ALT_SELECT,
-                        UDMA_MODE_PINGPONG, sizeof(g_ucRxBufB),UDMA_SIZE_8,
-                        UDMA_ARB_4,(void *)(UARTA0_BASE + UART_O_DR), 
-                        UDMA_SRC_INC_NONE, g_ucRxBufB, UDMA_DST_INC_8);
+        UDMASetupTransfer(UDMA_CH8_UARTA0_RX | UDMA_ALT_SELECT,
+                          UDMA_MODE_PINGPONG, sizeof(g_ucRxBufB),UDMA_SIZE_8,
+                          UDMA_ARB_4,(void *)(UARTA0_BASE + UART_O_DR), 
+                          UDMA_SRC_INC_NONE, g_ucRxBufB, UDMA_DST_INC_8);
     }
 
     //
@@ -353,7 +354,7 @@ UART0IntHandler(void)
         //
         // Start another DMA transfer to UART0 TX.
         //
-        SetupTransfer(UDMA_CH9_UARTA0_TX| UDMA_PRI_SELECT, UDMA_MODE_BASIC,
+        UDMASetupTransfer(UDMA_CH9_UARTA0_TX| UDMA_PRI_SELECT, UDMA_MODE_BASIC,
            sizeof(g_ucTxBuf),UDMA_SIZE_8, UDMA_ARB_4,g_ucTxBuf, UDMA_SRC_INC_8,
                           (void *)(UARTA0_BASE + UART_O_DR), UDMA_DST_INC_NONE);
         //
@@ -441,17 +442,17 @@ InitUART0Transfer(void)
     // arbitration size is set to 4, which matches the UART TX FIFO trigger
     // threshold.
     //
-    SetupTransfer(UDMA_CH8_UARTA0_RX | UDMA_PRI_SELECT, UDMA_MODE_PINGPONG,
+    UDMASetupTransfer(UDMA_CH8_UARTA0_RX | UDMA_PRI_SELECT, UDMA_MODE_PINGPONG,
             sizeof(g_ucRxBufA),UDMA_SIZE_8, UDMA_ARB_4,
             (void *)(UARTA0_BASE + UART_O_DR), UDMA_SRC_INC_NONE,
                                             g_ucRxBufA, UDMA_DST_INC_8);
 
-    SetupTransfer(UDMA_CH8_UARTA0_RX | UDMA_ALT_SELECT, UDMA_MODE_PINGPONG,
+    UDMASetupTransfer(UDMA_CH8_UARTA0_RX | UDMA_ALT_SELECT, UDMA_MODE_PINGPONG,
             sizeof(g_ucRxBufB),UDMA_SIZE_8, UDMA_ARB_4,
               (void *)(UARTA0_BASE + UART_O_DR), UDMA_SRC_INC_NONE,
                                             g_ucRxBufB, UDMA_DST_INC_8);
 
-    SetupTransfer(UDMA_CH9_UARTA0_TX| UDMA_PRI_SELECT,
+    UDMASetupTransfer(UDMA_CH9_UARTA0_TX| UDMA_PRI_SELECT,
                UDMA_MODE_BASIC,sizeof(g_ucTxBuf),UDMA_SIZE_8, UDMA_ARB_4,
                g_ucTxBuf, UDMA_SRC_INC_8,(void *)(UARTA0_BASE + UART_O_DR), 
                                                     UDMA_DST_INC_NONE);
@@ -478,6 +479,39 @@ DisplayBanner()
     UART_PRINT("\t\t   *******************************************\n\r");
     UART_PRINT("\n\n\n\r");
 
+}
+
+//*****************************************************************************
+//
+//! Board Initialization & Configuration
+//!
+//! \param  None
+//!
+//! \return None
+//
+//*****************************************************************************
+static void
+BoardInit(void)
+{
+/* In case of TI-RTOS vector table is initialize by OS itself */
+#ifndef USE_TIRTOS
+  //
+  // Set vector table base
+  //
+#if defined(ccs) || defined (gcc)
+    MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
+#endif
+#if defined(ewarm)
+    MAP_IntVTableBaseSet((unsigned long)&__vector_table);
+#endif
+#endif
+  //
+  // Enable Processor
+  //
+  MAP_IntMasterEnable();
+  MAP_IntEnable(FAULT_SYSTICK);
+
+  PRCMCC3200MCUInit();
 }
 
 //*****************************************************************************
@@ -636,23 +670,12 @@ main()
     static unsigned long ulPrevUARTCount = 0;
     unsigned long ulXfersCompleted;
     unsigned long ulBytesAvg=0;
-    int i=0;
-
-    //
-    // Set vector table base
-    //
-    #if defined(gcc)
-        MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
-    #endif
-    #if defined(ewarm)
-        MAP_IntVTableBaseSet((unsigned long)&__vector_table);
-    #endif
-
-    //
-    // Initialize the board
-    //
-    PRCMCC3200MCUInit();
+    int iCount=0;
     
+	//
+    // Initailizing the board
+    //
+    BoardInit();
     //
     // Muxing for Enabling UART_TX and UART_RX.
     //
@@ -671,7 +694,7 @@ main()
     //
     // SysTick Enabling
     //
-    SysTickIntEnable();
+    SysTickIntRegister(SysTickHandler);
     SysTickPeriodSet(SYSTICK_RELOAD_VALUE);
     SysTickEnable();
 
@@ -679,6 +702,12 @@ main()
     // uDMA Initialization
     //
     UDMAInit();
+    
+    //
+    // Register interrupt handler for UART
+    //
+    MAP_UARTIntRegister(UARTA0_BASE,UART0IntHandler);
+    
     UART_PRINT("Completed DMA Initialization \n\r\n\r");
     
     //
@@ -736,8 +765,8 @@ main()
             //
             // Compute how many bytes were transferred by the UART.
             //
-            ulBytesTransferred[i] = (ulXfersCompleted * UART_RXBUF_SIZE );
-            i++;
+            ulBytesTransferred[iCount] = (ulXfersCompleted * UART_RXBUF_SIZE );
+            iCount++;
             
             //
             // Print a message to the display showing the memory transfer rate.
@@ -765,9 +794,9 @@ main()
     //
     // Compute average Bytes Transfer Rate for the past 5 seconds
     //
-    for(i=1;i<=5;i++)
+    for(iCount=1;iCount<=5;iCount++)
     {
-        ulBytesAvg += ulBytesTransferred[i];
+        ulBytesAvg += ulBytesTransferred[iCount];
     }
     ulBytesAvg=ulBytesAvg/5;
 

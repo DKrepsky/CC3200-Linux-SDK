@@ -52,6 +52,7 @@
 #include "i2c.h"
 #include "i2cconfig.h"
 #include "common.h"
+#include "uart_if.h"
 
 #define RET_OK                  0
 #define RET_ERROR               -1

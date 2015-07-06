@@ -51,8 +51,8 @@
 #include "hw_memmap.h"
 #include "i2c.h"
 #include "i2cconfig.h"
-#include "uart_if.h"
 #include "common.h"
+#include "uart_if.h"
 
 #define RET_OK                  0
 #define RET_ERROR               -1
@@ -152,8 +152,8 @@ static  const s_RegList capture_cmds_list[]= {
     {0, 0x65, 0xA000    },  // Disable PLL
     {0, 0x65, 0xE000    },  // Power DOWN PLL
     {100, 0x00, 0x01F4  },  // Delay =500ms
-    {0,  0x66,  0x1E03  },
-    {0,  0x67,  0x0501  },
+    {0,  0x66,  0x500B  },
+    {0,  0x67,  0x0500  },
     {0, 0x65,   0xA000  },  // Disable PLL
     {0,  0x65,  0x2000  },  // Enable PLL
     {0, 0x20, 0x0000    },  // READ_MODE_B (Image flip settings)
@@ -178,34 +178,43 @@ static  const s_RegList capture_cmds_list[]= {
     {1,  0xC8, 0x0089   },
     {1,  0xC6, 0x2908   },  // Set the restartInt
     {1,  0xC8, 0x0020   },
-    {100, 0x00, 0x01F4  },  // Delay =500ms
-    {1, 0xC6, 0x2707    },  // MODE_OUTPUT_WIDTH_B
-#ifdef XGA_FRAME
-    {1, 0xC8, 1024      },
-#elif VGA_FRAME
-    {1, 0xC8, 640       },
-#elif QVGA_FRAME
-    {1, 0xC8, 240       },
-#endif
-    {1, 0xC6, 0x2709    },  // MODE_OUTPUT_HEIGHT_B
-#ifdef XGA_FRAME
-    {1, 0xC8, 768       },
-#elif VGA_FRAME
-    {1, 0xC8, 480       },
-#elif QVGA_FRAME
-    {1, 0xC8, 320       },
-#endif
-    {1, 0xC6, 0x2735    },  // MODE_CROP_X0_B
-    {1, 0xC8, 0x0000    },
-    {1, 0xC6, 0x2737    },  // MODE_CROP_X1_B
-    {1, 0xC8, 1600  },
-    {1, 0xC6, 0x2739    },  // MODE_CROP_Y0_B
-    {1, 0xC8, 0x0000    },
-    {1, 0xC6, 0x273B    },  // MODE_CROP_Y1_B
-    {1, 0xC8, 1200      },
+};
+
+static s_RegList start_jpeg_capture_cmd_list[]={
     {1, 0xC6, 0xA103    },  // SEQ_CMD, Do capture
     {1, 0xC8, 0x0002    },
     {100, 0x00, 0x01F4  },  // Delay =500ms
+};
+
+static s_RegList stop_jpeg_capture_cmd_list[]={
+    {1, 0xC6, 0xA103    },  // SEQ_CMD, Do capture
+    {1, 0xC8, 0x0001    },
+    {100, 0x00, 0x01F4  },  // Delay =500ms
+};
+
+#define INDEX_CROP_X0           1
+#define INDEX_CROP_X1           3
+#define INDEX_CROP_Y0           5
+#define INDEX_CROP_Y1           7
+#define INDEX_SIZE_WIDTH        12//9
+#define INDEX_SIZE_HEIGHT       14//11
+static  s_RegList resolution_cmds_list[]= {
+    {100, 0x00, 0x01F4      },  // Delay =500ms
+    {1, 0xC6, 0x2735        }, //MODE_CROP_X0_A
+    {1, 0xC8, 0x0000        }, //MODE_CROP_X0_A
+    {1, 0xC6, 0x2737        }, //MODE_CROP_X1_A
+    {1, 0xC8, 1600          }, //MODE_CROP_X1_A
+    {1, 0xC6, 0x2739        }, //MODE_CROP_Y0_A
+    {1, 0xC8, 0x0000        }, //MODE_CROP_Y0_A
+    {1, 0xC6, 0x273B        }, //MODE_CROP_Y1_A
+    {1, 0xC8, 1200          }, //MODE_CROP_Y1_A   
+    {1, 0xC6, 0xA103        },  // SEQ_CMD, Do capture  
+    {1, 0xC8, 0x0005        },
+    
+    {1, 0xC6, 0x2707        }, //MODE_OUTPUT_WIDTH_B
+    {1, 0xC8, 640           }, //MODE_OUTPUT_WIDTH_B
+    {1, 0xC6, 0x2709        }, //MODE_OUTPUT_HEIGHT_B
+    {1, 0xC8, 480           }, //MODE_OUTPUT_HEIGHT_B   
 };
 #endif 
 
@@ -339,13 +348,14 @@ long CameraSensorInit()
 //
 //! This function configures the sensor in JPEG mode
 //!
-//! \param                      None
+//! \param[in] width - X-Axis
+//! \param[in] height - Y-Axis
 //!
 //! \return                     0 - Success
 //!                             -1 - Error
 //
 //*****************************************************************************
-long StartSensorInJpegMode()
+long StartSensorInJpegMode(int width, int height)
 {
 #ifdef ENABLE_JPEG
     long lRetVal = -1;
@@ -353,7 +363,55 @@ long StartSensorInJpegMode()
     lRetVal = RegLstWrite((s_RegList *)capture_cmds_list,
                         sizeof(capture_cmds_list)/sizeof(s_RegList));
     ASSERT_ON_ERROR(lRetVal);    
+    
+    resolution_cmds_list[INDEX_SIZE_WIDTH].usValue = width;
+    resolution_cmds_list[INDEX_SIZE_HEIGHT].usValue = height;
+    lRetVal = RegLstWrite((s_RegList *)resolution_cmds_list,
+                        sizeof(resolution_cmds_list)/sizeof(s_RegList));
+    ASSERT_ON_ERROR(lRetVal);
+    
+    lRetVal = RegLstWrite((s_RegList *)start_jpeg_capture_cmd_list,
+                        sizeof(start_jpeg_capture_cmd_list)/sizeof(s_RegList));
+    ASSERT_ON_ERROR(lRetVal);    
 #endif 
+    return 0;
+}
+
+//*****************************************************************************
+//
+//! This function configures the sensor ouput resolution
+//!
+//! \param[in] width - X-Axis
+//! \param[in] height - Y-Axis
+//!
+//! \return                     0 - Success
+//!                             -1 - Error
+//
+//*****************************************************************************
+long CameraSensorResolution(int width, int height)
+{
+#ifdef ENABLE_JPEG
+    long lRetVal = -1;
+
+    lRetVal = RegLstWrite((s_RegList *)stop_jpeg_capture_cmd_list,
+                        sizeof(stop_jpeg_capture_cmd_list)/sizeof(s_RegList));
+    ASSERT_ON_ERROR(lRetVal);    
+    
+    resolution_cmds_list[INDEX_SIZE_WIDTH].usValue = width;
+    resolution_cmds_list[INDEX_SIZE_HEIGHT].usValue = height;
+    lRetVal = RegLstWrite((s_RegList *)resolution_cmds_list,
+                        sizeof(resolution_cmds_list)/sizeof(s_RegList));
+    ASSERT_ON_ERROR(lRetVal);
+    
+    lRetVal = RegLstWrite((s_RegList *)start_jpeg_capture_cmd_list,
+                        sizeof(start_jpeg_capture_cmd_list)/sizeof(s_RegList));
+    ASSERT_ON_ERROR(lRetVal);    
+
+
+#else
+    if(width != 240 || height != 256)
+        return -1;
+#endif  
     return 0;
 }
 

@@ -1,16 +1,6 @@
 var modules =
 [
-    [ "Introduction", "index.html#intro_sec", null ],
-    [ "Modules", "index.html#modules_sec", null ],
-    [ "Configuration", "index.html#Config_sec", [
-      [ "Modify user.h file", "index.html#Config_step1", null ],
-      [ "Memory management model", "index.html#Confing_step2", null ],
-      [ "Asynchronous event handlers routines", "index.html#Config_step3", null ],
-      [ "Interface communication driver", "index.html#Config_step4", null ],
-      [ "OS adaptation", "index.html#Config_step5", null ]
-    ] ],
-    [ "License", "index.html#sw_license", null ],
-    [ "More Information", "index.html#more_information", null ],
+    [ "Configuration - Capabilities Set", "group__configuration__capabilities.html", "group__configuration__capabilities" ],
     [ "Configuration - Device Enable/Disable", "group__configuration__enable__device.html", "group__configuration__enable__device" ],
     [ "Configuration - Communication Interface", "group__configuration__interface.html", "group__configuration__interface" ],
     [ "Configuration - Operating System", "group__configuration__os.html", "group__configuration__os" ],

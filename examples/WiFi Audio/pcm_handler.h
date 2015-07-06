@@ -59,8 +59,8 @@ extern "C"
 #define CTRL_WRD                (3 | ((CB_TRANSFER_SZ - 1) << 4))
 
 extern void DMAPingPongCompleteAppCB_opt();    
-extern void SetupPingPongDMATransferTx();
-extern void SetupPingPongDMATransferRx();
+extern void SetupPingPongDMATransferTx(tCircularBuffer *pRecordBuffer);
+extern void SetupPingPongDMATransferRx(tCircularBuffer *pPlayBuffer);
 
 //*****************************************************************************
 //

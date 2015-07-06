@@ -62,7 +62,7 @@
 #include "common.h"
 
 #define APPLICATION_NAME        "Antenna Selection"
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 #define SUCCESS                 0
 
 #define PAD_MODE_MASK        0x0000000F
@@ -103,17 +103,13 @@ typedef enum{
     STATUS_CODE_MAX = -0xBB8
 }e_AppStatusCodes;
 
-unsigned char  g_ulStatus = 0;
+volatile unsigned char  g_ulStatus = 0;
 
-#if defined(gcc)
 extern void (* const g_pfnVectors[])(void);
-#endif
-#if defined(ewarm)
-extern uVectorEntry __vector_table;
-#endif
 
-unsigned char g_ucProfileAdded = 1;
-unsigned char g_ucConnectedToConfAP = 0, g_ucAntSelectDone = 0;
+volatile unsigned char g_ucProfileAdded = 1;
+unsigned char g_ucConnectedToConfAP = 0;
+volatile unsigned char g_ucAntSelectDone = 0;
 unsigned long  g_ulGatewayIP = 0; //Network Gateway IP address
 unsigned char  g_ucConnectionSSID[SSID_LEN_MAX+1]; //Connection SSID
 unsigned char  g_ucConnectionBSSID[BSSID_LEN_MAX]; //Connection BSSID
@@ -158,7 +154,7 @@ static long ConfigureSimpleLinkToDefaultState();
 static void BoardInit(void);
 static void SetAntennaSelectionGPIOs(void);
 static long WlanConnect(void);
-static void AntennaSelect(unsigned char ucAntNum);
+static void AntennaSelect(unsigned char ucAnt);
 static void SortByRSSI(Sl_WlanNetworkEntry_t* netEntries, unsigned char ucSSIDCount);
 static int GetScanResult(Sl_WlanNetworkEntry_t* netEntries );
 static unsigned char getRSSILevel(signed char rssi,char** pucRssiImg);
@@ -775,26 +771,29 @@ void SimpleLinkSockEventHandler(SlSockEvent_t *pSock)
     //
     // This application doesn't work w/ socket - Events are not expected
     //
-       switch( pSock->Event )
+    switch( pSock->Event )
     {
         case SL_SOCKET_TX_FAILED_EVENT:
-            switch( pSock->EventData.status )
+            switch( pSock->socketAsyncEvent.SockTxFailData.status)
             {
-                case SL_ECLOSE:
+                case SL_ECLOSE: 
                     UART_PRINT("[SOCK ERROR] - close socket (%d) operation "
-                    "failed to transmit all queued packets\n\n",
-                           pSock->EventData.sd);
+                                "failed to transmit all queued packets\n\n", 
+                                    pSock->socketAsyncEvent.SockTxFailData.sd);
                     break;
-                default:
-                    UART_PRINT("[SOCK ERROR] - TX FAILED : socket %d , reason"
-                        "(%d) \n\n",
-                           pSock->EventData.sd, pSock->EventData.status);
+                default: 
+                    UART_PRINT("[SOCK ERROR] - TX FAILED  :  socket %d , reason "
+                                "(%d) \n\n",
+                                pSock->socketAsyncEvent.SockTxFailData.sd, pSock->socketAsyncEvent.SockTxFailData.status);
+                  break;
             }
             break;
 
         default:
-            UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
+        	UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
+          break;
     }
+
 }
 
 
@@ -1044,9 +1043,14 @@ static long WlanConnect()
         uiConnectTimeoutCnt++;
 
     }
-    
-    return SUCCESS;
-
+    if(uiConnectTimeoutCnt == CONNECTION_TIMEOUT_COUNT)
+    {
+        return FAILURE;
+    }
+    else
+    {
+        return SUCCESS;
+    }
 }
 
 //*****************************************************************************
@@ -1395,12 +1399,8 @@ static unsigned char getRSSILevel(signed char rssi,char** pucRssiImg)
 static void
 BoardInit(void)
 {
-#if defined(gcc)
-    MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
-#endif
-#if defined(ewarm)
-    MAP_IntVTableBaseSet((unsigned long)&__vector_table);
-#endif
+
+	MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
     
     //
     // Enable Processor

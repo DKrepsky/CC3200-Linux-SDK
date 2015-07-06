@@ -82,14 +82,14 @@ var group__netapp =
       [ "RetransInterval", "struct_sl_net_app_service_advertise_timing_parameters__t.html#a5f05e30c41182b96d2c4691cfd75f138", null ],
       [ "t", "struct_sl_net_app_service_advertise_timing_parameters__t.html#a95b98eb3e4b7b7e456cc4ebfe9282536", null ]
     ] ],
-    [ "sl_NetAppDnsGetHostByName", "group__netapp.html#ga0cb97cebe1700f226a106dcaf380d621", null ],
-    [ "sl_NetAppDnsGetHostByService", "group__netapp.html#ga9f81d4dcdc49acbcb4f7114e23b36863", null ],
-    [ "sl_NetAppGet", "group__netapp.html#gaa56ce9e64400819d6040daf0a99a00e1", null ],
-    [ "sl_NetAppGetServiceList", "group__netapp.html#ga16fb7d6f45b455c16396a8e7c67766ea", null ],
-    [ "sl_NetAppMDNSRegisterService", "group__netapp.html#gaed2c05189b54f6c61d143a551191abc8", null ],
-    [ "sl_NetAppMDNSUnRegisterService", "group__netapp.html#gac7fa8da673496ba7a6a25ef54ba4da27", null ],
-    [ "sl_NetAppPingStart", "group__netapp.html#ga8df56e6702e8f8a56dce8eb679ace02e", null ],
-    [ "sl_NetAppSet", "group__netapp.html#ga123121018f78e1417742903d033dc6ef", null ],
-    [ "sl_NetAppStart", "group__netapp.html#ga026042b00c2ac7f4272d009d883c9335", null ],
-    [ "sl_NetAppStop", "group__netapp.html#ga4ca13631c7c531b661200fe6b7fe7b49", null ]
+    [ "sl_NetAppDnsGetHostByName", "group__netapp.html#ga29b52a83173826c523890dee46cc252a", null ],
+    [ "sl_NetAppDnsGetHostByService", "group__netapp.html#ga3c18e929acd30de42a36afe2d85bbe05", null ],
+    [ "sl_NetAppGet", "group__netapp.html#gaa7539fd75708676a4ed8bbfaeaebc791", null ],
+    [ "sl_NetAppGetServiceList", "group__netapp.html#ga6e77cdf4e8540180bf4358c48a08e0fe", null ],
+    [ "sl_NetAppMDNSRegisterService", "group__netapp.html#gae222ee3db8c89e9e3ecf8b2738961b33", null ],
+    [ "sl_NetAppMDNSUnRegisterService", "group__netapp.html#ga5fb699d928b704c4237d4f0921a89ab9", null ],
+    [ "sl_NetAppPingStart", "group__netapp.html#ga4adc32529c7c7c84273728cf16393dad", null ],
+    [ "sl_NetAppSet", "group__netapp.html#ga2afa652378453fe2f3c1010915673576", null ],
+    [ "sl_NetAppStart", "group__netapp.html#gaecf228612e6baacf183d3f6eea64b120", null ],
+    [ "sl_NetAppStop", "group__netapp.html#gad174e319fb745e2d871fe1b08b567131", null ]
 ];

@@ -51,6 +51,7 @@
 #include "prcm.h"
 #include "i2cconfig.h"
 
+
 void MT9D111Delay(unsigned long ucDelay);
 
 //*****************************************************************************
@@ -62,26 +63,14 @@ void MT9D111Delay(unsigned long ucDelay);
 //! \return                     None
 //
 //*****************************************************************************
-#if defined(gcc)
-void MT9D111Delay(unsigned long ucDelay) {
-	__asm("    subs    r0, #1\n"
-			"    bne.n   MT9D111Delay\n"
-			"    bx      lr");
-}
-#endif
-#if defined(ccs)
 
-__asm("    .sect \".text:MT9D111Delay\"\n"
-		"    .clink\n"
-		"    .thumbfunc MT9D111Delay\n"
-		"    .thumb\n"
-		"    .global MT9D111Delay\n"
-		"MT9D111Delay:\n"
-		"    subs r0, #1\n"
-		"    bne.n MT9D111Delay\n"
-		"    bx lr\n");
-
-#endif
+    __asm("    .sect \".text:MT9D111Delay\"\n"
+          "    .thumb\n"
+          "    .global MT9D111Delay\n"
+          "MT9D111Delay:\n"
+          "    subs r0, #1\n"
+          "    bne.n MT9D111Delay\n"
+          "    bx lr\n");
 
 //*****************************************************************************
 //
@@ -91,16 +80,17 @@ __asm("    .sect \".text:MT9D111Delay\"\n"
 //!     \return                     None or error code                            
 //
 //*****************************************************************************
-unsigned long I2CInit() {
-	// Enable I2C Peripheral
-	MAP_PRCMPeripheralClkEnable(PRCM_I2CA0, PRCM_RUN_MODE_CLK);
-	MAP_PRCMPeripheralReset(PRCM_I2CA0);
+unsigned long I2CInit()
+{
+    // Enable I2C Peripheral 
+    MAP_PRCMPeripheralClkEnable(PRCM_I2CA0, PRCM_RUN_MODE_CLK);
+    MAP_PRCMPeripheralReset(PRCM_I2CA0);
 
-	// Configure I2C module, 400 Kbps fast mode
-	MAP_I2CMasterInitExpClk(I2CA0_BASE, 80000000, false);
-	//  MAP_I2CMasterDisable(I2CA0_BASE);
+    // Configure I2C module, 400 Kbps fast mode 
+    MAP_I2CMasterInitExpClk(I2CA0_BASE,80000000,false);
+    //  MAP_I2CMasterDisable(I2CA0_BASE);
 
-	return 0;
+    return 0;
 }
 
 //****************************************************************************
@@ -121,56 +111,64 @@ unsigned long I2CInit() {
 //
 //****************************************************************************
 unsigned long I2CBufferRead(unsigned char ucDevAddr, unsigned char *ucBuffer,
-		unsigned long ulSize, unsigned char ucFlags) {
-	unsigned long ulNdx;
+                            unsigned long ulSize,unsigned char ucFlags)
+{
+    unsigned long ulNdx;
 
-	// Set I2C codec slave address
-	MAP_I2CMasterSlaveAddrSet(I2CA0_BASE, ucDevAddr, true);
-	MAP_I2CMasterIntClearEx(I2CA0_BASE, I2C_INT_MASTER);
+    // Set I2C codec slave address 
+    MAP_I2CMasterSlaveAddrSet(I2CA0_BASE,ucDevAddr, true);
+    MAP_I2CMasterIntClearEx(I2CA0_BASE, I2C_INT_MASTER);
 
-	if (ulSize == 1) {
-		// Start single transfer.
-		MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_SINGLE_RECEIVE);
-	} else {
-		// Start the transfer.
-		MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_BURST_RECEIVE_START);
+    if(ulSize == 1)
+    {
+        // Start single transfer. 
+        MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_SINGLE_RECEIVE);
+    }
+    else
+    {
+        // Start the transfer. 
+        MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_BURST_RECEIVE_START);
 
-		// Wait for transfer completion.
-		while ((MAP_I2CMasterIntStatusEx(I2CA0_BASE, false) &
-		I2C_INT_MASTER) == 0) {
-		}
+        // Wait for transfer completion. 
+        while((MAP_I2CMasterIntStatusEx(I2CA0_BASE, false) &
+                                                   I2C_INT_MASTER) == 0)
+        {
+        }
 
-		// Read first byte from the controller.
-		ucBuffer[0] = MAP_I2CMasterDataGet(I2CA0_BASE);
+        // Read first byte from the controller. 
+        ucBuffer[0] = MAP_I2CMasterDataGet(I2CA0_BASE);
 
-		for (ulNdx = 1; ulNdx < ulSize - 1; ulNdx++) {
-			MT9D111Delay(10);
-			MAP_I2CMasterIntClearEx(I2CA0_BASE, I2C_INT_MASTER);
+        for(ulNdx=1; ulNdx < ulSize-1; ulNdx++)
+        {
+            MT9D111Delay(10);
+            MAP_I2CMasterIntClearEx(I2CA0_BASE, I2C_INT_MASTER);
 
-			// continue the transfer.
-			MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_BURST_RECEIVE_CONT);
+            // continue the transfer. 
+            MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_BURST_RECEIVE_CONT);
 
-			// Wait for transfer completion.
-			while ((MAP_I2CMasterIntStatusEx(I2CA0_BASE, false) &
-			I2C_INT_MASTER) == 0) {
-			}
+            // Wait for transfer completion. 
+            while((MAP_I2CMasterIntStatusEx(I2CA0_BASE, false) & 
+                                                         I2C_INT_MASTER) == 0)
+            {
+            }
 
-			// Read next byte from the controller.
-			ucBuffer[ulNdx] = MAP_I2CMasterDataGet(I2CA0_BASE);
-		}
+            // Read next byte from the controller. 
+            ucBuffer[ulNdx] = MAP_I2CMasterDataGet(I2CA0_BASE);
+        }
 
-		MAP_I2CMasterIntClearEx(I2CA0_BASE, I2C_INT_MASTER);
-		MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_BURST_RECEIVE_FINISH);
-	}
+        MAP_I2CMasterIntClearEx(I2CA0_BASE, I2C_INT_MASTER);
+        MAP_I2CMasterControl(I2CA0_BASE,I2C_MASTER_CMD_BURST_RECEIVE_FINISH);
+    }
 
-	// Wait for transfer completion.
-	while ((MAP_I2CMasterIntStatusEx(I2CA0_BASE, false) & I2C_INT_MASTER) == 0) {
-	}
+    // Wait for transfer completion. 
+    while((MAP_I2CMasterIntStatusEx(I2CA0_BASE, false) & I2C_INT_MASTER) == 0)
+    {
+    }
 
-	// Read the last byte from the controller.
-	ucBuffer[ulSize - 1] = MAP_I2CMasterDataGet(I2CA0_BASE);
+    // Read the last byte from the controller. 
+    ucBuffer[ulSize-1] = MAP_I2CMasterDataGet(I2CA0_BASE);
 
-	return 0;
+    return 0;
 }
 //****************************************************************************
 //
@@ -190,55 +188,62 @@ unsigned long I2CBufferRead(unsigned char ucDevAddr, unsigned char *ucBuffer,
 //****************************************************************************
 
 unsigned long I2CBufferWrite(unsigned char ucDevAddr, unsigned char *ucBuffer,
-		unsigned long ulSize, unsigned char ucFlags) {
-	unsigned long ulNdx;
+                             unsigned long ulSize,unsigned char ucFlags)
+{
+    unsigned long ulNdx;
 
-	// Set I2C codec slave address
-	MAP_I2CMasterSlaveAddrSet(I2CA0_BASE, ucDevAddr, false);
+   // Set I2C codec slave address 
+    MAP_I2CMasterSlaveAddrSet(I2CA0_BASE,ucDevAddr, false);
 
-	// Write the first byte to the controller.
-	MAP_I2CMasterDataPut(I2CA0_BASE, ucBuffer[0]);
-	MAP_I2CMasterIntClearEx(I2CA0_BASE, I2C_INT_MASTER);
+   // Write the first byte to the controller. 
+    MAP_I2CMasterDataPut(I2CA0_BASE,ucBuffer[0]);
+    MAP_I2CMasterIntClearEx(I2CA0_BASE, I2C_INT_MASTER);
 
-	if (ulSize == 1) {
-		MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_SINGLE_SEND);
-	} else {
-		// Continue the transfer.
-		MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_BURST_SEND_START);
+    if( ulSize == 1)
+    {
+        MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_SINGLE_SEND);
+    }
+    else
+    {
+       // Continue the transfer. 
+        MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_BURST_SEND_START);
 
-		// Wait until the current byte has been transferred.
-		while ((MAP_I2CMasterIntStatusEx(I2CA0_BASE, false) & I2C_INT_MASTER)
-				== 0) {
-		}
-		for (ulNdx = 1; ulNdx < ulSize - 1; ulNdx++) {
-			// Write the next byte to the controller.
-			MAP_I2CMasterDataPut(I2CA0_BASE, ucBuffer[ulNdx]);
+       // Wait until the current byte has been transferred. 
+     while((MAP_I2CMasterIntStatusEx(I2CA0_BASE, false) & I2C_INT_MASTER) == 0)
+        {
+        }
+        for(ulNdx=1; ulNdx < ulSize-1; ulNdx++)
+        {
+           // Write the next byte to the controller. 
+            MAP_I2CMasterDataPut(I2CA0_BASE,ucBuffer[ulNdx]);
 
-			// Clear Master Interrupt
-			MAP_I2CMasterIntClearEx(I2CA0_BASE, I2C_INT_MASTER);
+           // Clear Master Interrupt 
+            MAP_I2CMasterIntClearEx(I2CA0_BASE, I2C_INT_MASTER);
 
-			// Continue the transfer.
-			MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_BURST_SEND_CONT);
+           // Continue the transfer. 
+            MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_BURST_SEND_CONT);
 
-			// Wait until the current byte has been transferred.
-			while ((MAP_I2CMasterIntStatusEx(I2CA0_BASE, false) & I2C_INT_MASTER)
-					== 0) {
-			}
-		}
+           // Wait until the current byte has been transferred. 
+            while((MAP_I2CMasterIntStatusEx(I2CA0_BASE, false) & I2C_INT_MASTER) 
+                                                                 == 0)
+            {
+            }
+        }
 
-		// Write the last byte to the controller.
-		MAP_I2CMasterDataPut(I2CA0_BASE, ucBuffer[ulSize - 1]);
-		MAP_I2CMasterIntClearEx(I2CA0_BASE, I2C_INT_MASTER);
+       // Write the last byte to the controller. 
+        MAP_I2CMasterDataPut(I2CA0_BASE, ucBuffer[ulSize-1]);
+        MAP_I2CMasterIntClearEx(I2CA0_BASE, I2C_INT_MASTER);
 
-		// End the transfer.
-		MAP_I2CMasterControl(I2CA0_BASE, I2C_MASTER_CMD_BURST_SEND_FINISH);
-	}
+       // End the transfer. 
+        MAP_I2CMasterControl(I2CA0_BASE,I2C_MASTER_CMD_BURST_SEND_FINISH);
+    }
 
-	// Wait until the current byte has been transferred.
-	while ((MAP_I2CMasterIntStatusEx(I2CA0_BASE, false) & I2C_INT_MASTER) == 0) {
-	}
+   // Wait until the current byte has been transferred. 
+    while((MAP_I2CMasterIntStatusEx(I2CA0_BASE, false) & I2C_INT_MASTER) == 0)
+    {
+    }
 
-	return 0;
+    return 0;
 }
 
 //*****************************************************************************

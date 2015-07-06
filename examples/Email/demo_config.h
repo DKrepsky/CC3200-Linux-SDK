@@ -30,10 +30,10 @@
 #define GMAIL_HOST_PORT         465
 #define YAHOO_HOST_NAME	        "smtp.mail.yahoo.com"
 #define YAHOO_HOST_PORT		25
-#define USER                    "username" //Set Sender/Source Email Address
-#define USER_RFC                "username" //Set Sender/Source Email Address
-#define PASS                    "password"              //Set Sender/Source Email Password
-#define RCPT_RFC                "destination"  //Set Recipient Email Password
+#define USER                    "<username@gmail.com>" //Set Sender/Source Email Address
+#define USER_RFC                "<username@gmail.com>" //Set Sender/Source Email Address
+#define PASS                    "<password>"              //Set Sender/Source Email Password
+#define RCPT_RFC                "<username@gmail.com>"  //Set Recipient Email Password
 #define EMAIL_SUB               "Hello from Simplelink!"
 ///////////////////////////////////////////////////////////////////////////////
 

@@ -72,27 +72,11 @@ extern "C"
 //
 //*****************************************************************************  
 #define PACKET_SIZE             1024
-#define PLAY_WATERMARK		30*1024
-#define TX_BUFFER_SIZE          10*PACKET_SIZE
-#define RX_BUFFER_SIZE          70*PACKET_SIZE
+#define PLAY_WATERMARK			30*1024
+#define RECORD_BUFFER_SIZE     	10*PACKET_SIZE
+#define PLAY_BUFFER_SIZE        70*PACKET_SIZE
   
 //*****************************************************************************
-//
-// Define Audio Input/Output Connection
-//
-//*****************************************************************************    
-#define MIC 1
-#define SPEAKER 1
- 
-//*****************************************************************************
-//
-// Define NETWORK for Streaming in Network
-// 0 - LoopBack, MIC is Connected to Speaker
-//
-//*****************************************************************************    
-#define NETWORK 1
-
-  //*****************************************************************************
 //
 // UDP Socket Structure
 //
@@ -131,3 +115,4 @@ long ReceiveMulticastPacket();
 #endif
 
 #endif //__NETWORK_H__
+

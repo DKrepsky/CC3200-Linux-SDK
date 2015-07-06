@@ -75,7 +75,7 @@
 #include "pinmux.h"
 
 
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 //*****************************************************************************
 //
 // Application Master/Slave mode selector macro
@@ -100,7 +100,7 @@ static unsigned char g_ucRxBuff[TR_BUFF_SIZE];
 static unsigned char ucTxBuffNdx;
 static unsigned char ucRxBuffNdx;
 
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -349,7 +349,7 @@ BoardInit(void)
   //
   // Set vector table base
   //
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)

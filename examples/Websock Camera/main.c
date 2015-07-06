@@ -43,8 +43,6 @@
 //
 //****************************************************************************
 
-//#error  "This demo doesn't work. Remove this line to try it."
-
 #include <stdio.h>
 #include <string.h>
 
@@ -80,7 +78,7 @@
 //*****************************************************************************
 //                      GLOBAL VARIABLES for VECTOR TABLE
 //*****************************************************************************
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -136,7 +134,7 @@ BoardInit(void)
   //
   // Set vector table base
   //
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
     IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)

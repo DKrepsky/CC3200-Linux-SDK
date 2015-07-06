@@ -86,7 +86,7 @@
 // Undefine UserInput for taking default values from DESVector.h
 //
 #define USER_INPUT
-#define APPLICATION_VERSION   "1.1.0"
+#define APPLICATION_VERSION   "1.1.1"
 #define UART_PRINT            Report
 #define FOREVER               1
 #define APP_NAME              "AES Reference"
@@ -100,12 +100,9 @@ static volatile bool g_bDataInIntFlag;
 static volatile bool g_bContextOutIntFlag;
 static volatile bool g_bDataOutIntFlag;
 
-#if defined(gcc)
+
 extern void (* const g_pfnVectors[])(void);
-#endif
-#if defined(ewarm)
-extern uVectorEntry __vector_table;
-#endif
+
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- End
 //*****************************************************************************
@@ -148,15 +145,13 @@ AESCrypt(unsigned int uiConfig,unsigned int uiKeySize,unsigned int *puiKey1,
             unsigned int uiDataLength,unsigned int *uiIV)
 {
     //
-    // Step1: Reset the Module
-    // Step2: Enable Interrupts
-    // Step3: Wait for Context Ready Inteerupt
-    // Step4: Set the Configuration Parameters (Direction,AES Mode and Key Size)
-    // Step5: Set the Initialization Vector
-    // Step6: Write Key
-    // Step7: Start the Crypt Process
+    // Step1:  Enable Interrupts
+    // Step2:  Wait for Context Ready Inteerupt 
+    // Step3:  Set the Configuration Parameters (Direction,AES Mode and Key Size) 
+    // Step4:  Set the Initialization Vector 
+    // Step5:  Write Key 
+    // Step6:  Start the Crypt Process 
     //
-    MAP_PRCMPeripheralReset(PRCM_DTHE);
     
     //
     // Clear the flags.
@@ -368,17 +363,11 @@ static void
 BoardInit(void)
 {
 /* In case of TI-RTOS vector table is initialize by OS itself */
-#ifndef USE_TIRTOS
     //
     // Set vector table base
     //
-#if defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
-#endif
-#if defined(ewarm)
-    MAP_IntVTableBaseSet((unsigned long)&__vector_table);
-#endif
-#endif
+
     //
     // Enable Processor
     //

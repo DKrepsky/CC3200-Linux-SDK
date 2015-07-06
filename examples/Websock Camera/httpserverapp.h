@@ -44,7 +44,7 @@ typedef struct
 
 extern void HttpServerAppTask(void *);
 extern void Init3200SimpleLink ( void );
-void InitCameraComponents(void);
+void InitCameraComponents(int width, int height);
 
 
 #endif   //__HTTP_APP_H__

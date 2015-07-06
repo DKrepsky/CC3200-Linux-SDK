@@ -23,6 +23,13 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>gpio_if.c</name>
+			<type>1</type>
+			<locationURI>CC3200SDK/examples/common/gpio_if.c</locationURI>
+		</link>
+	</linkedResources>
 	<variableList>
 		<variable>
 			<name>CC3200SDK</name>

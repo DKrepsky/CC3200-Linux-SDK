@@ -79,13 +79,11 @@
 
 
 #define APPLICATION_NAME        "FILE OPERATIONS"
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 
 #define SL_MAX_FILE_SIZE        64L*1024L       /* 64KB file */
 #define BUF_SIZE                2048
 #define USER_FILE_NAME          "fs_demo.txt"
-#define RED_LED_GPIO            9
-#define GREEN_LED_GPIO          11
 
 /* Application specific status/error codes */
 typedef enum{
@@ -165,12 +163,8 @@ Everywhere a cluck-cluck. \
 Old MacDonald had a farm, \
 E-I-E-I-O.";
 
-#if defined(gcc)
+
 extern void (* const g_pfnVectors[])(void);
-#endif
-#if defined(ewarm)
-extern uVectorEntry __vector_table;
-#endif
 
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- End
@@ -258,17 +252,11 @@ static void
 BoardInit(void)
 {
     // In case of TI-RTOS vector table is initialize by OS itself
-#ifndef USE_TIRTOS
     //
     // Set vector table base
     //
-#if defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
-#endif
-#if defined(ewarm)
-    MAP_IntVTableBaseSet((unsigned long)&__vector_table);
-#endif
-#endif
+
     //
     // Enable Processor
     //

@@ -1,34 +1,34 @@
 //*****************************************************************************
 //
-// Copyright (C) 2014 Texas Instruments Incorporated - http://www.ti.com/ 
-// 
-// 
-//  Redistribution and use in source and binary forms, with or without 
-//  modification, are permitted provided that the following conditions 
+// Copyright (C) 2014 Texas Instruments Incorporated - http://www.ti.com/
+//
+//
+//  Redistribution and use in source and binary forms, with or without
+//  modification, are permitted provided that the following conditions
 //  are met:
 //
-//    Redistributions of source code must retain the above copyright 
+//    Redistributions of source code must retain the above copyright
 //    notice, this list of conditions and the following disclaimer.
 //
 //    Redistributions in binary form must reproduce the above copyright
-//    notice, this list of conditions and the following disclaimer in the 
-//    documentation and/or other materials provided with the   
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the
 //    distribution.
 //
 //    Neither the name of Texas Instruments Incorporated nor the names of
 //    its contributors may be used to endorse or promote products derived
 //    from this software without specific prior written permission.
 //
-//  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-//  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
+//  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+//  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 //  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-//  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
-//  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-//  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+//  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+//  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+//  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 //  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
 //  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-//  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-//  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+//  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+//  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //*****************************************************************************
@@ -36,8 +36,8 @@
 //*****************************************************************************
 //
 // Application Name     - SDHost FatFS
-// Application Overview - This application uses the FatFS to provide the block 
-//                        level read/write access to SD card, using the SD Host 
+// Application Overview - This application uses the FatFS to provide the block
+//                        level read/write access to SD card, using the SD Host
 //                        controller on CC3200.
 // Application Details  -
 // http://processors.wiki.ti.com/index.php/CC32xx_SDHost_FatFS
@@ -64,7 +64,7 @@
 #include "uart_if.h"
 #include "pinmux.h"
 
-#define APPLICATION_VERSION  "1.1.0"
+#define APPLICATION_VERSION  "1.1.1"
 #define USERFILE        "userfile.txt"
 #define SYSFILE         "sysfile.txt"
 #define SYSTEXT         "The quick brown fox jumps over the lazy dog"
@@ -74,7 +74,7 @@
 //*****************************************************************************
 unsigned char pBuffer[100];
 
-#if defined(gcc)
+#if defined(ccs)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -139,7 +139,7 @@ BoardInit(void)
     //
     // Set vector table base
     //
-#if defined(gcc)
+#if defined(ccs)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)
@@ -172,7 +172,7 @@ void main()
     FATFS fs;
     FRESULT res;
     DIR dir;
-    WORD Size;
+    UINT Size;
 
     //
     // Initialize Board configurations
@@ -188,6 +188,16 @@ void main()
     // Set the SD card clock as output pin
     //
     MAP_PinDirModeSet(PIN_07,PIN_DIR_MODE_OUT);
+
+    //
+    // Enable Pull up on data
+    //
+    MAP_PinConfigSet(PIN_06,PIN_STRENGTH_4MA, PIN_TYPE_STD_PU);
+
+    //
+    // Enable Pull up on CMD
+    //
+    MAP_PinConfigSet(PIN_08,PIN_STRENGTH_4MA, PIN_TYPE_STD_PU);
 
     //
     // Initialising the Terminal.
@@ -229,7 +239,7 @@ void main()
     MAP_SDHostSetExpClk(SDHOST_BASE,
                             MAP_PRCMPeripheralClockGet(PRCM_SDHOST),15000000);
 
-    f_mount(0,&fs);
+    f_mount(&fs,"0",1);
     res = f_opendir(&dir,"/");
     if( res == FR_OK)
     {

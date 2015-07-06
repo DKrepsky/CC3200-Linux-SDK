@@ -33,8 +33,6 @@
 //
 //*****************************************************************************
 
-
-
 //*****************************************************************************
 //
 // Application Name     - TCP Socket
@@ -86,9 +84,9 @@
 #include "pinmux.h"
 
 #define APPLICATION_NAME        "TCP Socket"
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 
-#define IP_ADDR             0xc0a80002 /* 192.168.0.110 */
+#define IP_ADDR             0xc0a8006E /* 192.168.0.110 */
 #define PORT_NUM            5001
 #define BUF_SIZE            1400
 #define TCP_PACKET_COUNT    1000
@@ -96,10 +94,16 @@
 // Application specific status/error codes
 typedef enum{
     // Choosing -0x7D0 to avoid overlap w/ host-driver's error codes
-    TCP_CLIENT_FAILED = -0x7D0,
-    TCP_SERVER_FAILED = TCP_CLIENT_FAILED - 1,
-    DEVICE_NOT_IN_STATION_MODE = TCP_SERVER_FAILED - 1,
-
+    SOCKET_CREATE_ERROR = -0x7D0,
+    BIND_ERROR = SOCKET_CREATE_ERROR - 1,
+    LISTEN_ERROR = BIND_ERROR -1,
+    SOCKET_OPT_ERROR = LISTEN_ERROR -1,
+    CONNECT_ERROR = SOCKET_OPT_ERROR -1,
+    ACCEPT_ERROR = CONNECT_ERROR - 1,
+    SEND_ERROR = ACCEPT_ERROR -1,
+    RECV_ERROR = SEND_ERROR -1,
+    SOCKET_CLOSE_ERROR = RECV_ERROR -1,
+    DEVICE_NOT_IN_STATION_MODE = SOCKET_CLOSE_ERROR - 1,
     STATUS_CODE_MAX = -0xBB8
 }e_AppStatusCodes;
 
@@ -118,13 +122,13 @@ static void InitializeAppVariables();
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
-unsigned long  g_ulStatus = 0;//SimpleLink Status
+volatile unsigned long  g_ulStatus = 0;//SimpleLink Status
 unsigned long  g_ulGatewayIP = 0; //Network Gateway IP address
 unsigned char  g_ucConnectionSSID[SSID_LEN_MAX+1]; //Connection SSID
 unsigned char  g_ucConnectionBSSID[BSSID_LEN_MAX]; //Connection BSSID
 unsigned long  g_ulDestinationIp = IP_ADDR;
 unsigned int   g_uiPortNum = PORT_NUM;
-unsigned long  g_ulPacketCount = TCP_PACKET_COUNT;
+volatile unsigned long  g_ulPacketCount = TCP_PACKET_COUNT;
 unsigned char  g_ucConnectionStatus = 0;
 unsigned char  g_ucSimplelinkstarted = 0;
 unsigned long  g_ulIpAddr = 0;
@@ -358,23 +362,26 @@ void SimpleLinkSockEventHandler(SlSockEvent_t *pSock)
     switch( pSock->Event )
     {
         case SL_SOCKET_TX_FAILED_EVENT:
-            switch( pSock->EventData.status )
+            switch( pSock->socketAsyncEvent.SockTxFailData.status)
             {
-                case SL_ECLOSE:
+                case SL_ECLOSE: 
                     UART_PRINT("[SOCK ERROR] - close socket (%d) operation "
-                    "failed to transmit all queued packets\n\n",
-                           pSock->EventData.sd);
+                                "failed to transmit all queued packets\n\n", 
+                                    pSock->socketAsyncEvent.SockTxFailData.sd);
                     break;
-                default:
-                    UART_PRINT("[SOCK ERROR] - TX FAILED : socket %d , reason"
-                        "(%d) \n\n",
-                           pSock->EventData.sd, pSock->EventData.status);
+                default: 
+                    UART_PRINT("[SOCK ERROR] - TX FAILED  :  socket %d , reason "
+                                "(%d) \n\n",
+                                pSock->socketAsyncEvent.SockTxFailData.sd, pSock->socketAsyncEvent.SockTxFailData.status);
+                  break;
             }
             break;
 
         default:
-            UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
+        	UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
+          break;
     }
+
 }
 
 
@@ -564,7 +571,7 @@ static long ConfigureSimpleLinkToDefaultState()
 //****************************************************************************
 int IpAddressParser(char *ucCMD)
 {
- int i=0;
+    volatile int i=0;
     unsigned int uiUserInputData;
     unsigned long ulUserIpAddress = 0;
     char *ucInpString;
@@ -636,7 +643,7 @@ long UserInput()
             iInput  = (int)strtoul(acCmdStore,0,10);
           if(iInput  == 1)
           {
-              UART_PRINT("Run iperf command \"iperf.exe -s -i 1\" and press "
+              UART_PRINT("Run iperf command \"iperf.exe -s -i 1 -t 100\" and press "
                             "Enter\n\r");
                 //
                 // Wait to receive a character over UART
@@ -859,7 +866,7 @@ int BsdTcpClient(unsigned short usPort)
     iSockID = sl_Socket(SL_AF_INET,SL_SOCK_STREAM, 0);
     if( iSockID < 0 )
     {
-        ASSERT_ON_ERROR(TCP_CLIENT_FAILED);
+        ASSERT_ON_ERROR(SOCKET_CREATE_ERROR);
     }
 
     // connecting to TCP server
@@ -867,8 +874,8 @@ int BsdTcpClient(unsigned short usPort)
     if( iStatus < 0 )
     {
         // error
-        ASSERT_ON_ERROR(sl_Close(iSockID));
-        ASSERT_ON_ERROR(TCP_CLIENT_FAILED);
+        sl_Close(iSockID);       
+        ASSERT_ON_ERROR(CONNECT_ERROR);
     }
 
     // sending multiple packets to the TCP server
@@ -876,19 +883,20 @@ int BsdTcpClient(unsigned short usPort)
     {
         // sending packet
         iStatus = sl_Send(iSockID, g_cBsdBuf, sTestBufLen, 0 );
-        if( iStatus <= 0 )
+        if( iStatus < 0 )
         {
             // error
-            ASSERT_ON_ERROR(sl_Close(iSockID));
-            ASSERT_ON_ERROR(TCP_CLIENT_FAILED);
+            sl_Close(iSockID);
+            ASSERT_ON_ERROR(SEND_ERROR);
         }
         lLoopCount++;
     }
 
     Report("Sent %u packets successfully\n\r",g_ulPacketCount);
 
+    iStatus = sl_Close(iSockID);
     //closing the socket after sending 1000 packets
-    ASSERT_ON_ERROR(sl_Close(iSockID));
+    ASSERT_ON_ERROR(iStatus);
 
     return SUCCESS;
 }
@@ -941,7 +949,7 @@ int BsdTcpServer(unsigned short usPort)
     if( iSockID < 0 )
     {
         // error
-        ASSERT_ON_ERROR(TCP_SERVER_FAILED);
+        ASSERT_ON_ERROR(SOCKET_CREATE_ERROR);
     }
 
     iAddrSize = sizeof(SlSockAddrIn_t);
@@ -951,16 +959,16 @@ int BsdTcpServer(unsigned short usPort)
     if( iStatus < 0 )
     {
         // error
-        ASSERT_ON_ERROR(sl_Close(iSockID));
-        ASSERT_ON_ERROR(TCP_SERVER_FAILED);
+        sl_Close(iSockID);
+        ASSERT_ON_ERROR(BIND_ERROR);
     }
 
     // putting the socket for listening to the incoming TCP connection
     iStatus = sl_Listen(iSockID, 0);
     if( iStatus < 0 )
     {
-        ASSERT_ON_ERROR(sl_Close(iSockID));
-        ASSERT_ON_ERROR(TCP_SERVER_FAILED);
+        sl_Close(iSockID);
+        ASSERT_ON_ERROR(LISTEN_ERROR);
     }
 
     // setting socket option to make the socket as non blocking
@@ -968,8 +976,8 @@ int BsdTcpServer(unsigned short usPort)
                             &lNonBlocking, sizeof(lNonBlocking));
     if( iStatus < 0 )
     {
-        ASSERT_ON_ERROR(sl_Close(iSockID));
-        ASSERT_ON_ERROR(TCP_SERVER_FAILED);
+        sl_Close(iSockID);
+        ASSERT_ON_ERROR(SOCKET_OPT_ERROR);
     }
     iNewSockID = SL_EAGAIN;
 
@@ -987,9 +995,9 @@ int BsdTcpServer(unsigned short usPort)
         else if( iNewSockID < 0 )
         {
             // error
-            ASSERT_ON_ERROR(sl_Close(iNewSockID));
-            ASSERT_ON_ERROR(sl_Close(iSockID));
-            ASSERT_ON_ERROR(TCP_SERVER_FAILED);
+            sl_Close(iNewSockID);
+            sl_Close(iSockID);
+            ASSERT_ON_ERROR(ACCEPT_ERROR);
         }
     }
 
@@ -1000,22 +1008,22 @@ int BsdTcpServer(unsigned short usPort)
         if( iStatus <= 0 )
         {
           // error
-          ASSERT_ON_ERROR( sl_Close(iNewSockID));
-          ASSERT_ON_ERROR(sl_Close(iSockID));
-          ASSERT_ON_ERROR(TCP_SERVER_FAILED);
+          sl_Close(iNewSockID);
+          sl_Close(iSockID);
+          ASSERT_ON_ERROR(RECV_ERROR);
         }
 
         lLoopCount++;
     }
 
-
-    // close the connected socket after receiving from connected TCP client
-    ASSERT_ON_ERROR(sl_Close(iNewSockID));
-
-    // close the listening socket
-    ASSERT_ON_ERROR(sl_Close(iSockID));
-
     Report("Recieved %u packets successfully\n\r",g_ulPacketCount);
+    
+    // close the connected socket after receiving from connected TCP client
+    iStatus = sl_Close(iNewSockID);    
+    ASSERT_ON_ERROR(iStatus);
+    // close the listening socket
+    iStatus = sl_Close(iSockID);
+    ASSERT_ON_ERROR(iStatus);   
 
     return SUCCESS;
 }

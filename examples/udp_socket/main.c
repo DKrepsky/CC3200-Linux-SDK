@@ -74,8 +74,8 @@
 #include "uart.h"
 
 // common interface includes
-#include "common.h"
 #include "udma_if.h"
+#include "common.h"
 #ifndef NOTERM
 #include "uart_if.h"
 #endif
@@ -84,7 +84,7 @@
 
 
 #define APPLICATION_NAME        "UDP Socket"
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 
 #define IP_ADDR            0xc0a8006E /* 192.168.0.110 */
 #define PORT_NUM           5001
@@ -94,10 +94,12 @@
 // Application specific status/error codes
 typedef enum{
     // Choosing -0x7D0 to avoid overlap w/ host-driver's error codes
-    UCP_CLIENT_FAILED = -0x7D0,
-    UCP_SERVER_FAILED = UCP_CLIENT_FAILED - 1,
-    DEVICE_NOT_IN_STATION_MODE = UCP_SERVER_FAILED - 1,
-
+    SOCKET_CREATE_ERROR = -0x7D0,
+    BIND_ERROR = SOCKET_CREATE_ERROR - 1,
+    SEND_ERROR = BIND_ERROR - 1,
+    RECV_ERROR = SEND_ERROR -1,
+    SOCKET_CLOSE = RECV_ERROR -1,  
+    DEVICE_NOT_IN_STATION_MODE = SOCKET_CLOSE - 1,
     STATUS_CODE_MAX = -0xBB8
 }e_AppStatusCodes;
 
@@ -118,13 +120,13 @@ static long ConfigureSimpleLinkToDefaultState();
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
-unsigned long  g_ulStatus = 0;//SimpleLink Status
+volatile unsigned long  g_ulStatus = 0;//SimpleLink Status
 unsigned long  g_ulGatewayIP = 0; //Network Gateway IP address
 unsigned char  g_ucConnectionSSID[SSID_LEN_MAX+1]; //Connection SSID
 unsigned char  g_ucConnectionBSSID[BSSID_LEN_MAX]; //Connection BSSID
 unsigned long  g_ulDestinationIp = IP_ADDR;        // Client IP address
 unsigned int   g_uiPortNum = PORT_NUM;
-unsigned long  g_ulPacketCount = UDP_PACKET_COUNT;
+volatile unsigned long  g_ulPacketCount = UDP_PACKET_COUNT;
 unsigned char  g_ucSimplelinkstarted = 0;
 unsigned long  g_ulIpAddr = 0;
 char g_cBsdBuf[BUF_SIZE];
@@ -836,7 +838,7 @@ int BsdUdpClient(unsigned short usPort)
     if( iSockID < 0 )
     {
         // error
-        ASSERT_ON_ERROR(UCP_CLIENT_FAILED);
+        ASSERT_ON_ERROR(SOCKET_CREATE_ERROR);
     }
 
     // for a UDP connection connect is not required
@@ -850,7 +852,7 @@ int BsdUdpClient(unsigned short usPort)
         {
             // error
             sl_Close(iSockID);
-            ASSERT_ON_ERROR(UCP_CLIENT_FAILED);
+            ASSERT_ON_ERROR(SEND_ERROR);
         }
         lLoopCount++;
     }
@@ -907,7 +909,7 @@ int BsdUdpServer(unsigned short usPort)
     if( iSockID < 0 )
     {
         // error
-        ASSERT_ON_ERROR(UCP_SERVER_FAILED);
+        ASSERT_ON_ERROR(SOCKET_CREATE_ERROR);
     }
 
     // binding the UDP socket to the UDP server address
@@ -916,7 +918,7 @@ int BsdUdpServer(unsigned short usPort)
     {
         // error
         sl_Close(iSockID);
-        ASSERT_ON_ERROR(UCP_SERVER_FAILED);
+        ASSERT_ON_ERROR(BIND_ERROR);
     }
 
     // no listen or accept is required as UDP is connectionless protocol
@@ -930,7 +932,7 @@ int BsdUdpServer(unsigned short usPort)
     {
         // error
         sl_Close(iSockID);
-        ASSERT_ON_ERROR(UCP_SERVER_FAILED);
+        ASSERT_ON_ERROR(RECV_ERROR);
     }
     lLoopCount++;
     }

@@ -82,7 +82,7 @@
 #include "wdt_if.h"
 #include "pinmux.h"
 
-#define APPLICATION_VERSION          "1.1.0"
+#define APPLICATION_VERSION          "1.1.1"
 #define WD_PERIOD_MS                 1000
 #define MAP_SysCtlClockGet           80000000
 #define LED_GPIO                     MCU_RED_LED_GPIO    /* RED LED */
@@ -95,7 +95,7 @@
 volatile tBoolean g_bFeedWatchdog = true;
 volatile unsigned long g_ulWatchdogCycles;
 
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -167,7 +167,7 @@ BoardInit(void)
   //
   // Set vector table base
   //
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)

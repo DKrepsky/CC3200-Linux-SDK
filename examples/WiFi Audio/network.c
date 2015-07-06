@@ -47,12 +47,13 @@
 #include "rom_map.h"
 #include "utils.h"
 #include "gpio_if.h"
-
+#include "uart_if.h"
 //common interface includes
 #include "common.h"
 
 //App Includes
 #include "network.h"
+#include "audiocodec.h"
 
 //*****************************************************************************
 //                          LOCAL DEFINES
@@ -82,7 +83,8 @@ typedef enum{
 //*****************************************************************************
 extern tUDPSocket g_UdpSock;
 extern OsiTaskHandle g_NetworkTask;
-unsigned long  g_ulStatus = 0;//SimpleLink Status
+extern unsigned char g_loopback;
+volatile unsigned long  g_ulStatus = 0;//SimpleLink Status
 unsigned long  g_uiIpAddress = 0; //Device IP address
 unsigned char  g_ucConnectionSSID[SSID_LEN_MAX+1]; //Connection SSID
 unsigned char  g_ucConnectionBSSID[BSSID_LEN_MAX]; //Connection BSSID
@@ -136,6 +138,9 @@ void mDNS_Task()
              g_UdpSock.Client.sin_addr.s_addr = htonl(pAddr);
              g_UdpSock.Client.sin_port = htons(usPort);
              g_UdpSock.iClientLength = sizeof(g_UdpSock.Client);
+
+             g_loopback = 0;
+
         }
          
              MAP_UtilsDelay(80*1000*100);
@@ -352,32 +357,33 @@ void SimpleLinkSockEventHandler(SlSockEvent_t *pSock)
 {
     if(pSock == NULL)
     {
-        UART_PRINT("Null pointer\n\r");
-        LOOP_FOREVER();
+        return;
     }
+
     //
     // This application doesn't work w/ socket - Events are not expected
     //
-       switch( pSock->Event )
+    switch( pSock->Event )
     {
         case SL_SOCKET_TX_FAILED_EVENT:
-            switch( pSock->EventData.status )
+        	switch( pSock->socketAsyncEvent.SockTxFailData.status )
             {
                 case SL_ECLOSE:
-                    UART_PRINT("[SOCK ERROR] - close socket (%d) operation "
-                               "failed to transmit all queued packets\n\n",
-                               pSock->EventData.sd);
+                    /*UART_PRINT("[SOCK ERROR] - close socket (%d) operation "
+                                "failed to transmit all queued packets\n\n",
+                                    pSock->EventData.sd);*/
                     break;
                 default:
-                    UART_PRINT("[SOCK ERROR] - TX FAILED  :  socket %d , "
-                               "reason (%d) \n\n",
-                               pSock->EventData.sd, pSock->EventData.status);
+                    /*UART_PRINT("[SOCK ERROR] - TX FAILED  :  socket %d , reason "
+                                "(%d) \n\n",
+                                pSock->EventData.sd, pSock->EventData.status); */
+                  break;
             }
             break;
 
         default:
-            UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n", \
-                        pSock->Event);
+           /*UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);*/
+          break;
     }
 }
 
@@ -609,8 +615,9 @@ void Network( void *pvParameters )
     {
         UART_PRINT("Failed to Create UDP Server \n\r");
         LOOP_FOREVER();
-    }    
-    
+    }
+
+
 #ifdef MULTICAST  
     //Add to Multicast Group
     lRetVal = ReceiveMulticastPacket();

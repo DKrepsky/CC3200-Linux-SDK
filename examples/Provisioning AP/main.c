@@ -87,7 +87,7 @@
 
 
 #define APPLICATION_NAME          "AP Provisioning"
-#define APPLICATION_VERSION       "1.1.0"
+#define APPLICATION_VERSION       "1.1.1"
 #define APP_TASK_PRIORITY         1
 #define OSI_STACK_SIZE            2048
 #define CONNECTION_TIMEOUT_COUNT  5000  /* 5sec */
@@ -111,9 +111,10 @@ typedef enum{
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
-unsigned char  g_ulStatus = 0;
-unsigned char g_ucProfileAdded = 1;
-unsigned char g_ucConnectedToConfAP = 0, g_ucProvisioningDone = 0;
+volatile unsigned char  g_ulStatus = 0;
+volatile unsigned char g_ucProfileAdded = 1;
+unsigned char g_ucConnectedToConfAP = 0;
+volatile unsigned char g_ucProvisioningDone = 0;
 unsigned char g_ucPriority = 0;
 unsigned long  g_ulGatewayIP = 0; //Network Gateway IP address
 unsigned char  g_ucConnectionSSID[SSID_LEN_MAX+1]; //Connection SSID
@@ -125,9 +126,7 @@ Sl_WlanNetworkEntry_t g_NetEntries[SCAN_TABLE_SIZE];
 char g_token_get [TOKEN_ARRAY_SIZE][STRING_TOKEN_SIZE] = {"__SL_G_US0",
                                         "__SL_G_US1", "__SL_G_US2","__SL_G_US3",
                                                     "__SL_G_US4", "__SL_G_US5"};
-#if defined(gcc)
-extern void (* const g_pfnVectors[])(void);
-#endif
+
 #if defined(ewarm)
 extern uVectorEntry __vector_table;
 #endif
@@ -574,26 +573,29 @@ void SimpleLinkSockEventHandler(SlSockEvent_t *pSock)
     //
     // This application doesn't work w/ socket - Events are not expected
     //
-       switch( pSock->Event )
+    switch( pSock->Event )
     {
         case SL_SOCKET_TX_FAILED_EVENT:
-            switch( pSock->EventData.status )
+            switch( pSock->socketAsyncEvent.SockTxFailData.status)
             {
-                case SL_ECLOSE:
+                case SL_ECLOSE: 
                     UART_PRINT("[SOCK ERROR] - close socket (%d) operation "
-                    "failed to transmit all queued packets\n\n",
-                           pSock->EventData.sd);
+                                "failed to transmit all queued packets\n\n", 
+                                    pSock->socketAsyncEvent.SockTxFailData.sd);
                     break;
-                default:
-                    UART_PRINT("[SOCK ERROR] - TX FAILED : socket %d , reason"
-                        "(%d) \n\n",
-                           pSock->EventData.sd, pSock->EventData.status);
+                default: 
+                    UART_PRINT("[SOCK ERROR] - TX FAILED  :  socket %d , reason "
+                                "(%d) \n\n",
+                                pSock->socketAsyncEvent.SockTxFailData.sd, pSock->socketAsyncEvent.SockTxFailData.status);
+                  break;
             }
             break;
 
         default:
-            UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
+        	UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
+          break;
     }
+
 }
 
 
@@ -1068,9 +1070,7 @@ void ProvisioningAP(void* pTaskParams)
 static void
 BoardInit(void)
 {
-#if defined(gcc)
-    MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
-#endif
+
 #if defined(ewarm)
     MAP_IntVTableBaseSet((unsigned long)&__vector_table);
 #endif

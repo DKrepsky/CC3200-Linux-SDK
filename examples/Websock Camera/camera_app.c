@@ -92,8 +92,17 @@ extern int g_uiSimplelinkRole = ROLE_INVALID;
 unsigned int g_uiIpAddress = 0;
 static unsigned long *p_buffer = NULL;
 static unsigned char g_dma_txn_done;
-static unsigned char g_frame_end;
+volatile static unsigned char g_frame_end;
 static unsigned long g_total_dma_intrpts;
+
+#ifdef ENABLE_JPEG 
+    int PIXELS_IN_X_AXIS = 640; 
+    int PIXELS_IN_Y_AXIS = 480;
+    int FRAME_SIZE_IN_BYTES = (640 * 480 * 2);
+#else
+    int PIXELS_IN_X_AXIS = 240;
+    int PIXELS_IN_Y_AXIS = 256;
+#endif    
 
 #ifdef ENABLE_JPEG
 unsigned long g_header_length;
@@ -281,12 +290,13 @@ unsigned short StartCamera(char **WriteBuffer)
 //!     InitCameraComponents 
 //!     PinMux, Camera Initialization and Configuration   
 //!
-//!	\param                      None  
-//!     \return                     None           
+//!	\param[in] width - X-Axis
+//!	\param[in] width - Y-Axis
+//! \return  None
 //
 //*****************************************************************************
 
-void InitCameraComponents()
+void InitCameraComponents(int width, int height)
 {
     //
     // Configure device pins
@@ -309,10 +319,34 @@ void InitCameraComponents()
     //
     // Configure Sensor in Capture Mode
     //
+    PIXELS_IN_X_AXIS = width; 
+    PIXELS_IN_Y_AXIS = height;
+    FRAME_SIZE_IN_BYTES = PIXELS_IN_X_AXIS * PIXELS_IN_Y_AXIS * BYTES_PER_PIXEL;
 
-    StartSensorInJpegMode();
+    StartSensorInJpegMode(width, height);
 
 #endif
+}
+
+//*****************************************************************************
+//
+//!     Set resolution of camera
+//!
+//!	\param[in] width - X Axis
+//!	\param[in] height - Y Axis
+//! \return  0 on success else -ve
+//
+//*****************************************************************************
+
+long SetCameraResolution(int width, int height)
+{
+	long lRetVal = 0;
+
+    PIXELS_IN_X_AXIS = width; 
+    PIXELS_IN_Y_AXIS = height;
+    FRAME_SIZE_IN_BYTES = PIXELS_IN_X_AXIS * PIXELS_IN_Y_AXIS * BYTES_PER_PIXEL;
+    lRetVal = CameraSensorResolution(width, height);
+    return lRetVal;
 }
 
 //*****************************************************************************
@@ -383,14 +417,14 @@ static void DMAConfig()
     //
     // Setup ping-pong transfer
     //
-    DMASetupTransfer(UDMA_CH22_CAMERA,UDMA_MODE_PINGPONG,TOTAL_DMA_ELEMENTS,UDMA_SIZE_32,
+    UDMASetupTransfer(UDMA_CH22_CAMERA,UDMA_MODE_PINGPONG,TOTAL_DMA_ELEMENTS,UDMA_SIZE_32,
                      UDMA_ARB_8,(void *)CAM_BUFFER_ADDR, UDMA_SRC_INC_32,
                      (void *)p_buffer, UDMA_DST_INC_32);
     //
     //  Pong Buffer
     // 
     p_buffer += TOTAL_DMA_ELEMENTS; 
-    DMASetupTransfer(UDMA_CH22_CAMERA|UDMA_ALT_SELECT,UDMA_MODE_PINGPONG,TOTAL_DMA_ELEMENTS,
+    UDMASetupTransfer(UDMA_CH22_CAMERA|UDMA_ALT_SELECT,UDMA_MODE_PINGPONG,TOTAL_DMA_ELEMENTS,
                      UDMA_SIZE_32, UDMA_ARB_8,(void *)CAM_BUFFER_ADDR,
                      UDMA_SRC_INC_32, (void *)p_buffer, UDMA_DST_INC_32);
     //
@@ -406,12 +440,12 @@ static void DMAConfig()
     //
     // Clear any pending interrupt
     //
-    HWREG(0x4402609C) |= 1 << 8;
+    CameraIntClear(CAMERA_BASE,CAM_INT_DMA);
 
     //
     // DMA Interrupt unmask from apps config
     //
-    HWREG(0x44026094) |= 1 << 8;
+    CameraIntEnable(CAMERA_BASE,CAM_INT_DMA);
 }
 
 //*****************************************************************************
@@ -430,11 +464,11 @@ static void CamControllerInit()
     MAP_PRCMPeripheralReset(PRCM_CAMERA);
 
 #ifndef ENABLE_JPEG
-    // Configure Camera clock from ARCM
+    // Configure Camera clock
     // CamClkIn = ((240)/((1+1)+(1+1))) = 60 MHz
-    HWREG(0x44025000) = 0x0101;
+    PRCMCameraFreqSet(4, 2);
 #else
-    HWREG(0x44025000) = 0x0000;
+    PRCMCameraFreqSet(2,1);
 #endif 
 
     MAP_CameraReset(CAMERA_BASE);
@@ -479,10 +513,10 @@ static void CameraIntHandler()
         MAP_CameraCaptureStop(CAMERA_BASE, true);
     }
 
-    if(HWREG(0x440260A4) & (1<<8))
+    if(CameraIntStatus(CAMERA_BASE)& CAM_INT_DMA)
     {
         // Camera DMA Done clear
-        HWREG(0x4402609C) |= 1 << 8;
+        CameraIntClear(CAMERA_BASE,CAM_INT_DMA);
 
         g_total_dma_intrpts++;
 
@@ -491,7 +525,7 @@ static void CameraIntHandler()
         {
             if(g_dma_txn_done == 0)
             {
-                DMASetupTransfer(UDMA_CH22_CAMERA,UDMA_MODE_PINGPONG,TOTAL_DMA_ELEMENTS,UDMA_SIZE_32,
+                UDMASetupTransfer(UDMA_CH22_CAMERA,UDMA_MODE_PINGPONG,TOTAL_DMA_ELEMENTS,UDMA_SIZE_32,
                                  UDMA_ARB_8,(void *)CAM_BUFFER_ADDR, UDMA_SRC_INC_32,
                                  (void *)p_buffer, UDMA_DST_INC_32);
                 p_buffer += TOTAL_DMA_ELEMENTS;
@@ -499,7 +533,7 @@ static void CameraIntHandler()
             }
             else
             {
-                DMASetupTransfer(UDMA_CH22_CAMERA|UDMA_ALT_SELECT,UDMA_MODE_PINGPONG,TOTAL_DMA_ELEMENTS,
+                UDMASetupTransfer(UDMA_CH22_CAMERA|UDMA_ALT_SELECT,UDMA_MODE_PINGPONG,TOTAL_DMA_ELEMENTS,
                                  UDMA_SIZE_32, UDMA_ARB_8,(void *)CAM_BUFFER_ADDR,
                                  UDMA_SRC_INC_32, (void *)p_buffer, UDMA_DST_INC_32);
                 p_buffer += TOTAL_DMA_ELEMENTS;
@@ -511,7 +545,7 @@ static void CameraIntHandler()
             // Disable DMA 
             MAP_UtilsDelay(20000);
             MAP_uDMAChannelDisable(UDMA_CH22_CAMERA);
-            HWREG(0x44026090) |= 1 << 8;
+			CameraIntDisable(CAMERA_BASE,CAM_INT_DMA);
             g_frame_end = 1;
         }
     }

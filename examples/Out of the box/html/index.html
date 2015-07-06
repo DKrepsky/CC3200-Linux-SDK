@@ -12,8 +12,8 @@ $(function() {
 	var deviceType = "__SL_G_V.D",
 		len = deviceType.length,
 		deviceTypeEnd = deviceType.substring(len-2,len),
-		cc3101Vals = ['10','11','13'];
-	if ($.inArray(deviceTypeEnd, cc3101Vals) > -1) {
+		cc3200Vals = ['10','11','13'];
+	if ($.inArray(deviceTypeEnd, cc3200Vals) > -1) {
 		$('span.deviceName').html('CC3200');
 	} else {
 		$('span.deviceName').html('CC3100');

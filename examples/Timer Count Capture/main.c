@@ -63,7 +63,7 @@
 #include "pinmux.h"
 
 
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 #define APP_NAME        "Timer Count Capture"
 #define TIMER_FREQ      80000000
 

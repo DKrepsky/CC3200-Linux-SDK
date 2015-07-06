@@ -1,0 +1,35 @@
+Info : only one transport option; autoselect 'jtag'
+adapter speed: 1000 kHz
+cc3200_dbginit
+Info : clock speed 1000 kHz
+Info : JTAG tap: cc3200.jrc tap/device found: 0x0b97c02f (mfg: 0x017, part: 0xb97c, ver: 0x0)
+Info : JTAG tap: cc3200.dap enabled
+Info : cc3200.cpu: hardware has 6 breakpoints, 4 watchpoints
+Info : accepting 'gdb' connection from pipe
+undefined debug reason 7 - target needs reset
+requesting target halt and executing a soft reset
+Warn : soft_reset_halt is deprecated, please use 'reset halt' instead.
+target state: halted
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x01000000 pc: 0x00008d1c msp: 0x20004000
+Warn : Invalid ACK 0x7 in JTAG-DP transaction
+Polling target cc3200.cpu failed, GDB will be halted. Polling again in 100ms
+Warn : target cc3200.cpu is not halted
+Warn : Invalid ACK 0x7 in JTAG-DP transaction
+Warn : Invalid ACK 0x7 in JTAG-DP transaction
+Error: Failed to read memory and, additionally, failed to find out where
+Warn : target not halted
+Warn : Invalid ACK 0x7 in JTAG-DP transaction
+Warn : Invalid ACK 0x7 in JTAG-DP transaction
+Error: Failed to read memory and, additionally, failed to find out where
+Warn : Invalid ACK 0x7 in JTAG-DP transaction
+Polling target cc3200.cpu failed, GDB will be halted. Polling again in 300ms
+Warn : Invalid ACK 0x7 in JTAG-DP transaction
+Polling target cc3200.cpu failed, GDB will be halted. Polling again in 700ms
+Warn : Invalid ACK 0x7 in JTAG-DP transaction
+Polling target cc3200.cpu failed, GDB will be halted. Polling again in 1500ms
+Warn : target cc3200.cpu is not halted
+Error: can't add breakpoint: target running
+Warn : Invalid ACK 0x7 in JTAG-DP transaction
+Polling target cc3200.cpu failed, GDB will be halted. Polling again in 3100ms
+Info : dropped 'gdb' connection

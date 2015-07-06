@@ -52,7 +52,7 @@
 #include "common.h"
 
 #define APPLICATION_NAME        "SERIAL WiFi"
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 #define OSI_STACK_SIZE         2048
 
 //****************************************************************************
@@ -70,7 +70,7 @@ static void BoardInit(void);
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -116,7 +116,7 @@ static void BoardInit(void)
   //
   // Set vector table base
   //
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)
@@ -171,7 +171,7 @@ int main(void)
     //
     //create an Interpreter task
     //
-    lRetVal = osi_TaskCreate(Interpreter_Task,( signed portCHAR * ) "Wi-Fi",\
+    lRetVal = osi_TaskCreate(Interpreter_Task, (signed char *)"Wi-Fi",\
                                 OSI_STACK_SIZE, NULL,
                                 1, NULL);
     if(lRetVal < 0)
@@ -181,7 +181,7 @@ int main(void)
     }
     
     // create a separate thread for reading UART
-    lRetVal = osi_TaskCreate(basic_Interpreter,( signed portCHAR * ) "uart", \
+    lRetVal = osi_TaskCreate(basic_Interpreter,(signed char *)"uart", \
                                 OSI_STACK_SIZE, NULL,
                                 1, NULL);
     if(lRetVal < 0)

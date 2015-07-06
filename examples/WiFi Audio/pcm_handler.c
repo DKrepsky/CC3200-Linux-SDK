@@ -46,13 +46,6 @@
 #include <stdio.h>
 #include <string.h>
 
-/* Scheduler includes. */
-#ifdef ewarm
-#include "FreeRTOS.h"
-#include "task.h"
-#include "queue.h"
-#include "semphr.h"
-#endif
 
 /* Hardware & DriverLib library includes. */
 #include "hw_types.h"
@@ -67,43 +60,31 @@
 #include "i2s.h"
 #include "udma.h"
 #include "pin.h"
-#include "mcasp_if.h"
 #include "circ_buff.h"
 #include "pcm_handler.h"
 #include "udma_if.h"
 #include "i2c_if.h"
 #include "uart_if.h"
 
-#ifndef TI_CODEC
-#include "wolfson.h"
-#else
-#include "ti_codec.h"
-#endif
+
 
 //*****************************************************************************
 //                          LOCAL DEFINES
 //*****************************************************************************
 #define UDMA_DSTSZ_32_SRCSZ_16          0x21000000
 #define mainQUEUE_SIZE                3
+#define PLAY_WATERMARK		30*1024
 
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
-unsigned char gaucZeroBuffer[(CB_TRANSFER_SZ * HALF_WORD_SIZE)];
-volatile unsigned int *puiTxSrcBuf;
-volatile unsigned short *pusTxDestBuf;
-volatile unsigned short *pusRxSrcBuf;
-volatile unsigned int *puiRxDestBuf;
-volatile unsigned int guiDMATransferCountTx = 0, guiDMACount = 0;
-volatile unsigned int guiDMATransferCountRx = 0;
-unsigned int g_uiBuffLevel=0;
-unsigned int g_uiNoDataLeft;
-extern tCircularBuffer *pTxBuffer;
-extern tCircularBuffer *pRxBuffer;
+tCircularBuffer *g_pRecordBuffer;
+tCircularBuffer *g_pPlayBuffer;
 extern unsigned int g_uiPlayWaterMark;
-int g_iReadFlag = 0;
-unsigned int guiDMAEmptyCount = 0;
-int iCount1,SPEAKER,MIC,iCount3;
+
+unsigned char gaucZeroBuffer[(CB_TRANSFER_SZ * HALF_WORD_SIZE)];
+unsigned int g_uiPlayWaterMark = 0;
+
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- End
 //*****************************************************************************
@@ -130,176 +111,92 @@ void DMAPingPongCompleteAppCB_opt()
     unsigned long ulPrimaryIndexRx = 0x5;
     unsigned long ulAltIndexRx = 0x25;
     tDMAControlTable *pControlTable;
-    tCircularBuffer *pAudOutBuf = pRxBuffer;
-    tCircularBuffer *pAudInBuf = pTxBuffer;
-    unsigned int uiBufferEmpty = 0;
-    unsigned char *pucDMADest;
-    unsigned char *pucDMASrc;
 
-    if(uDMAIntStatus() & 0x00000010)
+    if(MAP_uDMAIntStatus() & 0x00000010)
     {
-        HWREG(0x4402609c) = (1<<10);
-        guiDMACount++;
-        if(!(guiDMACount & 0x000003FF))
-        {
-            //DBG_PRINT("DMACount = %u\n\r",guiDMACount);
-        }
-        //
-        // Get the base address of the control table.
-        //
-        //pControlTable = (tDMAControlTable *)HWREG(DMA_BASE + UDMA_O_CTLBASE);
+    	I2SIntClear(I2S_BASE, I2S_INT_RDMA);
+
         pControlTable = MAP_uDMAControlBaseGet();
-        uiBufferEmpty = GetBufferEmptySize(pAudInBuf);
 
         if((pControlTable[ulPrimaryIndexTx].ulControl & UDMA_CHCTL_XFERMODE_M) \
+                                                                                == 0)
+        {
+                MAP_uDMAChannelTransferSet(UDMA_CH4_I2S_RX,
+                                             UDMA_MODE_PINGPONG,
+                                             (void *)I2S_RX_DMA_PORT,
+                                             (void *)GetWritePtr(g_pRecordBuffer),
+                                             CB_TRANSFER_SZ);
+                 MAP_uDMAChannelEnable(UDMA_CH4_I2S_RX);
+                 UpdateWritePtr(g_pRecordBuffer, (2*CB_TRANSFER_SZ));
+        }
+        else if((pControlTable[ulAltIndexTx].ulControl & UDMA_CHCTL_XFERMODE_M) \
                                                                         == 0)
         {
-            if(uiBufferEmpty < 2048)
-            {   
-                if(pAudInBuf->pucWritePtr < pAudInBuf->pucBufferStartPtr)
-                {
-                    pAudInBuf->pucWritePtr = pAudInBuf->pucBufferStartPtr;
-                }
-                
-            }
-            else
-            {
-                pusTxDestBuf += CB_TRANSFER_SZ;
-                guiDMATransferCountTx += CB_TRANSFER_SZ;
-                MIC++;
-            }
-            
-            pucDMADest = (unsigned char *)pusTxDestBuf;
-            pControlTable[ulPrimaryIndexTx].ulControl |= CTRL_WRD;
-            pControlTable[ulPrimaryIndexTx].pvDstEndAddr = (void *)(pucDMADest \
-                                                                     + END_PTR);
-            MAP_uDMAChannelEnable(UDMA_CH4_I2S_RX);
-        }
-        else
-        {
-            if((pControlTable[ulAltIndexTx].ulControl & UDMA_CHCTL_XFERMODE_M) \
-                                                                        == 0)
-            {
-               
-                if(uiBufferEmpty < 2048)
-                {
-                    if(pAudInBuf->pucWritePtr < pAudInBuf->pucBufferStartPtr)
-                    {
-                        pAudInBuf->pucWritePtr = pAudInBuf->pucBufferStartPtr;
-                    }
-                }
-                else
-                {
-                    pusTxDestBuf += CB_TRANSFER_SZ;
-                    guiDMATransferCountTx += CB_TRANSFER_SZ;
-                    MIC++;
-                }
-                pucDMADest = (unsigned char *)pusTxDestBuf;
-                pControlTable[ulAltIndexTx].ulControl |= CTRL_WRD;
-                pControlTable[ulAltIndexTx].pvDstEndAddr = (void *)(pucDMADest \
-                                                                     + END_PTR);
-                MAP_uDMAChannelEnable(UDMA_CH4_I2S_RX);
-            }
-        }
-        
-        if(guiDMATransferCountTx >= CB_TRANSFER_SZ)
-        {
-            pAudInBuf->pucWritePtr += (CB_TRANSFER_SZ*2);
-            if((unsigned int)pAudInBuf->pucWritePtr >= \
-                            (unsigned int)pAudInBuf->pucBufferEndPtr)
-            {
-                pAudInBuf->pucWritePtr = pAudInBuf->pucBufferStartPtr;
-            }
-            pusTxDestBuf = (unsigned short *)pAudInBuf->pucWritePtr;
-            pusTxDestBuf -= CB_TRANSFER_SZ;
-            guiDMATransferCountTx = 0;
-              
-        }   
-        g_iReadFlag++;
+                MAP_uDMAChannelTransferSet(UDMA_CH4_I2S_RX|UDMA_ALT_SELECT,
+                                             UDMA_MODE_PINGPONG,
+                                             (void *)I2S_RX_DMA_PORT,
+                                             (void *)GetWritePtr(g_pRecordBuffer),
+                                             CB_TRANSFER_SZ );
+                 MAP_uDMAChannelEnable(UDMA_CH4_I2S_RX|UDMA_ALT_SELECT);
+                 UpdateWritePtr(g_pRecordBuffer, (2*CB_TRANSFER_SZ));
+         }
     }
-    
-    
-    if(uDMAIntStatus() & 0x00000020)
+
+    if(MAP_uDMAIntStatus() & 0x00000020)
     {
-        HWREG(0x4402609c) = (1<<11);
+        //Clear the MCASP write interrupt
+		I2SIntClear(I2S_BASE, I2S_INT_XDMA);
         pControlTable = MAP_uDMAControlBaseGet();
-        iCount1++;
         if((pControlTable[ulPrimaryIndexRx].ulControl & UDMA_CHCTL_XFERMODE_M) \
-                                                                        == 0)
+                                                                                == 0)
         {
-            if((pAudOutBuf->pucReadPtr == pAudOutBuf->pucWritePtr) || \
-                                                    (g_uiPlayWaterMark == 0))
+
+            if( IsBufferEmpty(g_pPlayBuffer) || !g_uiPlayWaterMark )
             {
-                pucDMASrc = &gaucZeroBuffer[0];
-                if(pAudOutBuf->pucReadPtr == pAudOutBuf->pucWritePtr)
-                {
-                    g_uiPlayWaterMark = 0;
-                    guiDMAEmptyCount++;
-                    //DBG_PRINT("Buffer Empty %d\n\r",guiDMAEmptyCount );
-                }
-                guiDMATransferCountRx = 0;
-                iCount3++;
+                g_uiPlayWaterMark = IsBufferSizeFilled(g_pPlayBuffer,PLAY_WATERMARK);
+                MAP_uDMAChannelTransferSet(UDMA_CH5_I2S_TX,
+                                            UDMA_MODE_PINGPONG,
+                                            (void *)&gaucZeroBuffer[0],
+                                            (void *)I2S_TX_DMA_PORT,
+                                            CB_TRANSFER_SZ );
             }
             else
             {
-                pusRxSrcBuf += CB_TRANSFER_SZ;
-                guiDMATransferCountRx += CB_TRANSFER_SZ;
-                pucDMASrc = (unsigned char *)pusRxSrcBuf;
-                SPEAKER++;
+                MAP_uDMAChannelTransferSet(UDMA_CH5_I2S_TX,
+                                            UDMA_MODE_PINGPONG,
+                                            (void *)GetReadPtr(g_pPlayBuffer),
+                                            (void *)I2S_TX_DMA_PORT,
+                                            CB_TRANSFER_SZ );
+                 UpdateReadPtr(g_pPlayBuffer, (2*CB_TRANSFER_SZ));
             }
-            pControlTable[ulPrimaryIndexRx].ulControl |= CTRL_WRD;
-            //pControlTable[ulPrimaryIndex].pvSrcEndAddr = (void *)((unsigned long)&gaucZeroBuffer[0] + 15);
-            pControlTable[ulPrimaryIndexRx].pvSrcEndAddr = \
-                                (void *)((unsigned long)pucDMASrc + END_PTR);
-            //HWREG(DMA_BASE + UDMA_O_ENASET) = (1 << 5);
             MAP_uDMAChannelEnable(UDMA_CH5_I2S_TX);
         }
-        else
+        else if((pControlTable[ulAltIndexRx].ulControl & UDMA_CHCTL_XFERMODE_M) \
+                == 0)
         {
-            if((pControlTable[ulAltIndexRx].ulControl & UDMA_CHCTL_XFERMODE_M) \
-                                                                        == 0)
+            if( IsBufferEmpty(g_pPlayBuffer) || !g_uiPlayWaterMark )
             {
-                if((pAudOutBuf->pucReadPtr == pAudOutBuf->pucWritePtr) || \
-                                                    (g_uiPlayWaterMark == 0))
-                {
-                    pucDMASrc = &gaucZeroBuffer[0];
-                    if(pAudOutBuf->pucReadPtr == pAudOutBuf->pucWritePtr)
-                    {
-                      g_uiPlayWaterMark = 0;
-                      guiDMAEmptyCount++;
-                      //DBG_PRINT("Buffer Empty %d\n\r",guiDMAEmptyCount );
-                    }
-                    guiDMATransferCountRx = 0;
-                }
-                else
-                {
-                    pusRxSrcBuf += CB_TRANSFER_SZ;
-                    guiDMATransferCountRx += CB_TRANSFER_SZ;
-                    pucDMASrc = (unsigned char *)pusRxSrcBuf;
-                    SPEAKER++;
-                }
-                pControlTable[ulAltIndexRx].ulControl |= CTRL_WRD;
-                pControlTable[ulAltIndexRx].pvSrcEndAddr = \
-                                (void *)((unsigned long)pucDMASrc + END_PTR);
-                //HWREG(DMA_BASE + UDMA_O_ENASET) = (1 << 5);
-                MAP_uDMAChannelEnable(UDMA_CH5_I2S_TX);
+                 g_uiPlayWaterMark = IsBufferSizeFilled(g_pPlayBuffer,PLAY_WATERMARK);
+                 MAP_uDMAChannelTransferSet(UDMA_CH5_I2S_TX|UDMA_ALT_SELECT,
+                                              UDMA_MODE_PINGPONG,
+                                              (void *)&gaucZeroBuffer[0],
+                                              (void *)I2S_TX_DMA_PORT,
+                                              CB_TRANSFER_SZ );
             }
-        }
+            else
+            {
+                MAP_uDMAChannelTransferSet(UDMA_CH5_I2S_TX|UDMA_ALT_SELECT,
+                                             UDMA_MODE_PINGPONG,
+                                             (void *)GetReadPtr(g_pPlayBuffer),
+                                             (void *)I2S_TX_DMA_PORT,
+                                             CB_TRANSFER_SZ );
+                 UpdateReadPtr(g_pPlayBuffer, (2*CB_TRANSFER_SZ));
 
-        if(guiDMATransferCountRx >= CB_TRANSFER_SZ)
-        {
-              pAudOutBuf->pucReadPtr += (CB_TRANSFER_SZ*2);
-              if((unsigned int)pAudOutBuf->pucReadPtr >= \
-                                     (unsigned int)pAudOutBuf->pucBufferEndPtr)
-              {
-                 pAudOutBuf->pucReadPtr = pAudOutBuf->pucBufferStartPtr;
-              }
-              
-              pusRxSrcBuf = (unsigned short *)pAudOutBuf->pucReadPtr;
-              pusRxSrcBuf -= CB_TRANSFER_SZ;
-              guiDMATransferCountRx = 0;
+            }
+            MAP_uDMAChannelEnable(UDMA_CH5_I2S_TX|UDMA_ALT_SELECT);
         }
     }
+
 }
 
 //*****************************************************************************
@@ -315,67 +212,61 @@ void DMAPingPongCompleteAppCB_opt()
 //! \return None.
 //
 //*****************************************************************************
-void SetupPingPongDMATransferTx()
+void SetupPingPongDMATransferTx(tCircularBuffer *pRecordBuffer)
 {
-    puiTxSrcBuf = AudioCapturerGetDMADataPtr();
-    pusTxDestBuf = (unsigned short*)GetWritePtr(pTxBuffer);
-
-    SetupTransfer(UDMA_CH4_I2S_RX,
-                  UDMA_MODE_PINGPONG,
-                  CB_TRANSFER_SZ, 
-                  UDMA_SIZE_16,
-                  UDMA_ARB_8,
-                  (void *)puiTxSrcBuf, 
-                  UDMA_CHCTL_SRCINC_NONE,
-                  (void *)pusTxDestBuf, 
-                  UDMA_CHCTL_DSTINC_16);
-
-    pusTxDestBuf += CB_TRANSFER_SZ;
-    SetupTransfer(UDMA_CH4_I2S_RX|UDMA_ALT_SELECT,
-                  UDMA_MODE_PINGPONG,
-                  CB_TRANSFER_SZ, 
-                  UDMA_SIZE_16,
-                  UDMA_ARB_8,
-                  (void *)puiTxSrcBuf, 
-                  UDMA_CHCTL_SRCINC_NONE,
-                  (void *)pusTxDestBuf, 
-                  UDMA_CHCTL_DSTINC_16);
     
+    g_pRecordBuffer = pRecordBuffer;
+
+    UDMASetupTransfer(UDMA_CH4_I2S_RX,
+                      UDMA_MODE_PINGPONG,
+                      CB_TRANSFER_SZ,
+                      UDMA_SIZE_16,
+                      UDMA_ARB_8,
+                      (void *)I2S_RX_DMA_PORT,
+                      UDMA_CHCTL_SRCINC_NONE,
+                      (void *)GetWritePtr(pRecordBuffer),
+                      UDMA_CHCTL_DSTINC_16);
+
+
+    UDMASetupTransfer(UDMA_CH4_I2S_RX|UDMA_ALT_SELECT,
+                      UDMA_MODE_PINGPONG,
+                      CB_TRANSFER_SZ,
+                      UDMA_SIZE_16,
+                      UDMA_ARB_8,
+                      (void *)I2S_RX_DMA_PORT,
+                      UDMA_CHCTL_SRCINC_NONE,
+                      (void *)(GetWritePtr(pRecordBuffer)+(2*CB_TRANSFER_SZ)),
+                      UDMA_CHCTL_DSTINC_16);
 }
 
-void SetupPingPongDMATransferRx()
+void SetupPingPongDMATransferRx(tCircularBuffer *pPlayBuffer)
 {
-    puiRxDestBuf = AudioRendererGetDMADataPtr();
-    pusRxSrcBuf = (unsigned short *)GetReadPtr(pRxBuffer);
+	g_pPlayBuffer = pPlayBuffer;
+	
+    UDMASetupTransfer(UDMA_CH5_I2S_TX,
+                      UDMA_MODE_PINGPONG,
+                      CB_TRANSFER_SZ,
+                      UDMA_SIZE_16,
+                      UDMA_ARB_8,
+                      (void *)GetReadPtr(pPlayBuffer),
+                      UDMA_CHCTL_SRCINC_16,
+                      (void *)I2S_TX_DMA_PORT,
+                      UDMA_DST_INC_NONE);
 
-    SetupTransfer(UDMA_CH5_I2S_TX,
-                  UDMA_MODE_PINGPONG,
-                  CB_TRANSFER_SZ, 
-                  UDMA_SIZE_16,
-                  UDMA_ARB_8,
-                  (void *)pusRxSrcBuf, 
-                  UDMA_CHCTL_SRCINC_16,
-                  (void *)puiRxDestBuf, 
-                  UDMA_DST_INC_NONE);
-
-    pusRxSrcBuf += CB_TRANSFER_SZ;
-    guiDMATransferCountRx += CB_TRANSFER_SZ;
-
-    SetupTransfer(UDMA_CH5_I2S_TX|UDMA_ALT_SELECT,
-                  UDMA_MODE_PINGPONG,
-                  CB_TRANSFER_SZ, 
-                  UDMA_SIZE_16,
-                  UDMA_ARB_8,
-                  (void *)pusRxSrcBuf, 
-                  UDMA_CHCTL_SRCINC_16,
-                  (void *)puiRxDestBuf, 
-                  UDMA_DST_INC_NONE);
-    
+    UDMASetupTransfer(UDMA_CH5_I2S_TX|UDMA_ALT_SELECT,
+                      UDMA_MODE_PINGPONG,
+                      CB_TRANSFER_SZ,
+                      UDMA_SIZE_16,
+                      UDMA_ARB_8,
+                      (void *)(GetReadPtr(pPlayBuffer)+(2*CB_TRANSFER_SZ)),
+                      UDMA_CHCTL_SRCINC_16,
+                      (void *)I2S_TX_DMA_PORT,
+                      UDMA_DST_INC_NONE);
 }
+
 //*****************************************************************************
 //
 // Close the Doxygen group.
 //! @}
 //
 //*****************************************************************************
-

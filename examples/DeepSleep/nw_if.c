@@ -38,7 +38,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
+
 
 // Simplelink includes 
 #include "simplelink.h"
@@ -53,7 +53,7 @@
 #include "utils.h"
 #include "prcm.h"
 
-// free-rtos/TI-rtos include#include "osi.h"
+// free-rtos/TI-rtos include#include "osi.h"
 // common interface includes 
 #include "nw_if.h"
 #include "common.h"
@@ -81,7 +81,7 @@ unsigned long  g_ulStaIp = 0;    /* Station IP address */
 unsigned long  g_ulGatewayIP = 0; /* Network Gateway IP address */
 unsigned char  g_ucConnectionSSID[SSID_LEN_MAX+1]; /* Connection SSID */
 unsigned char  g_ucConnectionBSSID[BSSID_LEN_MAX]; /* Connection BSSID */
-unsigned short g_usConnectIndex; /* Connection time delay index */
+volatile unsigned short g_usConnectIndex; /* Connection time delay index */
 const char     pcDigits[] = "0123456789"; /* variable used by itoa function */
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- End
@@ -496,26 +496,26 @@ void SimpleLinkSockEventHandler(SlSockEvent_t *pSock)
     //
     // This application doesn't work w/ socket - Events are not expected
     //
-       switch( pSock->Event )
+    switch( pSock->Event )
     {
-         case SL_SOCKET_TX_FAILED_EVENT:
-            switch( pSock->EventData.status )
+        case SL_SOCKET_TX_FAILED_EVENT:
+            switch( pSock->socketAsyncEvent.SockTxFailData.status)
             {
                 case SL_ECLOSE: 
-                    /*UART_PRINT("[SOCK ERROR] - close socket (%d) operation "
+                    UART_PRINT("[SOCK ERROR] - close socket (%d) operation "
                                 "failed to transmit all queued packets\n\n", 
-                                    pSock->EventData.sd);*/
+                                    pSock->socketAsyncEvent.SockTxFailData.sd);
                     break;
                 default: 
-                   /*UART_PRINT("[SOCK ERROR] - TX FAILED  :  socket %d , reason "
+                    UART_PRINT("[SOCK ERROR] - TX FAILED  :  socket %d , reason "
                                 "(%d) \n\n",
-                                pSock->EventData.sd, pSock->EventData.status); */
+                                pSock->socketAsyncEvent.SockTxFailData.sd, pSock->socketAsyncEvent.SockTxFailData.status);
                   break;
             }
             break;
 
         default:
-           /*UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);*/
+        	UART_PRINT("[SOCK EVENT] - Unexpected Event [%x0x]\n\n",pSock->Event);
           break;
     }
 }
@@ -1182,41 +1182,42 @@ Network_IF_UnsetMCUMachineState(char cStat)
 //!
 //
 //*****************************************************************************
-unsigned short itoa(short cNum, char *cString)
-{
-    char* ptr;
-    short uTemp = cNum;
-    unsigned short length;
-
-    // value 0 is a special case
-    if (cNum == 0)
-    {
-        length = 1;
-        *cString = '0';
-
-        return length;
-    }
-
-    // Find out the length of the number, in decimal base
-    length = 0;
-    while (uTemp > 0)
-    {
-        uTemp /= 10;
-        length++;
-    }
-
-    // Do the actual formatting, right to left
-    uTemp = cNum;
-    ptr = cString + length;
-    while (uTemp > 0)
-    {
-        --ptr;
-        *ptr = pcDigits[uTemp % 10];
-        uTemp /= 10;
-    }
-
-    return length;
-}
+// Removed becouse gcc already defines itoa
+//unsigned short itoa(short cNum, char *cString)
+//{
+//    char* ptr;
+//    short uTemp = cNum;
+//    unsigned short length;
+//
+//    // value 0 is a special case
+//    if (cNum == 0)
+//    {
+//        length = 1;
+//        *cString = '0';
+//
+//        return length;
+//    }
+//
+//    // Find out the length of the number, in decimal base
+//    length = 0;
+//    while (uTemp > 0)
+//    {
+//        uTemp /= 10;
+//        length++;
+//    }
+//
+//    // Do the actual formatting, right to left
+//    uTemp = cNum;
+//    ptr = cString + length;
+//    while (uTemp > 0)
+//    {
+//        --ptr;
+//        *ptr = pcDigits[uTemp % 10];
+//        uTemp /= 10;
+//    }
+//
+//    return length;
+//}
 
 //*****************************************************************************
 //

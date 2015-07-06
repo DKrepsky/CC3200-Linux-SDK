@@ -36,7 +36,6 @@
 //
 //*****************************************************************************
 
-
 //*****************************************************************************
 //
 //! \addtogroup InterruptsReferenceApp
@@ -112,8 +111,6 @@ unsigned long g_ulClockRate;
 //*****************************************************************************
 #define DELAY_LOOP_INSTRUCTIONS 3
 
-
-
 //*****************************************************************************
 //
 //! The handler for the SysTick interrupt.
@@ -123,31 +120,28 @@ unsigned long g_ulClockRate;
 //! \return None
 //!
 //*****************************************************************************
-void
-SysTickHandler(void)
-{
-    //
-    // Increment the SysTick count, elapsed time and cycle error values.
-    //
-    g_ulSysTickCount++;
-    g_ulSysTime += g_ulSysTickMs;
-    g_ulSysTimeError += SYSTICK_CYCLE_ROUNDING;
+void SysTickHandler(void) {
+	//
+	// Increment the SysTick count, elapsed time and cycle error values.
+	//
+	g_ulSysTickCount++;
+	g_ulSysTime += g_ulSysTickMs;
+	g_ulSysTimeError += SYSTICK_CYCLE_ROUNDING;
 
-    //
-    // If the accumulated cycle error exceeds 1 tick, adjust the counts
-    // accordingly.
-    //
-    if(g_ulSysTimeError >= SYSTICK_RELOAD_VALUE)
-    {
-        g_ulSysTime += g_ulSysTickMs;
-        g_ulSysTimeError -= SYSTICK_RELOAD_VALUE;
-        g_ulSysTickCount++;
-    }
+	//
+	// If the accumulated cycle error exceeds 1 tick, adjust the counts
+	// accordingly.
+	//
+	if (g_ulSysTimeError >= SYSTICK_RELOAD_VALUE) {
+		g_ulSysTime += g_ulSysTickMs;
+		g_ulSysTimeError -= SYSTICK_RELOAD_VALUE;
+		g_ulSysTickCount++;
+	}
 
-    //
-    // Increment the wraps if we are using a timer API.
-    //
-    g_ulTimerSysTicks++;
+	//
+	// Increment the wraps if we are using a timer API.
+	//
+	g_ulTimerSysTicks++;
 }
 
 //*****************************************************************************
@@ -159,32 +153,30 @@ SysTickHandler(void)
 //! \return None
 //!
 //*****************************************************************************
-tBoolean
-SysTickInit(void)
-{
-    //
-    // Query the current system clock rate.
-    //
-    g_ulClockRate = 80000000;
+tBoolean SysTickInit(void) {
+	//
+	// Query the current system clock rate.
+	//
+	g_ulClockRate = 80000000;
 
-    //
-    // Set up for the system tick calculations. We keep copies of the number
-    // of milliseconds per cycle and the rounding error to prevent the need
-    // to perform these calculations on every interrupt (the macros are not
-    // merely static values).
-    //
-    g_ulSysTickCount = 0;
-    g_ulSysTickMs = SYSTICK_RELOAD_MS;
-    g_ulSysTickRounding = SYSTICK_CYCLE_ROUNDING;
+	//
+	// Set up for the system tick calculations. We keep copies of the number
+	// of milliseconds per cycle and the rounding error to prevent the need
+	// to perform these calculations on every interrupt (the macros are not
+	// merely static values).
+	//
+	g_ulSysTickCount = 0;
+	g_ulSysTickMs = SYSTICK_RELOAD_MS;
+	g_ulSysTickRounding = SYSTICK_CYCLE_ROUNDING;
 
-    //
-    // Set up the system tick to run and interrupt when it times out.
-    //
-    SysTickIntEnable();
-    SysTickPeriodSet(SYSTICK_RELOAD_VALUE);
-    SysTickEnable();
+	//
+	// Set up the system tick to run and interrupt when it times out.
+	//
+	SysTickIntEnable();
+	SysTickPeriodSet(SYSTICK_RELOAD_VALUE);
+	SysTickEnable();
 
-    return(true);
+	return (true);
 }
 
 //*****************************************************************************
@@ -199,49 +191,45 @@ SysTickInit(void)
 //!
 //! \return The number of milliseconds that the application has been running.
 //*****************************************************************************
-unsigned long
-UTUtilsGetSysTime(void)
-{
-    unsigned long ulTickVal1;
-    unsigned long ulTickVal2;
-    unsigned long ulExtraTicks;
-    unsigned long ulCycleTicks;
-    unsigned long ulCycleMs;
-    unsigned long ulSysTime;
+unsigned long UTUtilsGetSysTime(void) {
+	unsigned long ulTickVal1;
+	unsigned long ulTickVal2;
+	unsigned long ulExtraTicks;
+	unsigned long ulCycleTicks;
+	unsigned long ulCycleMs;
+	unsigned long ulSysTime;
 
-    //
-    // Read the system tick value and take a snapshot of the wrap count. We
-    // read the tick value twice to determine if there is a chance that we
-    // wrapped during the process.
-    //
-    do
-    {
-        ulTickVal1 = SysTickValueGet();
-        ulCycleMs = g_ulSysTime;
-        ulExtraTicks = g_ulSysTimeError;
-        ulTickVal2 = SysTickValueGet();
-    }
-    while (ulTickVal2 > ulTickVal1);
+	//
+	// Read the system tick value and take a snapshot of the wrap count. We
+	// read the tick value twice to determine if there is a chance that we
+	// wrapped during the process.
+	//
+	do {
+		ulTickVal1 = SysTickValueGet();
+		ulCycleMs = g_ulSysTime;
+		ulExtraTicks = g_ulSysTimeError;
+		ulTickVal2 = SysTickValueGet();
+	} while (ulTickVal2 > ulTickVal1);
 
-    //
-    // Determine how many ticks the systick has ticked since it last timed
-    // out. This value must be less than the reload period so is safe to
-    // pass to TICKS_TO_MILLISECONDS.
-    //
-    ulCycleTicks = SYSTICK_RELOAD_VALUE - ulTickVal2;
+	//
+	// Determine how many ticks the systick has ticked since it last timed
+	// out. This value must be less than the reload period so is safe to
+	// pass to TICKS_TO_MILLISECONDS.
+	//
+	ulCycleTicks = SYSTICK_RELOAD_VALUE - ulTickVal2;
 
-    //
-    // The time to return is the total time for completed cycles (ulCycleMs)
-    // plus the time since the last timeout (ulCycleTicks) plus the
-    // outstanding accumulated error (ulExtraTicks).
-    //
-    ulSysTime = ulCycleMs + TICKS_TO_MILLISECONDS(ulCycleTicks) +
-                            TICKS_TO_MILLISECONDS(ulExtraTicks);
+	//
+	// The time to return is the total time for completed cycles (ulCycleMs)
+	// plus the time since the last timeout (ulCycleTicks) plus the
+	// outstanding accumulated error (ulExtraTicks).
+	//
+	ulSysTime = ulCycleMs + TICKS_TO_MILLISECONDS(ulCycleTicks) +
+	TICKS_TO_MILLISECONDS(ulExtraTicks);
 
-    //
-    // Return the calculated time.
-    //
-    return(ulSysTime);
+	//
+	// Return the calculated time.
+	//
+	return (ulSysTime);
 }
 
 //*****************************************************************************
@@ -265,49 +253,44 @@ UTUtilsGetSysTime(void)
 //! /e false if the function times out before this occurs.
 //
 //*****************************************************************************
-tBoolean
-UTUtilsWaitForCount(volatile unsigned long *pulCount,
-                    unsigned long ulTarget,
-                    unsigned long ulTimeoutMs)
-{
-    unsigned long ulTimeToEnd;
-    static unsigned long ulSysTimeStart;
-    
-    //
-    // When should we stop polling?
-    //
-    ulSysTimeStart = UTUtilsGetSysTime();
+tBoolean UTUtilsWaitForCount(volatile unsigned long *pulCount,
+		unsigned long ulTarget, unsigned long ulTimeoutMs) {
+	unsigned long ulTimeToEnd;
+	static unsigned long ulSysTimeStart;
 
-    ulTimeToEnd = ulSysTimeStart + ulTimeoutMs;
+	//
+	// When should we stop polling?
+	//
+	ulSysTimeStart = UTUtilsGetSysTime();
 
-    //
-    // Keep checking for the target value being reached until we run out
-    // of time.
-    //
+	ulTimeToEnd = ulSysTimeStart + ulTimeoutMs;
 
-    //
-    // This is not completely safe since it will not handle rollover well
-    // but this will only be a problem if the function is called during a
-    // ulTimeoutMs millisecond window 49.7 days after the application
-    // starts. If it takes us a month and a half to run our testcase, we
-    // have far bigger things to worry about than this.
-    //
-    
-    while(UTUtilsGetSysTime() < ulTimeToEnd)
-    {
-        //
-        // Read the counter and see if it got to the target value yet
-        //
-        if(*pulCount >= ulTarget)
-        {
-            //
-            // Target reached so return true
-            //
-           return(true);
-        }
-    }
+	//
+	// Keep checking for the target value being reached until we run out
+	// of time.
+	//
 
-    return(false);
+	//
+	// This is not completely safe since it will not handle rollover well
+	// but this will only be a problem if the function is called during a
+	// ulTimeoutMs millisecond window 49.7 days after the application
+	// starts. If it takes us a month and a half to run our testcase, we
+	// have far bigger things to worry about than this.
+	//
+
+	while (UTUtilsGetSysTime() < ulTimeToEnd) {
+		//
+		// Read the counter and see if it got to the target value yet
+		//
+		if (*pulCount >= ulTarget) {
+			//
+			// Target reached so return true
+			//
+			return (true);
+		}
+	}
+
+	return (false);
 }
 
 //*****************************************************************************
@@ -325,30 +308,37 @@ UTUtilsWaitForCount(volatile unsigned long *pulCount,
 //
 //*****************************************************************************
 #if defined(gcc)
+void SysCtlDelay(unsigned long ulCount) {
+	__asm("SysCtlDelay_:\n"
+		  "    subs r0, #1\n"
+		  "    bne.n SysCtlDelay_\n");
+}
+
+#endif
+
+#if defined(ewarm)
 
 void
 SysCtlDelay(unsigned long ulCount)
 {
-    __asm("    subs    r0, #1\n"
-          "    bne.n   SysCtlDelay\n"
-          "    bx      lr");
+	__asm("    subs    r0, #1\n"
+			"    bne.n   SysCtlDelay\n"
+			"    bx      lr");
 }
 #endif
-void
-UTUtilsDelayCycles(unsigned long ulTimeoutCycles)
-{
-    //
-    // Call the assembler delay function to spin uselessly for the desired
-    // period of time.
-    //
+void UTUtilsDelayCycles(unsigned long ulTimeoutCycles) {
+	//
+	// Call the assembler delay function to spin uselessly for the desired
+	// period of time.
+	//
 #ifdef ENABLE_PREFETCH
-    SysCtlDelay((ulTimeoutCycles * PREFETCH_FUDGE_NUM)/
-                (DELAY_LOOP_INSTRUCTIONS * PREFETCH_FUDGE_DEN));
+	SysCtlDelay((ulTimeoutCycles * PREFETCH_FUDGE_NUM)/
+			(DELAY_LOOP_INSTRUCTIONS * PREFETCH_FUDGE_DEN));
 #else
-    SysCtlDelay(ulTimeoutCycles / DELAY_LOOP_INSTRUCTIONS);
+	SysCtlDelay(ulTimeoutCycles / DELAY_LOOP_INSTRUCTIONS);
 #endif
 
-    return;
+	return;
 }
 
 //*****************************************************************************
@@ -369,32 +359,29 @@ UTUtilsDelayCycles(unsigned long ulTimeoutCycles)
 //! \return None.
 //
 //*****************************************************************************
-void
-UTUtilsDelay(unsigned long ulTimeoutMicroS)
-{
-    unsigned long ulDelay;
-    unsigned long ulClock;
+void UTUtilsDelay(unsigned long ulTimeoutMicroS) {
+	unsigned long ulDelay;
+	unsigned long ulClock;
 
-    //
-    // Determine the current clock rate in Hz
-    //
-    ulClock = MAP_SysCtlClockGet;
+	//
+	// Determine the current clock rate in Hz
+	//
+	ulClock = MAP_SysCtlClockGet;
 
-    //
-    // Calculate the number of cycles we need to burn to achieve the
-    // desired delay making sure that we don't overflow or underflow
-    // if ulTimeoutMicroS is within the supported range.
-    //
-    ulDelay = (((ulClock / 100000) * ulTimeoutMicroS) / 10);
+	//
+	// Calculate the number of cycles we need to burn to achieve the
+	// desired delay making sure that we don't overflow or underflow
+	// if ulTimeoutMicroS is within the supported range.
+	//
+	ulDelay = (((ulClock / 100000) * ulTimeoutMicroS) / 10);
 
-    //
-    // Call the assembler delay function to spin uselessly for the desired
-    // period of time.
-    //
-    UTUtilsDelayCycles(ulDelay);
-    return;
+	//
+	// Call the assembler delay function to spin uselessly for the desired
+	// period of time.
+	//
+	UTUtilsDelayCycles(ulDelay);
+	return;
 }
-
 
 //*****************************************************************************
 //

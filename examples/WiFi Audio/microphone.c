@@ -47,10 +47,11 @@
 
 // common interface includes
 #include "common.h"
-
+#include "uart_if.h"
 // Demo app includes
 #include "network.h"
 #include "circ_buff.h"
+#include "audiocodec.h"
 
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- Start
@@ -59,13 +60,15 @@
 extern tUDPSocket g_UdpSock;
 int g_iSentCount =0;
 unsigned long g_ulConnected = 0; 
-extern tCircularBuffer *pTxBuffer;
-extern tCircularBuffer *pRxBuffer;
 extern int g_iReceiveCount;
-extern unsigned int g_uiPlayWaterMark;
 extern unsigned long  g_ulStatus;
 extern volatile unsigned char g_ucMicStartFlag;
-extern unsigned char speaker_data[16*1024];
+extern int g_loopback;
+
+extern tCircularBuffer *pPlayBuffer;
+extern tCircularBuffer *pRecordBuffer;
+
+
 //*****************************************************************************
 //                 GLOBAL VARIABLES -- End
 //*****************************************************************************
@@ -91,7 +94,7 @@ long SendMulticastPacket()
     stClient.sin_addr.s_addr = htonl(ADDR_MULTICAST_GROUP);
     stClient.sin_port = htons(uiPort);
   
-    lRetVal = sendto(g_UdpSock.iSockDesc, (char*)(pTxBuffer->pucReadPtr),\
+    lRetVal = sendto(g_UdpSock.iSockDesc, (char*)(pRecordBuffer->pucReadPtr),\
                       PACKET_SIZE, 0,(struct sockaddr*)&(stClient),\
                       sizeof(stClient));    
     ASSERT_ON_ERROR(lRetVal);
@@ -113,79 +116,62 @@ long SendMulticastPacket()
 void Microphone( void *pvParameters )
 {
     long lRetVal = -1;
-    
-#ifdef NETWORK
+
 #ifdef MULTICAST
     //Wait for Network Connection
     while((!IS_IP_ACQUIRED(g_ulStatus)))
     {
-        
-    }
-#else
-    //Wait for Network Connection and Speaker Discovery
-    while((!IS_IP_ACQUIRED(g_ulStatus)) || \
-                g_UdpSock.Client.sin_addr.s_addr==INVALID_CLIENT_ADDRESS)
-    {
-        
+
     }
 #endif //MULTICAST
-#endif //NETWORK
-   
+
     while(1)
     {     
-        while(g_ucMicStartFlag)
+        while(g_ucMicStartFlag || g_loopback)
         {
             int iBufferFilled = 0;
-            iBufferFilled = GetBufferSize(pTxBuffer);
+            iBufferFilled = GetBufferSize(pRecordBuffer);
             if(iBufferFilled >= (2*PACKET_SIZE))
             { 
-#ifdef NETWORK
+                if(!g_loopback)
+                {
 
 #ifndef MULTICAST          
-                lRetVal = sendto(g_UdpSock.iSockDesc, \
-                                   (char*)(pTxBuffer->pucReadPtr),PACKET_SIZE,\
-                            0,(struct sockaddr*)&(g_UdpSock.Client),\
-                                      sizeof(g_UdpSock.Client));
-                if(lRetVal < 0)
-                {
-                    UART_PRINT("Unable to send data\n\r");
-                    LOOP_FOREVER();
-                }
+                    lRetVal = sendto(g_UdpSock.iSockDesc, \
+                                       (char*)(pRecordBuffer->pucReadPtr),PACKET_SIZE,\
+                                       0,(struct sockaddr*)&(g_UdpSock.Client),\
+                                       sizeof(g_UdpSock.Client));
+                    if(lRetVal < 0)
+                    {
+                        UART_PRINT("Unable to send data\n\r");
+                        LOOP_FOREVER();
+                    }
 
-#else      //MULTICAST         
-                lRetVal = SendMulticastPacket();
-                if(lRetVal < 0)
-                {
-                    UART_PRINT("Unable to send data\n\r");
-                    LOOP_FOREVER();
-                }
+#else	//MULTICAST
+                    lRetVal = SendMulticastPacket();
+                    if(lRetVal < 0)
+                    {
+                        UART_PRINT("Unable to send data\n\r");
+                        LOOP_FOREVER();
+                    }
 
 #endif     //MULTICAST      
-#else   //NETWORK       
-                lRetVal = FillBuffer(pRxBuffer,\
-                                    (unsigned char*)(pTxBuffer->pucReadPtr), \
-                                    PACKET_SIZE);
-                if(lRetVal < 0)
-                {
-                    UART_PRINT("Unable to fill buffer\n\r");
-                    LOOP_FOREVER();
                 }
-
-                if(g_uiPlayWaterMark == 0)
+                else
                 {
-                    if(IsBufferSizeFilled(pRxBuffer,PLAY_WATERMARK) == TRUE)
-                    {                    
-                        g_uiPlayWaterMark = 1;
+                    lRetVal = FillBuffer(pPlayBuffer,\
+                                          (unsigned char*)(pRecordBuffer->pucReadPtr), \
+                                          PACKET_SIZE);
+                    if(lRetVal < 0)
+                    {
+                        UART_PRINT("Unable to fill buffer\n\r");
                     }
-                }      
-                g_iReceiveCount++;
-
-#endif   //NETWORK       
-                 UpdateReadPtr(pTxBuffer, PACKET_SIZE);
-                 g_iSentCount++;
+                    g_iReceiveCount++;
+                }
+                UpdateReadPtr(pRecordBuffer, PACKET_SIZE);
+                g_iSentCount++;
             }
-
         }      
-    MAP_UtilsDelay(1000);
+        MAP_UtilsDelay(1000);
     }
 }

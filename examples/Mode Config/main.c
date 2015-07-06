@@ -81,7 +81,7 @@
 #define ERR_PRINT(x) Report("Error [%d] at line [%d] in function [%s]  \n\r",x,__LINE__,__FUNCTION__)
 #endif
 
-#define APPLICATION_VERSION     "1.1.0"
+#define APPLICATION_VERSION     "1.1.1"
 #define FOREVER                 1
 #define APP_NAME                "Mode Switch"
 #define SL_STOP_TIMEOUT         200
@@ -106,9 +106,9 @@
 //                 GLOBAL VARIABLES -- Start
 //*****************************************************************************
 unsigned short g_usConnectionStatus = 0;
-unsigned short g_usIpObtained = 0;
+volatile unsigned short g_usIpObtained = 0;
 
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -411,7 +411,7 @@ BoardInit(void)
   //
   // Set vector table base
   //
-#if defined(gcc)
+#if defined(ccs)  || defined(gcc)
     MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
 #endif
 #if defined(ewarm)

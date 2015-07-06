@@ -77,7 +77,7 @@
 //*****************************************************************************
 //                      GLOBAL VARIABLES for VECTOR TABLE
 //*****************************************************************************
-#if defined(gcc)
+#if defined(ccs) || defined(gcc)
 extern void (* const g_pfnVectors[])(void);
 #endif
 #if defined(ewarm)
@@ -90,8 +90,8 @@ extern uVectorEntry __vector_table;
 #define APP_NAME		"TFTP Client"
 #define TFTP_IP			0xC0A8006D	/* This is the host IP */
 #define FILE_SIZE_MAX	(20*1024)	/* Max File Size set to 20KB */
-#define SSID 			"ppk"
-#define SSID_KEY		"4pplco3d1"
+#define SSID 			"cc3200demo"
+#define SSID_KEY		""
 #define TFTP_READ		1		/* Set '1' to read else '0' */
 #define TFTP_WRITE		1		/* Set '1' to write else '0' */
 
@@ -169,7 +169,7 @@ static void TFTPTask(void *pvParameters)
     // Configuring security parameters for the AP
     secParams.Key = NULL;
     secParams.KeyLen = 0;
-    secParams.Type = SL_SEC_TYPE_WPA;
+    secParams.Type = SL_SEC_TYPE_OPEN;
 
     lRetVal = Network_IF_InitDriver(ROLE_STA);
 
