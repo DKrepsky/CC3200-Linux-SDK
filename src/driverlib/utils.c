@@ -75,8 +75,7 @@ void __attribute__((naked))
 UtilsDelay(unsigned long ulCount)
 {
     __asm("    subs    r0, #1\n"
-          "    bne     UtilsDelay\n"
-          "    bx      lr");
+          "    bne     UtilsDelay\n");
 }
 #endif
 

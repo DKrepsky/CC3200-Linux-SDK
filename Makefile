@@ -10,30 +10,22 @@ SMTP = src/netapps/smtp/client
 TFTP = src/netapps/tftp/client
 XMPP = src/netapps/xmpp/client
 
+ifeq ("${target}", "NONOS")
+	SDK_TARGETS = $(SIMPLELINK) $(MIDDLEWARE) 
+else
+	ifeq ("${target}", "TINY")
+		SDK_TARGETS = $(SIMPLELINK)
+	else
+	SDK_TARGETS = $(DRIVERLIB) $(SIMPLELINK) $(OSLIB) $(MIDDLEWARE) $(WEBCLIENT) $(WEBSERVER) $(JSON) $(MQTT) $(SMTP) $(TFTP) $(XMPP)
+	endif
+endif
 
-SDK_TARGETS = $(DRIVERLIB) $(SIMPLELINK) $(OSLIB) $(MIDDLEWARE) $(WEBCLIENT) $(WEBSERVER) $(JSON) $(MQTT) $(SMTP) $(TFTP) $(XMPP)
-SDK_TARGETS_NONOS = $(SIMPLELINK) $(MIDDLEWARE) 
-SDK_TARGETS_TINY = $(SIMPLELINK)
+.PHONY: all clean $(SDK_TARGETS)
 
+all: $(SDK_TARGETS)
 
-.PHONY: all
-all: os nonos tiny
-
-os: $(SDK_TARGETS)
-
-nonos: $(SDK_TARGETS_NONOS)
-
-tiny: $(SDK_TARGETS_TINY)
-
-.PHONY: $(SDK_TARGETS)
 $(SDK_TARGETS):
-	@$(MAKE) -C $@
-
-$(SDK_TARGETS_NONOS):
-	@$(MAKE) -C $@ target=NONOS
-
-$(SDK_TARGETS_TINY):
-	@$(MAKE) -C $@ target=TINY;
+	cd $@ && $(MAKE)
 
 clean: 
 	rm -rf lib/*

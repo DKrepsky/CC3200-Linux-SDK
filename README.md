@@ -7,7 +7,7 @@ The intention is to provide a way to develop in this platform while TI doesn't
 release an official SDK for linux.
 Currently, it works with Ubuntu (tested with version 14.10) and Slackware.
 
-The TI SDK version used for this rework is the 1.0.0 and the original can be
+The TI SDK version used for this rework is the 1.1.0 and the original can be
 found at : http://www.ti.com/tool/cc3200sdk.
 
 For instructions on how to use it, please see USAGE.md file.

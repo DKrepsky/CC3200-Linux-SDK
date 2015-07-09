@@ -1,5 +1,13 @@
 # CHANGES
 
+### 07/2015 - 1.0.2
+
+- Fix utils delay in driver lib.
+- Updated README.md.
+- Added Service Pack 1.0.0.10.0 to "other" folder.
+- Updated USAGE.md.
+- Fixed root Makefile.
+
 ### 07/2015 - 1.0.1
 - Updated SDK to original version 1.1.0.
 - Fixed a bug in cc_timer.c (line 690). A memset was used to clear a struct but the size passed was of a pointer.
