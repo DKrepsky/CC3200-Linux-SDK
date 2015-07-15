@@ -35,7 +35,4 @@ The SDK is organized as follow
 ### Rebuilding the libs
 
 Open a terminal in the root directory and do a "make". For the nonos versions
-use "make nonos" and for the simplelink tiny "make tiny".
-
-07/2015
-version 1.0.1
+use "make target=NONOS" and for the simplelink tiny "make target=TINY".
