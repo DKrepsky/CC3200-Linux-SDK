@@ -1810,11 +1810,12 @@ LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/crtn.o
                 0x0000000020006be6        0xa /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
                 0x0000000020006be6                UARTCharPut
  .text.UtilsDelay
-                0x0000000020006bf0        0x8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+                0x0000000020006bf0        0x6 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
                 0x0000000020006bf0                UtilsDelay
  .text.CPUcpsie
-                0x0000000020006bf8       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
-                0x0000000020006bf8                CPUcpsie
+                0x0000000020006bf6       0x10 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+                0x0000000020006bf6                CPUcpsie
+ *fill*         0x0000000020006c06        0x2 
  .text          0x0000000020006c08       0x30 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(_aeabi_uldivmod.o)
                 0x0000000020006c08                __aeabi_uldivmod
  .text          0x0000000020006c38       0x60 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/libgcc.a(bpabi.o)
@@ -2333,7 +2334,7 @@ OUTPUT(FreeRTOS.elf elf32-littlearm)
  .debug_macro   0x00000000000067c4       0x22 ./uart_if.o
  .debug_macro   0x00000000000067e6       0x2e ./uart_if.o
 
-.debug_line     0x0000000000000000     0x432e
+.debug_line     0x0000000000000000     0x434e
  .debug_line    0x0000000000000000      0x427 ./FreeRTOS/Source/portable/MemMang/heap_4.o
  .debug_line    0x0000000000000427      0x3d0 ./FreeRTOS/Source/portable/GCC/ARM_CM4/port.o
  .debug_line    0x00000000000007f7      0x3a0 ./FreeRTOS/Source/list.o
@@ -2344,15 +2345,15 @@ OUTPUT(FreeRTOS.elf elf32-littlearm)
  .debug_line    0x0000000000002969      0x11f ./pinmux.o
  .debug_line    0x0000000000002a88      0x1e0 ./startup_gcc.o
  .debug_line    0x0000000000002c68      0x3fe ./uart_if.o
- .debug_line    0x0000000000003066      0x487 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libosi.a(osi_freertos.o)
- .debug_line    0x00000000000034ed      0x1bf /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
- .debug_line    0x00000000000036ac      0x186 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
- .debug_line    0x0000000000003832      0x6a2 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
- .debug_line    0x0000000000003ed4      0x388 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
- .debug_line    0x000000000000425c       0x39 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
- .debug_line    0x0000000000004295       0x99 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+ .debug_line    0x0000000000003066      0x4a7 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libosi.a(osi_freertos.o)
+ .debug_line    0x000000000000350d      0x1bf /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .debug_line    0x00000000000036cc      0x186 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .debug_line    0x0000000000003852      0x6a2 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .debug_line    0x0000000000003ef4      0x388 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .debug_line    0x000000000000427c       0x39 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+ .debug_line    0x00000000000042b5       0x99 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
 
-.debug_str      0x0000000000000000    0x1db3b
+.debug_str      0x0000000000000000    0x1daa6
  .debug_str     0x0000000000000000     0x81c9 ./FreeRTOS/Source/portable/MemMang/heap_4.o
                                        0x83c9 (size before relaxing)
  .debug_str     0x00000000000081c9      0x6b6 ./FreeRTOS/Source/portable/GCC/ARM_CM4/port.o
@@ -2375,20 +2376,20 @@ OUTPUT(FreeRTOS.elf elf32-littlearm)
                                        0xbacb (size before relaxing)
  .debug_str     0x000000000001d165      0x45e /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libosi.a(osi_freertos.o)
                                         0x825 (size before relaxing)
- .debug_str     0x000000000001d5c3      0x1a4 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
+ .debug_str     0x000000000001d5c3      0x10f /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
                                         0x2e6 (size before relaxing)
- .debug_str     0x000000000001d767       0x59 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
+ .debug_str     0x000000000001d6d2       0x59 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
                                         0x21c (size before relaxing)
- .debug_str     0x000000000001d7c0      0x294 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
+ .debug_str     0x000000000001d72b      0x294 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)
                                         0x798 (size before relaxing)
- .debug_str     0x000000000001da54       0xbb /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
+ .debug_str     0x000000000001d9bf       0xbb /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(uart.o)
                                         0x481 (size before relaxing)
- .debug_str     0x000000000001db0f        0x8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
+ .debug_str     0x000000000001da7a        0x8 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(utils.o)
                                          0xed (size before relaxing)
- .debug_str     0x000000000001db17       0x24 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
+ .debug_str     0x000000000001da82       0x24 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(cpu.o)
                                         0x12b (size before relaxing)
 
-.comment        0x0000000000000000       0xe0
+.comment        0x0000000000000000       0x70
  .comment       0x0000000000000000       0x70 ./FreeRTOS/Source/portable/MemMang/heap_4.o
                                          0x71 (size before relaxing)
  .comment       0x0000000000000000       0x71 ./FreeRTOS/Source/portable/GCC/ARM_CM4/port.o
@@ -2400,8 +2401,7 @@ OUTPUT(FreeRTOS.elf elf32-littlearm)
  .comment       0x0000000000000000       0x71 ./pinmux.o
  .comment       0x0000000000000000       0x71 ./startup_gcc.o
  .comment       0x0000000000000000       0x71 ./uart_if.o
- .comment       0x0000000000000070       0x70 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libosi.a(osi_freertos.o)
-                                         0x71 (size before relaxing)
+ .comment       0x0000000000000000       0x71 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libosi.a(osi_freertos.o)
  .comment       0x0000000000000000       0x71 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(interrupt.o)
  .comment       0x0000000000000000       0x71 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(pin.o)
  .comment       0x0000000000000000       0x71 /opt/cc3200/eclipse//../CC3200-Linux-SDK/lib/libdriver.a(prcm.o)

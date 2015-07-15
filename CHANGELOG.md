@@ -1,5 +1,11 @@
 # CHANGES
 
+### 07/2015 - 1.0.3
+
+- Fix utils delay in driver lib.
+- Fixed size_t error in osilib (added #include <stddef.h>).
+- Fixed c++ compiling in simplelink.cpp (remove #ifdef __cplusplus block from line 371).
+
 ### 07/2015 - 1.0.2
 
 - Fix utils delay in driver lib.

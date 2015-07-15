@@ -368,12 +368,6 @@ typedef _u8   _SlArgSize_t;
 typedef _i16   _SlDataSize_t;
 typedef _i16   _SlReturnVal_t;
 
-#ifdef    __cplusplus
-}
-#endif /*  __cplusplus */
-
-
-
 /*
  * This event status used to  block or continue the event propagation
  * through all the registered external libs/user application

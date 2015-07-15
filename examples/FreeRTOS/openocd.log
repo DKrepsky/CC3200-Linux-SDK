@@ -2,14 +2,13 @@ Info : only one transport option; autoselect 'jtag'
 adapter speed: 1000 kHz
 cc3200_dbginit
 Info : clock speed 1000 kHz
-Info : JTAG tap: cc3200.jrc tap/device found: 0x0b97c02f (mfg: 0x017, part: 0xb97c, ver: 0x0)
-Info : JTAG tap: cc3200.dap enabled
-Info : cc3200.cpu: hardware has 6 breakpoints, 4 watchpoints
+Error: JTAG scan chain interrogation failed: all ones
+Error: Check JTAG interface, timings, target power, etc.
+Error: Trying to use configured scan chain anyway...
+Error: cc3200.jrc: IR capture error; saw 0x3f not 0x01
+Warn : Bypassing JTAG setup events due to errors
 Info : accepting 'gdb' connection from pipe
-undefined debug reason 7 - target needs reset
-requesting target halt and executing a soft reset
-Warn : soft_reset_halt is deprecated, please use 'reset halt' instead.
-target state: halted
-target halted due to breakpoint, current mode: Thread 
-xPSR: 0x01000000 pc: 0x00008d1c msp: 0x20004000
+Error: Target not examined yet
+in procedure 'halt'
+
 Info : dropped 'gdb' connection
