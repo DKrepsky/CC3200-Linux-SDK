@@ -1,6 +1,6 @@
 # CC3200-Linux-SDK
 
-## NOTE: Since TI provides now support for CC3200 developmnent under linux with CCS, this repository won't receive any updates.
+## NOTE: Since TI provides now support for CC3200 developmnent under linux with CCS, this repository will not receive any updates.
 
 ### Overview
 This repo contains a reworked SDK for the CC3200 microcontroller, from Texas 
